@@ -20,7 +20,7 @@ protected:
 	void bindAndListen();
 	void handleNewClient(SOCKET clientSock);
 	void acceptClient();
-	map<SOCKET, IRequestHandler*> m_clients; 
+	map<SOCKET, IRequestHandler*> _mClients; 
 	SOCKET _serverSocket; //the listening socket
 
 private:

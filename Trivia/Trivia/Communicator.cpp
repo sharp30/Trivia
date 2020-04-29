@@ -95,7 +95,7 @@ void Communicator::acceptClient()
 	}
 	//insert to clients list
 	LoginRequestHandler login;
-	this->m_clients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)&login));
+	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)&login));
 
 	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
