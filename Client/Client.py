@@ -1,6 +1,5 @@
 import Config
 import socket
-import re
 import sys
 
 BYTES_TO_READ = 5
@@ -18,10 +17,13 @@ def main():
         msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket
     except ConnectionResetError as e:
         print("ERROR- " + str(e))
-
+    
+    print(msg)
     if (msg == "Hello"):
-        print(msg)
-        sock.sendall(msg.encode())
+        try:
+            sock.sendall(msg.encode())
+        except Exception as e:
+            print("ERROR- " + str(e))
 
 
 def connect_to_server():
