@@ -6,6 +6,7 @@
 
 #include "IRequestHandler.h"
 #include "WSAInitializer.h"
+
 using std::map;
 
 class Communicator

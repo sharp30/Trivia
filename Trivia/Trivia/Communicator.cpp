@@ -2,6 +2,7 @@
 #include <exception>
 #include <thread>
 #include <string>
+#include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
 
 // ----------------Constructor ----------------
@@ -95,6 +96,11 @@ void Communicator::acceptClient()
 	{
 		throw std::exception("Can't accept client");
 	}
+	//insert to clients list
+	LoginRequestHandler login;
+	this->m_clients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)&login));
+
+	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 	clientThread.detach();
 
