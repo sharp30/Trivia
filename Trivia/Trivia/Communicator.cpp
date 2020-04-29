@@ -59,29 +59,26 @@ Output:None
 */
 void Communicator::handleNewClient(SOCKET clientSock)
 {
-	while (true)
-	{
-		char text[6];
-
-		//receive data from client
-		int res = recv(clientSock, text, 5, 0);
-		if (res == INVALID_SOCKET)
-		{
-			std::string s = "Error while recieving from socket: ";
-			s += std::to_string(clientSock);
-			throw std::exception(s.c_str());
-		}
-		text[5] = '\0';
+	char text[6];
 		
-		//send data to client
-		if (strcmp(text, "HELLO"))
-		{
-			if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
-			{
-				throw std::exception("Can't send message to client :<");
-			}
-		}
+	//send data to client
+	if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
+	{
+		throw std::exception("Can't send message to client :<");
 	}
+		
+	//receive data from client
+	int res = recv(clientSock, text, 5, 0);
+		
+	if (res == INVALID_SOCKET)
+	{
+		std::string s = "Error while recieving from socket: ";
+		s += std::to_string(clientSock);
+		throw std::exception(s.c_str());
+	}
+	text[5] = '\0';
+
+	std::cout << text;
 }
 
 /*
