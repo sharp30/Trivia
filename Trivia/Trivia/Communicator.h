@@ -21,6 +21,7 @@ protected:
 	void acceptClient();
 	map<SOCKET, IRequestHandler*> m_clients; 
 	SOCKET _serverSocket; //the listening socket
+
 private:
 	WSAInitializer _wsa;
 };

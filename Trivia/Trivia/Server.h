@@ -1,7 +1,7 @@
 #pragma once
 #include "Communicator.h"
 
-class Seerver
+class Server
 {
 public:
 	void run();
