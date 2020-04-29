@@ -36,7 +36,7 @@ Output:None
 void Communicator::bindAndListen()
 {
 	struct sockaddr_in sa = { 0 }; //initialize all memebers to 0
-	sa.sin_port = htons(2020);
+	sa.sin_port = htons(PORT);
 	sa.sin_family = AF_INET;
 	sa.sin_addr.s_addr = 0;//IFACE
 

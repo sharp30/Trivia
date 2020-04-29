@@ -7,6 +7,7 @@
 #include "IRequestHandler.h"
 #include "WSAInitializer.h"
 
+const int PORT = 2020;
 using std::map;
 
 class Communicator
@@ -14,7 +15,6 @@ class Communicator
 public:
 	Communicator();
 	void startHandleRequest();
-
 protected:
 	void bindAndListen();
 	void handleNewClient(SOCKET clientSock);
