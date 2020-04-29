@@ -360,6 +360,12 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+
+
+*.sln
+
+
+*
 # OpenCover UI analysis results
 OpenCover/
 
@@ -383,14 +389,5 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
-
-#Trivia-added
-
-*.sln
-*.vcxproj
-*.filters
-
-
-
 
 # End of https://www.gitignore.io/api/c++,visualstudio

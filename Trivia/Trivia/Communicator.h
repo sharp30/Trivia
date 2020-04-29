@@ -5,13 +5,21 @@
 #include <map>
 
 #include "IRequestHandler.h"
-
+#include "WSAInitializer.h"
 using std::map;
 
 class Communicator
 {
 public:
+	Communicator();
+	void startHandleRequest();
 
 protected:
-	map<SOCKET, IRequestHandler*> m_clients;
+	void bindAndListen();
+	void handleNewClient(SOCKET clientSock);
+	void acceptClient();
+	map<SOCKET, IRequestHandler*> m_clients; 
+	SOCKET _serverSocket; //the listening socket
+private:
+	WSAInitializer _wsa;
 };

@@ -4,9 +4,9 @@
 class Seerver
 {
 public:
+	
 
-
-private:
+protected:
 	Communicator m_communicator;
-
+	
 };
