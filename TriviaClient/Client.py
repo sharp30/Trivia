@@ -19,7 +19,7 @@ def main():
         print("ERROR- " + str(e))
     
     print(msg)
-    if (msg == "Hello"):
+    if (msg == "HELLO"):
         try:
             sock.sendall(msg.encode())
         except Exception as e:
