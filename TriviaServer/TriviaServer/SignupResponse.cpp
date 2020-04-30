@@ -1,12 +1,11 @@
-#pragma once
+#include "signupResponse.h"
 
-#include "Message.h"
-
-class SignupResponse : Message
+/*
+The function will cast a signup response to JSON format
+input: none
+output: json format of this object
+*/
+json SignupResponse::castToJson() const
 {
-public:
-	virtual json castToJson() const;
-
-protected:
-	unsigned int status;
-};
+	return json{ {"status", this->status} };
+}
