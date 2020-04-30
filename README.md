@@ -1,3 +1,0 @@
-# Trivia 
-
-Wakanda Forever!
