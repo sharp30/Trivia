@@ -46,12 +46,20 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(SignupResp
 
 /*
 The function will cast an integer into vector of bytes with 4 elements.
-Example= 5 --> [00000000,00000000,00000000,00000101]
+Example= 5 --> [00000000 00000000 00000000 00000101]
 input: a size to convert
 output: a converted size presented as a binary sequence with 4 bytes
 */
 vector<unsigned char> JsonResponsePacketSerializer::castSizeToBin(int size)
 {
-	//TODO: create this definition
-	return vector<unsigned char>();
+	const int NUMBER_OF_BITS = 32; // 8 bits * 4
+	string sizeInBinary = bitset<NUMBER_OF_BITS>(size).to_string();
+	vector<unsigned char> result;
+
+	for (string::iterator it = sizeInBinary.begin(); it != sizeInBinary.end(); it++)
+	{
+		result.push_back((unsigned char)*it);
+	}
+
+	return result;
 }

@@ -8,7 +8,7 @@ using nlohmann::json;
 
 namespace Responses
 {
-	struct Response{ } typedef Response; // base class - maybe useless
+	struct Response { } typedef Response; // base class - maybe useless
 
 	struct ErrorResponse : Response
 	{
@@ -31,7 +31,8 @@ namespace Responses
 		j = json{ {"message", response.message} };
 	}
 
-	void from_json(const json& j, ErrorResponse& response) {
+	void from_json(const json& j, ErrorResponse& response) 
+	{
 		j.at("message").get_to(response.message);
 	}
 
@@ -40,7 +41,8 @@ namespace Responses
 		j = json{ {"status", response.status} };
 	}
 
-	void from_json(const json& j, LoginResponse& response) {
+	void from_json(const json& j, LoginResponse& response) 
+	{
 		j.at("status").get_to(response.status);
 	}
 
@@ -49,9 +51,9 @@ namespace Responses
 		j = json{ {"status", response.status} };
 	}
 
-	void from_json(const json& j, SignupResponse& response) {
+	void from_json(const json& j, SignupResponse& response) 
+	{
 		j.at("status").get_to(response.status);
 	}
 	//-----------------------------------------------------------------
 }
-

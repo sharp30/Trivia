@@ -2,11 +2,14 @@
 
 #include <vector>
 #include <string>
+#include <bitset>
 #include "Responses.h"
 #include "json.hpp"
 
+using std::string;
 using std::vector;
 using nlohmann::json;
+using std::bitset;
 
 using Responses::Response;
 using Responses::ErrorResponse;
