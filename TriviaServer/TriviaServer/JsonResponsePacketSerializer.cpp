@@ -1,6 +1,10 @@
 #include "JsonResponsePacketSerializer.h"
 
-
+/*
+The function will serialize a response object to a binary buffer that will be sent to the user
+input: a response object
+output: buffer that will be sent to the user
+*/
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(ErrorResponse response)
 {
 	vector<unsigned char> message; // the whole message
@@ -22,26 +26,56 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(ErrorRespo
 	return message;
 }
 
-//TODO: fit this function to the first one
+/*
+The function will serialize a response object to a binary buffer that will be sent to the user
+input: a response object
+output: buffer that will be sent to the user
+*/
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LoginResponse response)
 {
+	vector<unsigned char> message; // the whole message
+	vector<unsigned char> content; // part 3 of message
+	vector<unsigned char> size; // part 2 of message
+	unsigned char code = 0; // part 1 of message, TODO: get code
+	int bytesNum = 0; // the number of bytes the message takes
 	json j = response;
 
-	vector<unsigned char> bytes;
-	bytes = json::to_bson(j);
+	content = json::to_bson(j);
+	bytesNum = content.size();
+	size = castSizeToBin(bytesNum);
 
-	return bytes;
+	//build the final message
+	message.push_back(code);
+	message.insert(message.end(), size.begin(), size.end());
+	message.insert(message.end(), content.begin(), content.end());
+
+	return message;
 }
 
-//TODO: fit this function to the first one
+/*
+The function will serialize a response object to a binary buffer that will be sent to the user
+input: a response object
+output: buffer that will be sent to the user
+*/
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(SignupResponse response)
 {
+	vector<unsigned char> message; // the whole message
+	vector<unsigned char> content; // part 3 of message
+	vector<unsigned char> size; // part 2 of message
+	unsigned char code = 0; // part 1 of message, TODO: get code
+	int bytesNum = 0; // the number of bytes the message takes
 	json j = response;
 
-	vector<unsigned char> bytes;
-	bytes = json::to_bson(j);
+	content = json::to_bson(j);
+	bytesNum = content.size();
+	size = castSizeToBin(bytesNum);
 
-	return bytes;
+	//build the final message
+	message.push_back(code);
+	message.insert(message.end(), size.begin(), size.end());
+	message.insert(message.end(), content.begin(), content.end());
+
+	return message;
 }
 
 /*
