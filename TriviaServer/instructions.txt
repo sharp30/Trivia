@@ -1,0 +1,8 @@
+This folder should contain:
+1) ".vs" hidden folder.
+2) "TriviaServer.sln" file.
+3) "TriviaServer" folder contains:
+	*TriviaServer.vcxproj
+	*TriviaServer.vcxproj.filters
+	*TriviaServer.vcxproj.user
+	* all cpp and h files
