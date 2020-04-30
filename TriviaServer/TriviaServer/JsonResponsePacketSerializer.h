@@ -3,8 +3,10 @@
 #include <vector>
 #include <string>
 #include "Responses.h"
+#include "json.hpp"
 
 using std::vector;
+using nlohmann::json;
 
 class JsonResponsePacketSerializer
 {
