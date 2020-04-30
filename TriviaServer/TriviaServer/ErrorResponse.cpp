@@ -1,6 +1,11 @@
 #include "ErrorResponse.h"
 
 
+ErrorResponse::ErrorResponse(string errMessage)
+{
+	this->errorMessage = errMessage;
+}
+
 /*
 The function will cast an error response to JSON format
 input: none

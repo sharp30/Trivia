@@ -10,4 +10,8 @@ class Message
 {
 public:
 	virtual json castToJson() const = 0;
+	int getMsgCode() const;
+
+protected:
+	int messageCode;
 };

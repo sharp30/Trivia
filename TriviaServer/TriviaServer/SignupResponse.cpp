@@ -1,5 +1,11 @@
 #include "signupResponse.h"
 
+
+SignupResponse::SignupResponse(int _status)
+{
+	this->status = _status;
+}
+
 /*
 The function will cast a signup response to JSON format
 input: none

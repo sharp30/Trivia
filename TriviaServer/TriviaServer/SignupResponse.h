@@ -5,6 +5,7 @@
 class SignupResponse : Message
 {
 public:
+	SignupResponse(int _status);
 	virtual json castToJson() const;
 
 protected:

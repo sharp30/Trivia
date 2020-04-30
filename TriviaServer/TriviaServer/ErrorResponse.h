@@ -4,6 +4,7 @@
 class ErrorResponse : Message
 {
 public:
+	ErrorResponse(string errMessage);
 	virtual json castToJson() const;
 
 protected:

@@ -5,6 +5,7 @@
 class LoginResponse : Message
 {
 public:
+	LoginResponse(int _status);
 	virtual json castToJson() const;
 
 protected:
