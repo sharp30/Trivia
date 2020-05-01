@@ -4,6 +4,7 @@
 SignupResponse::SignupResponse(int _status)
 {
 	this->status = _status;
+	this->messageCode = 101;
 }
 
 /*
