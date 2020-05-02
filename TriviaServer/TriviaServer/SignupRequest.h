@@ -6,6 +6,7 @@ using std::string;
 
 class SignupRequest 
 {
+public:
 	//------------constructor------------
 	SignupRequest(nlohmann::json j);
 	//------------getters--------------
