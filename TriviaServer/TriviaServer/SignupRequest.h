@@ -1,7 +1,7 @@
 #pragma once
 #include "Message.h"
 
-class SignupRequest :Message
+class SignupRequest 
 {
 public:
 
