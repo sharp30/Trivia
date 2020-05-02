@@ -2,6 +2,7 @@
 
 #include "json.hpp"
 #include <cmath>
+
 using nlohmann::json;
 
 /*
@@ -13,10 +14,12 @@ RequestInfo JsonRequestPacketDeserializer::deserializeRequestInfo(vector<unsigne
 {
 	//parts from buffer 
 	vector<unsigned char> binId = { buff.begin(), buff.begin() + 1 }; 
-	vector<unsigned char> binSize = { buff.begin() +1, buff.begin() +4 };
+	vector<unsigned char> binSize = { buff.begin() +1, buff.begin() +6};
 	vector<unsigned char> binContent = { buff.begin() +4, buff.end()};
 
-	return RequestInfo(castBinToInt(binId), castBinToInt(binSize), binContent);
+	int size = castBinToInt(binSize); //not relavant for now
+	time_t nowTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	return RequestInfo(castBinToInt(binId), nowTime, binContent);
 }
 
 /*

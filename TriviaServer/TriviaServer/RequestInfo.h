@@ -1,5 +1,6 @@
 #pragma once
 #include <ctime>
+#include <chrono>
 #include <vector>
 #include "json.hpp"
 
@@ -9,7 +10,7 @@ class RequestInfo
 public:
 	//----------------------constructors------------------
 	RequestInfo(int id, time_t time, vector<unsigned char> buff);
-	RequestInfo(nlohmann::json j);
+	//RequestInfo(nlohmann::json j); -- as optional for the future
 	//---------------------getters------------------------
 	int getId();
 	time_t getTime();

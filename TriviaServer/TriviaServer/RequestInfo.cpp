@@ -9,11 +9,6 @@ RequestInfo::RequestInfo(int id, time_t time, vector<unsigned char> buff)
 	this->_buffer = buff;
 }
 
-RequestInfo::RequestInfo(nlohmann::json j)
-{
-
-}
-
 /*
 This function returns the Id value
 Input:None
