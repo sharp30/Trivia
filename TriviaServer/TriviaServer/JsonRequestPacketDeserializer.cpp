@@ -17,8 +17,8 @@ RequestInfo JsonRequestPacketDeserializer::deserializeRequestInfo(vector<unsigne
 	vector<unsigned char> binSize = { buff.begin() +1, buff.begin() +6};
 	vector<unsigned char> binContent = { buff.begin() +4, buff.end()};
 
-	int size = castBinToInt(binSize); //not relavant for now
-	time_t nowTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	int size = castBinToInt(binSize); //not relevant for now
+	time_t nowTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); // the time now
 	return RequestInfo(castBinToInt(binId), nowTime, binContent);
 }
 
