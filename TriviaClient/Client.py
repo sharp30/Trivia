@@ -1,8 +1,11 @@
 import Config
 import socket
 import sys
+import LoginRequest
+import SignupRequest
 
 BYTES_TO_READ = 5
+MESSAGES = {1: SignupRequest, 2: LoginRequest}
 
 def main():
     # Connect to server
@@ -14,16 +17,32 @@ def main():
 
     # from now on, the client and server are connected
     try:
-        msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket
+        msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket (success message)
     except ConnectionResetError as e:
         print("ERROR- " + str(e))
     
+    try:
+        choice = print_menu()
+        msg = MESSAGES[choice]()
+
+        sock.sendall(msg.export_message().encode())
+    except Exception as e:
+        print(e)
+
+    try:
+        msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket (success message)
+        print(msg)
+    except ConnectionResetError as e:
+        print("ERROR- " + str(e))
+
+    '''
     print(msg)
     if (msg == "Hello"):
         try:
             sock.sendall(msg.encode())
         except Exception as e:
             print("ERROR- " + str(e))
+    '''
 
 
 def connect_to_server():
@@ -40,6 +59,18 @@ def connect_to_server():
     sock.connect(server_address)
     return sock
 
+
+"""
+The function will print the menu for the user
+"""
+def print_menu():
+    #TODO: check input
+    print("Enter your choice:")
+    print("1. Signup")
+    print("2. Login")
+    choice = input("Enter: ")
+
+    return int(choice)
 
 
 if __name__ == '__main__':
