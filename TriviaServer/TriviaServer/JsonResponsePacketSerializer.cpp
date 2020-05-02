@@ -10,7 +10,7 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(Message* r
 	vector<unsigned char> message; // the whole message
 	vector<unsigned char> content; // part 3 of message
 	vector<unsigned char> size; // part 2 of message
-	unsigned char code = response->getMsgCode(); // part 1 of message, TODO: get code
+	unsigned char code = response->getMsgCode(); // part 1 of message
 	json j = response->castToJson();
 
 	content = json::to_bson(j);
