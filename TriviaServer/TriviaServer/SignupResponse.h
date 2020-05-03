@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Message.h"
+#include "Response.h"
 
-class SignupResponse : Message
+class SignupResponse : Response
 {
 public:
 	SignupResponse(int _status);

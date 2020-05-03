@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Message.h"
+#include "Response.h"
 #include <vector>
-class LoginResponse : Message
+class LoginResponse : Response
 {
 public:
 	LoginResponse(int _status);

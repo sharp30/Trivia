@@ -6,7 +6,7 @@
 using std::string;
 using nlohmann::json;
 
-class Message
+class Response
 {
 public:
 	virtual json castToJson() const = 0;
