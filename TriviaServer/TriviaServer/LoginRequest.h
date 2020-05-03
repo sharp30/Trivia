@@ -9,7 +9,6 @@ using std::string;
 class LoginRequest  
 {
 public:
-public:
 	LoginRequest(nlohmann::json j);
 	string getUsername();
 	string getPassword();
