@@ -84,7 +84,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		res = recv(clientSock, content, convertBinaryToInt(size, SIZE_LENGTH), 0);
 
 		//TODO: continue from this point, add operations and return respone to client
-
+		
 		if (res == INVALID_SOCKET)
 		{
 			std::string s = "Error while recieving from socket: ";
@@ -95,7 +95,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	}
 
 	delete content;
-	
 }
 
 /*
