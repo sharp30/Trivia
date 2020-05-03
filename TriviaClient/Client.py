@@ -21,28 +21,21 @@ def main():
     except ConnectionResetError as e:
         print("ERROR- " + str(e))
     
+    
     try:
         choice = print_menu()
-        msg = MESSAGES[choice]()
-
-        sock.sendall(msg.export_message().encode())
     except Exception as e:
         print(e)
-
-    try:
-        msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket (success message)
-        print(msg)
-    except ConnectionResetError as e:
-        print("ERROR- " + str(e))
-
-    '''
-    print(msg)
-    if (msg == "Hello"):
+    
+    while choice != 0:
         try:
-            sock.sendall(msg.encode())
+            msg = MESSAGES[choice]()
+            sock.sendall(msg.export_message().encode())
+            msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket (success message)
+            print(msg)
+            choice = print_menu()
         except Exception as e:
-            print("ERROR- " + str(e))
-    '''
+            print(e)
 
 
 def connect_to_server():
@@ -66,6 +59,7 @@ The function will print the menu for the user
 def print_menu():
     #TODO: check input
     print("Enter your choice:")
+    print("0. Exit")
     print("1. Signup")
     print("2. Login")
     choice = input("Enter: ")
