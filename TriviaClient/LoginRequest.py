@@ -18,7 +18,7 @@ class LoginRequest(Message):
 
     def to_bin(self):
         st = self.to_json()
-        return ' '.join(format(ord(x), 'b') for x in st)
+        return ''.join(format(ord(x), 'b') for x in st)
 
     def message_content_size(self):
         return (len(self.to_bin()) / 8)
