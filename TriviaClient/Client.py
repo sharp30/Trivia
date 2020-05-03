@@ -57,7 +57,7 @@ def connect_to_server():
 The function will print the menu for the user
 """
 def print_menu():
-    #TODO: check input
+    #TODO?: check input
     print("Enter your choice:")
     print("0. Exit")
     print("1. Signup")
