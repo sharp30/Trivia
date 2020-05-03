@@ -31,4 +31,14 @@ class SignupRequest(Message):
         #build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
         msg = str(Message.cast_msg_code_to_bin(super().get_code())) + Message.cast_size_to_bin(self.message_content_size) + self.to_bin()
 
+<<<<<<< HEAD
+=======
+    @staticmethod
+    def cast_size_to_bin(size):
+        return bin(size)[2:].zfill(32) //function zfill: - adds zeroes at beginning
+
+    @staticmethod
+    def cast_msg_code_to_bin(code):
+        return bin(code)[2:].zfill(8) //function zfill: - adds zeroes at beginning
+>>>>>>> d355471a5cdda1cad61db3b03868830e6f94e961
 
