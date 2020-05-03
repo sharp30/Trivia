@@ -10,14 +10,14 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(Response* 
 	vector<unsigned char> message; // the whole message
 	vector<unsigned char> content; // part 3 of message
 	vector<unsigned char> size; // part 2 of message
-	unsigned char code = response->getMsgCode(); // part 1 of message
+	vector<unsigned char> code = castMsgCodeToBin(response->getMsgCode()); // part 1 of message
 	json j = response->castToJson();
 
 	content = json::to_bson(j);
 	size = castSizeToBin(content.size());
 
 	//build the final message
-	message.push_back(code);
+	message.insert(message.end(), code.begin(), code.end());
 	message.insert(message.end(), size.begin(), size.end());
 	message.insert(message.end(), content.begin(), content.end());
 
