@@ -45,8 +45,8 @@ vector<unsigned char> JsonResponsePacketSerializer::castSizeToBin(int size)
 }
 
 /*
-The function will cast an integer into vector of bytes with 4 elements.
-Example= 5 --> [00000000 00000000 00000000 00000101]
+The function will cast an integer into vector of bytes with 1 element.
+Example= 5 --> [00000101]
 input: a size to convert
 output: a converted size presented as a binary sequence with 4 bytes
 */

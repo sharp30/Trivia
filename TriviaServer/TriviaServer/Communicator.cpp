@@ -59,31 +59,42 @@ Output:None
 */
 void Communicator::handleNewClient(SOCKET clientSock)
 {
-	char text[6];
+	const int ID_SIZE = 1; // number of bytes the ID takes
+	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
+
+	char code[ID_SIZE];
+	char size[SIZE_LENGTH];
+	char* content = nullptr;
+	int sizeInt = 0;
 	
+	// a one timed message to client
+	if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
+	{
+		throw std::exception("Can't send message to client :<");
+	}
+
 	while (true) // TODO: in the next version, run untill a logout request appears
 	{
-		//send data to client
-		if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
-		{
-			throw std::exception("Can't send message to client :<");
-		}
-		
 		//receive data from client
-		int res = recv(clientSock, text, 5, 0);
-		
+		int res = recv(clientSock, code, ID_SIZE, 0);
+
+		res = recv(clientSock, size, SIZE_LENGTH, 0);
+
+		content = new char[convertBinaryToInt(size, SIZE_LENGTH)];
+		res = recv(clientSock, content, convertBinaryToInt(size, SIZE_LENGTH), 0);
+
+		//TODO: continue from this point, add operations and return respone to client
+
 		if (res == INVALID_SOCKET)
 		{
 			std::string s = "Error while recieving from socket: ";
 			s += std::to_string(clientSock);
 			throw std::exception(s.c_str());
+			delete content;
 		}
-		text[5] = '\0';
-		
-		std::cout << text;
 	}
 
-
+	delete content;
 	
 }
 
@@ -107,4 +118,25 @@ void Communicator::acceptClient()
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 	clientThread.detach();
 
+}
+
+/*
+TODO: add documantation
+*/
+int Communicator::convertBinaryToInt(char* str, int size)
+{
+	//#TODO: make this function do the following
+	//input: "ab(4" / [00101101, 01010011, 11001010, 00001101]
+	//output: an integer represents the value of the binary sequence
+
+	//#TODO: think about a better place for this function
+	return 0;
+}
+
+/*
+TODO: add documantation
+*/
+vector<unsigned char> Communicator::convertDetailsToVector(char* code, char* size, char* content)
+{
+	return vector<unsigned char>();
 }
