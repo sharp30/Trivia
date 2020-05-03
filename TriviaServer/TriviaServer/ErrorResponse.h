@@ -1,7 +1,7 @@
 #pragma once
-#include "Message.h"
+#include "Response.h"
 
-class ErrorResponse : Message
+class ErrorResponse : Response
 {
 public:
 	ErrorResponse(string errMessage);
