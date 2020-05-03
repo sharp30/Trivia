@@ -4,7 +4,7 @@ import sys
 import LoginRequest
 import SignupRequest
 
-BYTES_TO_READ = 5
+BYTES_TO_READ = 1024
 MESSAGES = {1: SignupRequest, 2: LoginRequest}
 
 def main():
@@ -53,16 +53,18 @@ def connect_to_server():
     return sock
 
 
-"""
-The function will print the menu for the user
-"""
+
 def print_menu():
-    #TODO: check input
-    print("Enter your choice:")
-    print("0. Exit")
-    print("1. Signup")
-    print("2. Login")
-    choice = input("Enter: ")
+    """
+    The function will print the menu for the user
+    """
+    choice = -1
+    while int(choice) not in MESSAGES.keys() and choice != 0:
+        print("Enter your choice:")
+        print("0. Exit")
+        print("1. Signup")
+        print("2. Login")
+        choice = input("Enter: ")
 
     return int(choice)
 
