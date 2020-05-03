@@ -33,9 +33,9 @@ class SignupRequest(Message):
 
     @staticmethod
     def cast_size_to_bin(size):
-        return bin(size)[2:].zfill(32)
+        return bin(size)[2:].zfill(32) //function zfill: - adds zeroes at beginning
 
     @staticmethod
     def cast_msg_code_to_bin(code):
-        return bin(code)[2:].zfill(8)
+        return bin(code)[2:].zfill(8) //function zfill: - adds zeroes at beginning
 
