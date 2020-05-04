@@ -4,7 +4,7 @@ import sys
 import LoginRequest
 import SignupRequest
 
-BYTES_TO_READ = 1024
+BYTES_TO_READ = 1024  # standard number of bytes to read
 MESSAGES = {1: SignupRequest, 2: LoginRequest}
 
 def main():
