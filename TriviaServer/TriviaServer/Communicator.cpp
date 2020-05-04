@@ -111,17 +111,17 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		RequestInfo req(idInt, content,sizeInt);
 		delete content;
 		content = nullptr;
-		//TODO: continue from this point, add operations and return respone to client
 		if (client->second->isRequestRelevant(req))
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
-			
+
 			//change RequestHandler
 			delete client->second;
 			client->second = reqResult._newHandler;
-			
-			//send response
-			//res = send(clientSock,reqResult.)
+
+			//send response to client
+			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
+			res = send(clientSock, response, reqResult._buffer.size(), 0);
 		}
 	}
 

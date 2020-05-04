@@ -1,22 +1,13 @@
 #include "RequestInfo.h"
 
 
-//------------------constructors--------------------
-RequestInfo::RequestInfo(int id, time_t time, vector<unsigned char> buff)
-{
-	this->_id = id;
-	this->_receivalTime = time;
-	this->_buffer = buff;
-}
+//------------------constructor--------------------
 
-RequestInfo::RequestInfo(int id, char* buff, int size)
+RequestInfo::RequestInfo(int id, unsigned char* buff, int size)
 {
 	this->_id = id;
 	this->_receivalTime =std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());// the time now
-	for (int i = 0; i < size; i++)
-	{
-		this->_buffer.push_back(buff[i]);
-	}
+	this->_buffer = std::vector<unsigned char>(buff, buff + size); // from char* to vector<unsigned char>
 }
 
 /*

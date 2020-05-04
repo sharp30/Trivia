@@ -9,8 +9,8 @@ class RequestInfo
 {
 public:
 	//----------------------constructors------------------
-	RequestInfo(int id, time_t time, vector<unsigned char> buff);
-	RequestInfo(int id,char* buff,int size);
+	//RequestInfo(int id, time_t time, vector<unsigned char> buff);
+	RequestInfo(int id,unsigned char* buff,int size);
 	//RequestInfo(nlohmann::json j); -- as optional for the future
 	//---------------------getters------------------------
 	int getId();
