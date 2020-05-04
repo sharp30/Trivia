@@ -4,6 +4,7 @@
 #include <string>
 #include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
+#include "RequestInfo.h"
 
 // ----------------Constructor ----------------
 Communicator::Communicator()
@@ -59,14 +60,25 @@ Output:None
 */
 void Communicator::handleNewClient(SOCKET clientSock)
 {
+
 	const int ID_SIZE = 1; // number of bytes the ID takes
 	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
 
-	char code[ID_SIZE];
+	char id[ID_SIZE];
 	char size[SIZE_LENGTH];
 	char* content = nullptr;
 	int sizeInt = 0;
+	int idInt = 0;
 	
+	map<SOCKET, IRequestHandler*>::iterator client = this->_mClients.find(clientSock); // iterartor for place in comunicator map
+	if (client == this->_mClients.end())
+	{
+		std::string s = "Error was occurred";
+		s += std::to_string(clientSock);
+		throw std::exception(s.c_str());
+	}
+
+
 	// a one timed message to client
 	if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
 	{
@@ -76,21 +88,40 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	while (true) // TODO: in the next version, run untill a logout request appears
 	{
 		//receive data from client
-		int res = recv(clientSock, code, ID_SIZE, 0);
+		//TOOD:recieve utils function + check validation
+		int res = recv(clientSock, id, ID_SIZE, 0);
+		
+		int codeInt = convertBinaryToInt(id,ID_SIZE);
 
 		res = recv(clientSock, size, SIZE_LENGTH, 0);
+		
+		int sizeInt = convertBinaryToInt(size,SIZE_LENGTH);
 
-		content = new char[convertBinaryToInt(size, SIZE_LENGTH)];
+		content = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
 		res = recv(clientSock, content, convertBinaryToInt(size, SIZE_LENGTH), 0);
 
-		//TODO: continue from this point, add operations and return respone to client
-		
 		if (res == INVALID_SOCKET)
 		{
 			std::string s = "Error while recieving from socket: ";
 			s += std::to_string(clientSock);
 			throw std::exception(s.c_str());
 			delete content;
+		}
+
+		RequestInfo req(idInt, content,sizeInt);
+		delete content;
+		content = nullptr;
+		//TODO: continue from this point, add operations and return respone to client
+		if (client->second->isRequestRelevant(req))
+		{
+			RequestResult reqResult = client->second->handleRequest(req);
+			
+			//change RequestHandler
+			delete client->second;
+			client->second = reqResult._newHandler;
+			
+			//send response
+			//res = send(clientSock,reqResult.)
 		}
 	}
 
@@ -110,8 +141,7 @@ void Communicator::acceptClient()
 		throw std::exception("Can't accept client");
 	}
 	//insert to clients list
-	LoginRequestHandler login;
-	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)&login));
+	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)new LoginRequestHandler()));
 
 	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
@@ -128,7 +158,7 @@ int Communicator::convertBinaryToInt(char* str, int size)
 	//input: "ab(4" / [00101101, 01010011, 11001010, 00001101]
 	//output: an integer represents the value of the binary sequence
 
-	//#TODO: think about a better place for this function
+	//TODO: think about a better place for this function
 	return 0;
 }
 
