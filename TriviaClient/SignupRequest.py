@@ -1,4 +1,4 @@
-import Message
+from Message import Message
 import json
 
 class SignupRequest(Message):
