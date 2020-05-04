@@ -66,7 +66,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 	char id[ID_SIZE];
 	char size[SIZE_LENGTH];
-	char* content = nullptr;
+	char* reqContent = nullptr;
 	int sizeInt = 0;
 	int idInt = 0;
 	
@@ -97,20 +97,22 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		
 		int sizeInt = convertBinaryToInt(size,SIZE_LENGTH);
 
-		content = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
-		res = recv(clientSock, content, convertBinaryToInt(size, SIZE_LENGTH), 0);
+		reqContent = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
+		res = recv(clientSock, reqContent, convertBinaryToInt(size, SIZE_LENGTH), 0);
 
 		if (res == INVALID_SOCKET)
 		{
 			std::string s = "Error while recieving from socket: ";
 			s += std::to_string(clientSock);
 			throw std::exception(s.c_str());
-			delete content;
+			delete reqContent;
 		}
 
-		RequestInfo req(idInt, content,sizeInt);
-		delete content;
-		content = nullptr;
+		RequestInfo req(idInt, reqContent,sizeInt);
+		delete reqContent;
+		reqContent = nullptr;
+
+		//TODO: continue from this point, add operations and return respone to client
 		if (client->second->isRequestRelevant(req))
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
@@ -119,13 +121,13 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			delete client->second;
 			client->second = reqResult._newHandler;
 
-			//send response to client
+			//send response to cl
 			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
 			res = send(clientSock, response, reqResult._buffer.size(), 0);
 		}
 	}
 
-	delete content;
+	//delete reqContent;
 }
 
 /*
@@ -148,19 +150,26 @@ void Communicator::acceptClient()
 	clientThread.detach();
 
 }
-
 /*
-TODO: add documantation
+This function converts from binary to integer value
+For Example:0111 ==> 7
+Input : bin - vector of chars: the value in binary
+Output:The integer value
 */
-int Communicator::convertBinaryToInt(char* str, int size)
+int Communicator::convertBinaryToInt(char* buff,int size)
 {
-	//#TODO: make this function do the following
-	//input: "ab(4" / [00101101, 01010011, 11001010, 00001101]
-	//output: an integer represents the value of the binary sequence
+	const int COUNTING_BASE = 2; //The binary base ==> 2
+	int val = 0;
 
-	//TODO: think about a better place for this function
-	return 0;
+	for (int i = 0; i < size; i++)
+	{
+		int bit = buff[i];
+		val += pow(2, size - i - 1) * bit;
+	}
+
+	return val;
 }
+
 
 /*
 TODO: add documantation

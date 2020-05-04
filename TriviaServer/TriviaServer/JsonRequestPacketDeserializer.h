@@ -8,7 +8,7 @@ using std::vector;
 class JsonRequestPacketDeserializer
 {
 public:
-	static RequestInfo deserializeRequestInfo(vector<unsigned char> buff);
+	//static RequestInfo deserializeRequestInfo(vector<unsigned char> buff);
 	static LoginRequest deserializeLoginRequest(vector<unsigned char> buff);
 	static SignupRequest deserializeSignupRequest(vector<unsigned char> buff);
 

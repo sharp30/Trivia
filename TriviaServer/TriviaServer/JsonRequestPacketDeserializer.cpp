@@ -9,7 +9,7 @@ using nlohmann::json;
 This function Deserializes the request from binary to RequestInfo
 Input:buffer - the request in binary
 Output:Object of RequestInfo
-*/
+
 RequestInfo JsonRequestPacketDeserializer::deserializeRequestInfo(vector<unsigned char> buff)
 {
 	const int ID_LENGTH = 1;
@@ -22,6 +22,7 @@ RequestInfo JsonRequestPacketDeserializer::deserializeRequestInfo(vector<unsigne
 	time_t nowTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); // the time now
 	return RequestInfo(castBinToInt(binId), nowTime, binContent);
 }
+/*
 
 /*
 This function deserializes from binary json to LoginRequest

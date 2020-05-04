@@ -3,7 +3,7 @@
 
 //------------------constructor--------------------
 
-RequestInfo::RequestInfo(int id, unsigned char* buff, int size)
+RequestInfo::RequestInfo(int id, char* buff, int size)
 {
 	this->_id = id;
 	this->_receivalTime =std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());// the time now

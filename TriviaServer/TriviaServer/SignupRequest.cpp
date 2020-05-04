@@ -2,9 +2,9 @@
 
 SignupRequest::SignupRequest(nlohmann::json j)
 {
-	this->_username = j.at["username"];
-	this->_password = j.at["password"];
-	this->_email= j.at["email"];
+	this->_username = j.at("username").get<string>();
+	this->_password = j.at("password").get<string>();
+	this->_email= j.at("email").get<string>();
 }
 
 /*
