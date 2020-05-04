@@ -33,9 +33,11 @@ class Message:
 
         if (length > 2** (4 * BITS_IN_BYTE)):
             raise Exception("Number is to Big!")
-
-        for i in range(0, REQUIRED_BYTES):
-            result[REQUIRED_BYTES - 1 -i] = length % (2 ** BITS_IN_BYTE)
+        index = 0
+        while length > 0:
+            result[REQUIRED_BYTES - 1 -index] = length % (2 ** BITS_IN_BYTE)
             length = length // (2 ** BITS_IN_BYTE)
+            index += 1
+
 
         return result
