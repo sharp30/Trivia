@@ -8,25 +8,33 @@ class SignupRequest(Message):
         self.set_password()
         self.set_email()
 
+
     def set_username(self):
         self.username = input("Enter username: ")
+
 
     def set_password(self):
         self.password = input("Enter password: ")
 
+
     def set_email(self):
         self.email = input("Enter email: ")
+
 
     def to_json(self):
         return json.dumps({"username": self.username, "password": self.password, "email": self.email})
 
-    def to_bin(self):
-        st = self.to_json()
-        return ''.join(format(ord(x), 'b') for x in st)
 
     def message_content_size(self):
-        return (len(self.to_bin()) / 8)
+        """
+        The function will calculate the size of the message's content and convert it to bytes object
+        """
+        length = bytes(Message.length_to_dec_sequence(len(self.to_json())))
+
 
     def export_message(self):
-        #build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
-        msg = str(Message.cast_msg_code_to_bin(super().get_code())) + Message.cast_size_to_bin(self.message_content_size) + self.to_bin()
+        """
+        The function will cast this object to a binary sequence of type 'bytes'
+        """
+        # build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
+        return bytes([super().get_code()]) + self.message_content_size_bytes() + bytes(self.to_json(), 'utf-8')

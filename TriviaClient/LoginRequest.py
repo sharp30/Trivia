@@ -17,25 +17,19 @@ class LoginRequest(Message):
     def to_json(self):
         return json.dumps({"username": self.username, "password": self.password})
 
+
     def message_content_size(self):
+        """
+        The function will calculate the size of the message's content and convert it to bytes object
+        """
+        length = bytes(Message.length_to_dec_sequence(len(self.to_json())))
 
-        BITS_IN_BYTE = 8
-        content = self.to_json()
-
-        if len(content) < 2 ** BITS_IN_BYTE:  # means the : len < 256
-            length = bytes([0,0,0,len(content)])
-
-        length = bytes(4)  # create an object of 4 bytes to hold the content size
-        return (len(self.to_bin()) / 8)
 
     def export_message(self):
         """
         The function will cast this object to a binary sequence of type 'bytes'
         """
-        content = bytes(self.to_json(), 'utf-8')
-        #build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
-        msg = bytes([super().get_code()]) + self.message_content_size_bytes() + content
-
-        return msg
+        # build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
+        return bytes([super().get_code()]) + self.message_content_size_bytes() + bytes(self.to_json(), 'utf-8')
 
 
