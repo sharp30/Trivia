@@ -85,10 +85,11 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		throw std::exception("Can't send message to client :<");
 	}
 
-	while (true) // TODO: in the next version, run untill a logout request appears
+	while (true) 
 	{
 		//receive data from client
 		//TOOD:recieve utils function + check validation
+
 		int res = recv(clientSock, id, ID_SIZE, 0);
 		
 		idInt = convertBinaryToInt(id,ID_SIZE);
