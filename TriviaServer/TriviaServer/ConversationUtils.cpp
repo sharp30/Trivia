@@ -45,19 +45,19 @@ For Example:0111 ==> 7
 Input : bin - vector of chars: the value in binary
 Output:The integer value
 */
-int ConversationUtils::castBinToInt(vector<unsigned char> bin)
+int ConversationUtils::castByteToInt(vector<unsigned char> buff)
 {
-	const int COUNTING_BASE = 2; //The binary base ==> 2
 	int val = 0;
-	int size = bin.size();
+	int size = buff.size();
 
 	for (int i = 0; i < size; i++)
 	{
-		int bit = bin[i];
-		val += pow(COUNTING_BASE, size - i - 1) * bit;
+		val += pow(COUNTING_BASE, size - i - 1) * buff[i];
 	}
 	return val;
 }
+
+
 /*
 This function casts char* of to vector of unsigned chars
 Input:buff -> the buffer as char*
@@ -69,7 +69,30 @@ vector<unsigned char> ConversationUtils::castBuffToVector(char* buff, int size)
 	return std::vector<unsigned char>(buff, buff + size);
 }
 
-vector<unsigned char> ConversationUtils::castIntToBin(int value)
+/*
+the function will get a decimal integer and cast into 4 bytes integer that will fit the 'bytes' object
+EXAMPLE : 400 -- > 0 - 0 - 1 - 90 // 256 --> 0-0-1-0 // 1000 --> 0-0-3-232
+FutureIdea: create recursive function instead
+*/
+vector<unsigned char> ConversationUtils::castIntToByte(int val, int requiredBytes) throw()
 {
-	return vector<unsigned char>();
+	int index = 0;
+	vector<unsigned char> result;
+	result.resize(requiredBytes);
+
+	if (val > std::pow(2, (requiredBytes * BITS_IN_BYTE)))
+	{
+		throw std::exception("Number is to Big!");
+	}
+
+
+	for (size_t i = 0; i < requiredBytes; i++)
+	{
+		result[requiredBytes - 1 - index] = val % COUNTING_BASE;
+		val = (int)(val / COUNTING_BASE);
+		index += 1;
+	}
+
+	return result;
 }
+
