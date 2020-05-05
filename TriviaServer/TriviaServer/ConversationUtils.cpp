@@ -9,13 +9,26 @@ Output:None
 */
 void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) throw()
 {
-	int	res = recv(sock, buff,length, 0);
+	int res = 0;
+
+	try
+	{
+		res = recv(sock, buff,length, 0);
+	}
+	catch (std::exception e)
+	{
+		std::string s = "Socket had been closed";
+		s += std::to_string(sock);
+		throw std::exception(s.c_str());
+	}
+
 	if (res == INVALID_SOCKET)
 	{
 		std::string s = "Error while recieving from socket: ";
 		s += std::to_string(sock);
 		throw std::exception(s.c_str());
 	}
+
 }
 
 /*

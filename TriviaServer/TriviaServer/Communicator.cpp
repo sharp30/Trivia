@@ -50,8 +50,6 @@ void Communicator::bindAndListen()
 	{
 		throw std::exception("Can't listens to clients' requests");
 	}
-
-
 }
 /*
 This function handles the conversation with the client
@@ -90,17 +88,28 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		//receive data from client
 		//TOOD:recieve utils function + check validation
 
-		
-		ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
-		idInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(id, ID_LENGTH));
+		try
+		{
+			ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
+			idInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(id, ID_LENGTH));
 
-		ConversationUtils::receiveFromSocket(clientSock, size, SIZE_LENGTH);
-		sizeInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(size, SIZE_LENGTH));
+			ConversationUtils::receiveFromSocket(clientSock, size, SIZE_LENGTH);
+			sizeInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(size, SIZE_LENGTH));
 
-		reqContent = new char[sizeInt]; // have to be deleted
-		ConversationUtils::receiveFromSocket(clientSock, reqContent, sizeInt);
-		
-		//RequestInfo req(idInt, reqContent,sizeInt);//To be deleted
+			reqContent = new char[sizeInt]; // have to be deleted
+			ConversationUtils::receiveFromSocket(clientSock, reqContent, sizeInt);
+		}
+		catch (std::exception e)
+		{
+			if (reqContent != nullptr)
+			{
+				delete[] reqContent;
+			}
+
+			std::cout << e.what();
+			return;
+		}
+
 		RequestInfo req(idInt,ConversationUtils::castBuffToVector(reqContent,sizeInt),sizeInt);
 
 		delete[] reqContent;
@@ -114,12 +123,10 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			client->second = reqResult._newHandler;
 
 			//send response to cl
-			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char * ---FUCK IT
-			send(clientSock, response, reqResult._buffer.size(), 0);//To conversation utils
+			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
+			send(clientSock, response, reqResult._buffer.size(), 0);//add To conversation utils
 		}
 	}
-
-	//delete reqContent;
 }
 
 /*
