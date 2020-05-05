@@ -29,7 +29,6 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	RequestResult res;
 	if (request.getId() == LOGIN_CODE)
 	{
-		//LoginRequest req = JsonRequestPacketDeserializer::deserializeLoginRequest(request.getBuffer());+
 		LoginRequest req(request.getBuffer());
 		LoginResponse rep(1);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&rep);

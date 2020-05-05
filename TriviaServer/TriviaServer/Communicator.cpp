@@ -97,14 +97,14 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		ConversationUtils::receiveFromSocket(clientSock, size, SIZE_LENGTH);
 		sizeInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(size, SIZE_LENGTH));
 
-		reqContent = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
+		reqContent = new char[sizeInt]; // have to be deleted
 		ConversationUtils::receiveFromSocket(clientSock, reqContent, sizeInt);
 		
-		RequestInfo req(idInt, reqContent,sizeInt);//To be deleted
-		//RequestInfo req(idInt,ConversationUtils::castBuffToVector(reqContent,size),sizeInt);
+		//RequestInfo req(idInt, reqContent,sizeInt);//To be deleted
+		RequestInfo req(idInt,ConversationUtils::castBuffToVector(reqContent,sizeInt),sizeInt);
 
+		delete[] reqContent;
 		reqContent = nullptr;
-		delete reqContent;
 		if (client->second->isRequestRelevant(req))
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
