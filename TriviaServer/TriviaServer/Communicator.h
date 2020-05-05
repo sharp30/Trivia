@@ -24,5 +24,8 @@ protected:
 	SOCKET _serverSocket; //the listening socket
 
 private:
+
+	static int convertBinaryToInt(char* str, int size);
+	static vector<unsigned char> convertDetailsToVector(char* code, char* size, char* content);
 	WSAInitializer _wsa;
 };

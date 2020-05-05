@@ -4,6 +4,7 @@
 #include "SignupResponse.h"
 #include "JsonRequestPacketDeserializer.h"
 #include "JsonResponsePacketSerializer.h"
+#include "ConversationUtils.h"
 
 
 /*
@@ -28,15 +29,15 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	RequestResult res;
 	if (request.getId() == LOGIN_CODE)
 	{
-		LoginRequest req = JsonRequestPacketDeserializer::deserializeLoginRequest(request.getBuffer());
+		LoginRequest req(request.getBuffer());
 		LoginResponse rep(1);
-		res._buffer = JsonResponsePacketSerializer::serializeResponse((Message*)&rep);
+		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&rep);
 	}
 	else
 	{
-		SignupRequest req = JsonRequestPacketDeserializer::deserializeSignupRequest(request.getBuffer());
+		SignupRequest req(request.getBuffer());
 		SignupResponse rep(1);
-		res._buffer = JsonResponsePacketSerializer::serializeResponse((Message*)&rep);
+		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&rep);
 	}
 
 	res._newHandler = nullptr; //should do something in the future.

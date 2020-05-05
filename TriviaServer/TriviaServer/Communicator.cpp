@@ -4,7 +4,8 @@
 #include <string>
 #include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
-
+#include "RequestInfo.h"
+#include "ConversationUtils.h"
 // ----------------Constructor ----------------
 Communicator::Communicator()
 {
@@ -49,8 +50,6 @@ void Communicator::bindAndListen()
 	{
 		throw std::exception("Can't listens to clients' requests");
 	}
-
-
 }
 /*
 This function handles the conversation with the client
@@ -59,26 +58,75 @@ Output:None
 */
 void Communicator::handleNewClient(SOCKET clientSock)
 {
-	char text[6];
-		
-	//send data to client
+
+	const int ID_LENGTH = 1; // number of bytes the ID takes
+	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
+
+	char id[ID_LENGTH];
+	char size[SIZE_LENGTH];
+	char* reqContent = nullptr;
+	int sizeInt = 0;
+	int idInt = 0;
+	
+	map<SOCKET, IRequestHandler*>::iterator client = this->_mClients.find(clientSock); // iterartor for place in comunicator map
+	if (client == this->_mClients.end())
+	{
+		std::string s = "Error was occurred";
+		s += std::to_string(clientSock);
+		throw std::exception(s.c_str());
+	}
+
+
+	// a one timed message to client
 	if (send(clientSock, "HELLO", 5, 0) == INVALID_SOCKET)
 	{
 		throw std::exception("Can't send message to client :<");
 	}
-		
-	//receive data from client
-	int res = recv(clientSock, text, 5, 0);
-		
-	if (res == INVALID_SOCKET)
-	{
-		std::string s = "Error while recieving from socket: ";
-		s += std::to_string(clientSock);
-		throw std::exception(s.c_str());
-	}
-	text[5] = '\0';
 
-	std::cout << text;
+	while (true) 
+	{
+		//receive data from client
+		//TOOD:recieve utils function + check validation
+
+		try
+		{
+			ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
+			idInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(id, ID_LENGTH));
+
+			ConversationUtils::receiveFromSocket(clientSock, size, SIZE_LENGTH);
+			sizeInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(size, SIZE_LENGTH));
+
+			reqContent = new char[sizeInt]; // have to be deleted
+			ConversationUtils::receiveFromSocket(clientSock, reqContent, sizeInt);
+		}
+		catch (std::exception e)
+		{
+			if (reqContent != nullptr)
+			{
+				delete[] reqContent;
+			}
+
+			std::cout << e.what();
+			return;
+		}
+
+		RequestInfo req(idInt,ConversationUtils::castBuffToVector(reqContent,sizeInt),sizeInt);
+
+		delete[] reqContent;
+		reqContent = nullptr;
+		if (client->second->isRequestRelevant(req))
+		{
+			RequestResult reqResult = client->second->handleRequest(req);
+
+			//change RequestHandler
+			delete client->second;
+			client->second = reqResult._newHandler;
+
+			//send response to cl
+			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
+			send(clientSock, response, reqResult._buffer.size(), 0);//add To conversation utils
+		}
+	}
 }
 
 /*
@@ -94,11 +142,31 @@ void Communicator::acceptClient()
 		throw std::exception("Can't accept client");
 	}
 	//insert to clients list
-	LoginRequestHandler login;
-	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)&login));
+	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)new LoginRequestHandler()));
 
 	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 	clientThread.detach();
 
 }
+/*
+This function converts from binary to integer value
+For Example:0111 ==> 7
+Input : bin - vector of chars: the value in binary
+Output:The integer value
+*/
+int Communicator::convertBinaryToInt(char* buff,int size)
+{
+	const int COUNTING_BASE = 2; //The binary base ==> 2
+	int val = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		int bit = buff[i];
+		val += pow(2, size - i - 1) * bit;
+	}
+
+	return val;
+}
+
+

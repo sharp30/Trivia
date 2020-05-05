@@ -1,7 +1,10 @@
 #pragma once
-#include "IRequestHandler.h"
+
 #include <vector>
+
 using std::vector;
+
+class IRequestHandler;
 
 typedef struct RequestResult
 {
