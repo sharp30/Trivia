@@ -1,5 +1,5 @@
 from Message import Message
-from bson import bson
+import bson
 import binascii
 
 class LoginRequest(Message):

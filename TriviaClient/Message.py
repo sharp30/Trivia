@@ -1,4 +1,4 @@
-from bson import bson
+import bson
 
 class Message:
     def __init__(self, code):

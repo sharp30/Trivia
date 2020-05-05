@@ -1,5 +1,5 @@
 from Message import Message
-from bson import bson
+import bson
 
 class SignupRequest(Message):
     def __init__(self):
