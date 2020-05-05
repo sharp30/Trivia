@@ -1,5 +1,5 @@
 from Message import Message
-import json
+from bson import bson
 
 class SignupRequest(Message):
     def __init__(self):
@@ -22,4 +22,7 @@ class SignupRequest(Message):
 
 
     def to_json(self):
-        return json.dumps({"username": self.username, "password": self.password, "email": self.email})
+        """
+        rtype: bytes
+        """
+        return bson.dumps({"username": self.username, "password": self.password, "email": self.email})

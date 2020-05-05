@@ -1,5 +1,5 @@
 from Message import Message
-import json
+from bson import bson
 import binascii
 
 class LoginRequest(Message):
@@ -15,6 +15,7 @@ class LoginRequest(Message):
         self.password = input("Enter password: ")
 
     def to_json(self):
-        return json.dumps({"username": self.username, "password": self.password})
-
-
+        """
+        rtype: bytes
+        """
+        return bson.dumps({"username": self.username, "password": self.password})
