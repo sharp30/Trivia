@@ -3,23 +3,24 @@
 #include <chrono>
 #include <vector>
 #include "json.hpp"
+#include "ConversationUtils.h"
 
 using std::vector;
+using nlohmann::json;
+
 class RequestInfo
 {
 public:
 	//----------------------constructors------------------
 	//RequestInfo(int id, time_t time, vector<unsigned char> buff);
-	RequestInfo(int id, char* buff,int size);
+	RequestInfo(int id, std::vector<unsigned char> buff,int size);
 	//RequestInfo(nlohmann::json j); -- as optional for the future
 	//---------------------getters------------------------
 	int getId();
 	time_t getTime();
-	vector<unsigned char> getBuffer();
+	json getBuffer();
 protected:
 	int _id;
 	time_t _receivalTime;
-	vector<unsigned char> _buffer;
-
-	
+	json _buffer;
 };
