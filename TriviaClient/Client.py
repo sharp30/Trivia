@@ -31,7 +31,9 @@ def main():
         try:
             msg = MESSAGES[choice]()
             sock.sendall(msg.export_message())  # no need to use encode(), this is already a byte object
-            msg = sock.recv(BYTES_TO_READ).decode()  # get data from socket (success message)
+            msg = sock.recv(BYTES_TO_READ)  # get data from socket (success message)
+
+            
             print(msg)
             choice = print_menu()
         except Exception as e:
