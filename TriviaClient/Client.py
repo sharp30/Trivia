@@ -1,8 +1,8 @@
 import Config
 import socket
 import sys
-import LoginRequest
-import SignupRequest
+from LoginRequest import LoginRequest
+from SignupRequest import SignupRequest
 
 BYTES_TO_READ = 1024  # standard number of bytes to read
 MESSAGES = {1: SignupRequest, 2: LoginRequest}
