@@ -33,7 +33,7 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(vector<unsig
 {
 	unsigned char* cBuff = &(*buff.begin());
 	json j = nlohmann::json::parse(cBuff, cBuff +buff.size());
-	//json j = json::from_bson(buff);;
+	//json j = json::from_bson(buff);
 	return LoginRequest(j);
 }
 
