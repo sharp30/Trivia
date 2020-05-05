@@ -19,8 +19,7 @@ public:
 	static vector<unsigned char> serializeResponse(Response* response);
 
 private:
-
-	static vector<unsigned char> castSizeToBin(int size);
-	static vector<unsigned char> castMsgCodeToBin(int msgCode);
+	static vector<unsigned char> castIntToBin(int msgCode, int requiredBytes) throw();
+	static vector<int> length_to_dec_sequence(int size, int requiredBytes);
 
 };

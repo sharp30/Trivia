@@ -7,14 +7,17 @@ output: buffer that will be sent to the user
 */
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(Response* response)
 {
+	const int CODE_LEN_BYTES = 1;
+	const int SIZE_LEN_BYTES = 4;
+
 	vector<unsigned char> message; // the whole message
 	vector<unsigned char> content; // part 3 of message
 	vector<unsigned char> size; // part 2 of message
-	vector<unsigned char> code = castMsgCodeToBin(response->getMsgCode()); // part 1 of message
+	vector<unsigned char> code = castIntToBin(response->getMsgCode(), CODE_LEN_BYTES); // part 1 of message
 	json j = response->castToJson();
 
 	content = json::to_bson(j);
-	size = castSizeToBin(content.size());
+	size = castIntToBin(content.size(), SIZE_LEN_BYTES);
 
 	//build the final message
 	message.insert(message.end(), code.begin(), code.end());
@@ -24,42 +27,54 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(Response* 
 	return message;
 }
 
-/*
-The function will cast an integer into vector of bytes with 4 elements.
-Example= 5 --> [00000000 00000000 00000000 00000101]
-input: a size to convert
-output: a converted size presented as a binary sequence with 4 bytes
-*/
-vector<unsigned char> JsonResponsePacketSerializer::castSizeToBin(int size)
-{
-	const int NUMBER_OF_BITS = 32; // 8 bits * 4
-	string sizeInBinary = bitset<NUMBER_OF_BITS>(size).to_string();
-	vector<unsigned char> result;
-
-	for (string::iterator it = sizeInBinary.begin(); it != sizeInBinary.end(); it++)
-	{
-		result.push_back((unsigned char)*it);
-	}
-
-	return result;
-}
 
 /*
 The function will cast an integer into vector of bytes with 1 element.
-Example= 5 --> [00000101]
+Example= 20 --> [0010100]
 input: a size to convert
 output: a converted size presented as a binary sequence with 4 bytes
 */
-vector<unsigned char> JsonResponsePacketSerializer::castMsgCodeToBin(int msgCode)
+vector<unsigned char> JsonResponsePacketSerializer::castIntToBin(int msgCode, int requiredBytes)
 {
-	const int NUMBER_OF_BITS = 8; // 8 bits * 1 byte
-	string sizeInBinary = bitset<NUMBER_OF_BITS>(msgCode).to_string();
 	vector<unsigned char> result;
+	vector<int> dec_sequence;
 
-	for (string::iterator it = sizeInBinary.begin(); it != sizeInBinary.end(); it++)
+	dec_sequence = length_to_dec_sequence(msgCode, requiredBytes);
+
+	for (vector<int>::iterator it = dec_sequence.begin(); it != dec_sequence.end(); it++)
 	{
-		result.push_back((unsigned char)*it);
+		result.push_back(*it);
 	}
 
 	return result;
 }
+
+
+/*
+the function will get a decimal integer and cast into 4 bytes integer that will fit the 'bytes' object
+EXAMPLE : 400 -- > 0 - 0 - 1 - 90 // 256 --> 0-0-1-0 // 1000 --> 0-0-3-232
+FutureIdea: create recursive function instead
+*/
+vector<int> JsonResponsePacketSerializer::length_to_dec_sequence(int size, int requiredBytes) throw()
+{
+	const int BITS_IN_BYTE = 8;
+	int index = 0, divider = std::pow(2, BITS_IN_BYTE);
+	vector<int> result;
+	result.resize(requiredBytes);
+
+	if (size > std::pow(2, (requiredBytes * BITS_IN_BYTE)))
+	{
+		throw std::exception("Number is to Big!");
+	}
+		
+	
+	while (size > 0)
+	{
+		result[requiredBytes - 1 - index] = size % divider;
+		size = (int)(size / divider);
+		index += 1;
+	}
+
+	return result;
+}
+	
