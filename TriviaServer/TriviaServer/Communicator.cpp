@@ -5,7 +5,7 @@
 #include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
 #include "RequestInfo.h"
-
+#include "ConversationUtils.h"
 // ----------------Constructor ----------------
 Communicator::Communicator()
 {
@@ -90,9 +90,9 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		//receive data from client
 		//TOOD:recieve utils function + check validation
 
-		int res = recv(clientSock, id, ID_SIZE, 0);
-		
-		idInt = convertBinaryToInt(id,ID_SIZE);
+	
+		ConversationUtils::recieveFromSocket(clientSock, id, ID_SIZE);
+		idInt = ConversationUtils::castBinToInt(id,ID_SIZE);
 
 		res = recv(clientSock, size, SIZE_LENGTH, 0);
 		
