@@ -31,7 +31,9 @@ Output: object of LoginRequst
 */
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(vector<unsigned char> buff)
 {
-	json j = json::from_bson(buff);
+	unsigned char* cBuff = &(*buff.begin());
+	json j = nlohmann::json::parse(cBuff, cBuff +buff.size());
+	//json j = json::from_bson(buff);;
 	return LoginRequest(j);
 }
 

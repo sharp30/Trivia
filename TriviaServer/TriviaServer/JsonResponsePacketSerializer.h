@@ -15,9 +15,11 @@ using std::bitset;
 class JsonResponsePacketSerializer
 {
 public:
+	
 	static vector<unsigned char> serializeResponse(Response* response);
 
 private:
+
 	static vector<unsigned char> castSizeToBin(int size);
 	static vector<unsigned char> castMsgCodeToBin(int msgCode);
 

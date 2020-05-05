@@ -91,11 +91,11 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		//TOOD:recieve utils function + check validation
 		int res = recv(clientSock, id, ID_SIZE, 0);
 		
-		int codeInt = convertBinaryToInt(id,ID_SIZE);
+		idInt = convertBinaryToInt(id,ID_SIZE);
 
 		res = recv(clientSock, size, SIZE_LENGTH, 0);
 		
-		int sizeInt = convertBinaryToInt(size,SIZE_LENGTH);
+	    sizeInt = convertBinaryToInt(size,SIZE_LENGTH);
 
 		reqContent = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
 		res = recv(clientSock, reqContent, convertBinaryToInt(size, SIZE_LENGTH), 0);

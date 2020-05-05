@@ -3,8 +3,8 @@
 //-------------constructor--------------------
 LoginRequest::LoginRequest(nlohmann::json j)
 {
-	//this->_username = j.at("username").value;
-	//this->_password = j.at("password").value;
+	this->_username = j.at("username").get<string>();
+	this->_password = j.at("password").get<string>();
 }
 
 /*
