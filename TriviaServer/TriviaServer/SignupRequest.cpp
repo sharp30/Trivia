@@ -2,7 +2,11 @@
 
 SignupRequest::SignupRequest(nlohmann::json j)
 {
+<<<<<<< HEAD
 	this->_username = j.at("username").get<string>(); // explanation - get<type> returns copy of the value from json at the requested type
+=======
+	this->_username = j.at("username").get<string>();
+>>>>>>> 5cb4dfbc28df8ab98fdc2f71673f8ab7c0df307c
 	this->_password = j.at("password").get<string>();
 	this->_email= j.at("email").get<string>();
 }
