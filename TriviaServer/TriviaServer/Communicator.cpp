@@ -61,10 +61,10 @@ Output:None
 void Communicator::handleNewClient(SOCKET clientSock)
 {
 
-	const int ID_SIZE = 1; // number of bytes the ID takes
+	const int ID_LENGTH = 1; // number of bytes the ID takes
 	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
 
-	char id[ID_SIZE];
+	char id[ID_LENGTH];
 	char size[SIZE_LENGTH];
 	char* reqContent = nullptr;
 	int sizeInt = 0;
@@ -90,30 +90,21 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		//receive data from client
 		//TOOD:recieve utils function + check validation
 
-	
-		ConversationUtils::recieveFromSocket(clientSock, id, ID_SIZE);
-		idInt = ConversationUtils::castBinToInt(id,ID_SIZE);
-
-		res = recv(clientSock, size, SIZE_LENGTH, 0);
 		
-	    sizeInt = convertBinaryToInt(size,SIZE_LENGTH);
+		ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
+		idInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(id, ID_LENGTH));
+
+		ConversationUtils::receiveFromSocket(clientSock, size, SIZE_LENGTH);
+		sizeInt = ConversationUtils::castByteToInt(ConversationUtils::castBuffToVector(size, SIZE_LENGTH));
 
 		reqContent = new char[convertBinaryToInt(size, SIZE_LENGTH)]; // have to be deleted
-		res = recv(clientSock, reqContent, convertBinaryToInt(size, SIZE_LENGTH), 0);
+		ConversationUtils::receiveFromSocket(clientSock, reqContent, sizeInt);
+		
+		RequestInfo req(idInt, reqContent,sizeInt);//To be deleted
+		//RequestInfo req(idInt,ConversationUtils::castBuffToVector(reqContent,size),sizeInt);
 
-		if (res == INVALID_SOCKET)
-		{
-			std::string s = "Error while recieving from socket: ";
-			s += std::to_string(clientSock);
-			throw std::exception(s.c_str());
-			delete reqContent;
-		}
-
-		RequestInfo req(idInt, reqContent,sizeInt);
-		delete reqContent;
 		reqContent = nullptr;
-
-		//TODO: continue from this point, add operations and return respone to client
+		delete reqContent;
 		if (client->second->isRequestRelevant(req))
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
@@ -123,8 +114,8 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			client->second = reqResult._newHandler;
 
 			//send response to cl
-			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
-			res = send(clientSock, response, reqResult._buffer.size(), 0);
+			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char * ---FUCK IT
+			send(clientSock, response, reqResult._buffer.size(), 0);//To conversation utils
 		}
 	}
 
@@ -172,10 +163,3 @@ int Communicator::convertBinaryToInt(char* buff,int size)
 }
 
 
-/*
-TODO: add documantation
-*/
-vector<unsigned char> Communicator::convertDetailsToVector(char* code, char* size, char* content)
-{
-	return vector<unsigned char>();
-}

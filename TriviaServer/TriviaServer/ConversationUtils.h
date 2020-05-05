@@ -11,7 +11,6 @@ using std::vector;
 class ConversationUtils
 {
 public:
-	
 	static void receiveFromSocket(SOCKET sock, char* buff, int length) throw();
 	static vector<unsigned char> castBuffToVector(char* buff, int size);
 	static json castBinToJson(vector<unsigned char> buff);
