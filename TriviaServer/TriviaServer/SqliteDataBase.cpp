@@ -37,7 +37,7 @@ The function will check if a user's password matches to a given password
 input: a password to check
 output: true or false whether the password does/n't match
 */
-bool SqliteDataBase::doesPasswordMatch(string password)
+bool SqliteDataBase::doesPasswordMatch(string username, string password)
 {
 	//TODO: fill this function
 	return false;

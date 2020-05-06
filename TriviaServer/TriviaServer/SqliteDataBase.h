@@ -12,7 +12,7 @@ public:
 	SqliteDataBase();
 	~SqliteDataBase();
 	virtual bool doesUserExist(string username);
-	virtual bool doesPasswordMatch(string password);
+	virtual bool doesPasswordMatch(string username, string password);
 	virtual void addNewUser(string username, string password, string email);
 
 private:
