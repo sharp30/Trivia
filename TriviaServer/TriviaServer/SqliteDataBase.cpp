@@ -54,7 +54,36 @@ output: none
 */
 void SqliteDataBase::addNewUser(string username, string password, string email)
 {
-	//TODO: fill this function
+	//insert user to Users
+	std::string sqlStatement = "INSERT INTO Users (USERNAME, PASSWORD, EMAIL) "
+		"VALUES (\"" + username + "\", \"" + password + "\", \"" + email + "\");";
+
+	try
+	{
+		executeCommand(sqlStatement.c_str());
+	}
+	catch (std::exception er)
+	{
+		throw er;
+	}
+}
+
+/*
+The function will get sql statement and execute it on the db of the class
+input: sql statement
+output: true or false if everything went fine
+*/
+void SqliteDataBase::executeCommand(const char* statement)
+{
+	int res = 0;
+
+	char** errMessage = nullptr;
+	res = sqlite3_exec(this->_dataBase, statement, nullptr, nullptr, errMessage);
+
+	if (res != SQLITE_OK)
+	{
+		throw std::exception("Error in excecuting command on database");
+	}
 }
 
 /*
@@ -86,3 +115,4 @@ int SqliteDataBase::callbackCheckExistence(void* data, int argc, char** argv, ch
 	*(bool*)data = true;
 	return 0;
 }
+
