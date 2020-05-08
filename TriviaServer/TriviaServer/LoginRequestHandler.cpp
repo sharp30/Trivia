@@ -25,7 +25,7 @@ Output:The result of the request : RequestResult
 */
 RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 {
-	bool result;
+	bool result = true;
 	RequestResult res;
 	res._newHandler = nullptr;
 	LoginManager man = this->m_handlerFactory->getLoginManager();

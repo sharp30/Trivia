@@ -2,13 +2,15 @@
 
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
+#include "LoginManager.h"
+#include "IDatabase.h"
+
 class RequestHandlerFactory
 {
 public:
 	LoginRequestHandler* createLoginRequestHandler();
-	//LoginManager
-	void getLoginManager() {};
+	LoginManager& getLoginManager();
 protected:
-	// login manager
-	//database
+	LoginManager m_loginManger;
+	IDatabase* m_database;
 };
