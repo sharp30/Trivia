@@ -1,5 +1,9 @@
 #pragma once
 #include "IDatabase.h"
+#include <vector>
+#include "LoggedUser.h"
+
+using std::vector;
 
 class LoginManager
 {
@@ -10,5 +14,5 @@ public:
 
 private:
 	IDatabase* m_database;
-	//TODO: add loggedUsers vector here.
+	vector<LoggedUser> m_loggedUsers;
 };
