@@ -50,7 +50,6 @@ void LoginManager::logout(string username) throw()
 	}
 	catch (std::exception er)
 	{
-		std::string s = "Can't delete user" + username; //optional
-		throw std::exception(s.c_str());
+                throw er;
 	}
 }
