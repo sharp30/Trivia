@@ -9,7 +9,9 @@ class RequestHandlerFactory
 {
 public:
 	LoginRequestHandler* createLoginRequestHandler();
+	MenuRequestHandler* createMenuRequestHandler();
 	LoginManager& getLoginManager();
+
 protected:
 	LoginManager m_loginManger;
 	IDatabase* m_database;

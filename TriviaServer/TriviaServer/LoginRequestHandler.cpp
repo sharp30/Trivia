@@ -25,28 +25,44 @@ Output:The result of the request : RequestResult
 */
 RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 {
-	bool result = true;
+	bool actionResult = true;//is the login or the signup succeeded
 	RequestResult res;
 	res._newHandler = nullptr;
-	LoginManager man = this->m_handlerFactory->getLoginManager();
+	
+	LoginManager &man = this->m_handlerFactory->getLoginManager();
 	if (request.getId() == LOGIN_CODE)
 	{
 		LoginRequest req(request.getBuffer());
-		man.login(req.getUsername(), req.getPassword());
-		//check validaion
-	    //res = this->login(req);
-		LoginResponse response(result);
+		try
+		{
+			man.login(req.getUsername(), req.getPassword());
+		}
+		catch (std::exception e)
+		{
+			actionResult = false;
+		}
+		LoginResponse response((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	}
+
 	else
 	{
 		SignupRequest req(request.getBuffer());
-		res = man.signup(req);
-		SignupResponse response(result);
+		try
+		{
+			man.signup(req.getUsername(),req.getPassword(),req.getEmail());
+		}
+		catch (std::exception e)
+		{
+			actionResult = false;
+		}
+		SignupResponse response(actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	}
-	if(result)
-	res._newHandler = this->m_handlerFactory->createLoginRequestHandler(); //should do something in the future.
+
+	if(actionResult)
+		res._newHandler =(IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(); //it's doing someting!!!
+	
 	return res;
 }
 
