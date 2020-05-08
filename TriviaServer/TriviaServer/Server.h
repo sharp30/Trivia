@@ -8,5 +8,5 @@ public:
 
 protected:
 	Communicator m_communicator;
-	
+	RequestHandlerFactory m_handlerFactory;
 };
