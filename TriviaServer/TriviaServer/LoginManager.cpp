@@ -1,5 +1,10 @@
 #include "LoginManager.h"
 #include <algorithm>
+//------------constructor------------
+LoginManager::LoginManager(IDatabase* database)
+{
+	this->m_database = database;
+}
 /*
 The function will signup a new user to the system -> send it's details to the DB
 input: user's details (username, password, email)

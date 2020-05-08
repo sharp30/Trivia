@@ -8,6 +8,7 @@
 class RequestHandlerFactory
 {
 public:
+	RequestHandlerFactory(IDatabase* database);
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler();
 	LoginManager& getLoginManager();

@@ -11,9 +11,12 @@ This function creates an LoginRequestHandler on the heap memory and returns it's
 Input:None
 Output:The address of the instance :LoginRequestHandler*
 */
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database)
+{
+}
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 {
-	return new LoginRequestHandler();
+	return new LoginRequestHandler(this);
 }
 
 /*
@@ -23,7 +26,7 @@ Output:The address of the instance :MenuRequestHandler*
 */
 MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
 {
-	return new MenuRequestHandler();
+	return new MenuRequestHandler(this);
 }
 
 /*
