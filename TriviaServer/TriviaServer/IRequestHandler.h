@@ -2,6 +2,7 @@
 #include "RequestInfo.h"
 #include "RequestResult.h"
 #include "RequestHandlerFactory.h"
+
 //abstract class
 class IRequestHandler
 {
