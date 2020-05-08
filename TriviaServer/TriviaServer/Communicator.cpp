@@ -87,7 +87,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	{
 		//receive data from client
 		//TOOD:recieve utils function + check validation
-
 		try
 		{
 			ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
@@ -114,7 +113,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 		delete[] reqContent;
 		reqContent = nullptr;
-		if (client->second->isRequestRelevant(req))
+		if (client->second->isRequestRelevant(req)) //TODO:send Error Response otherwise.		
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
 
