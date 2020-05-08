@@ -7,6 +7,7 @@
 
 #include "IRequestHandler.h"
 #include "WSAInitializer.h"
+#include "RequestHandlerFactory.h"
 
 const int PORT = 2020;
 using std::map;

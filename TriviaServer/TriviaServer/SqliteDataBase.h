@@ -15,7 +15,7 @@ public:
 	virtual void addNewUser(string username, string password, string email) throw();
 
 private:
-	const string DB_NAME = "OurDB.sqlite.db";
+	const string DB_NAME = "OurDB.sqlite"; 
 	sqlite3* _dataBase;
 
 	void executeCommand(const char* statement) throw();

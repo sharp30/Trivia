@@ -9,7 +9,7 @@ class LoggedUser
 public:	
 	LoggedUser(string user);
 	string getUsername();
-
+	bool operator==(LoggedUser others);
 protected:
 	string m_username;
 };

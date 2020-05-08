@@ -2,16 +2,15 @@
 #include <thread>
 #include <string>
 #include <iostream>
-
-//Server::Server()
+/*Server::Server()
 {
 	
-}
+}*/
 //-----------constructor--------------
-Server::Server(IDatabase& database)
+Server::Server(IDatabase& database) :m_handlerFactory(&database),m_communicator(&this->m_handlerFactory),m_database(database)
 {
-	this->m_database = database;
-	this->m_communicator(&this->m_handlerFactory);
+	//this->m_database = database;
+	//this->m_communicator(&this->m_handlerFactory);
 }	
 
 /*

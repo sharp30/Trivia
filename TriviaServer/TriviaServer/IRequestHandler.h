@@ -1,7 +1,8 @@
 #pragma once
 #include "RequestInfo.h"
 #include "RequestResult.h"
-class RequestHandlerFactory;
+#include "RequestHandlerFactory.h"
+//class RequestHandlerFactory;
 
 //abstract class
 class IRequestHandler

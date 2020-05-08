@@ -3,6 +3,7 @@
 #include "LoginRequest.h"
 #include "SignupRequest.h"
 #include "LoginManager.h"
+#include "RequestHandlerFactory.h"
 //empty class for this version
 
 class LoginRequestHandler : IRequestHandler

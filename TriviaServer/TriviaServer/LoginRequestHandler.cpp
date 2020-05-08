@@ -6,9 +6,12 @@
 #include "LoginResponse.h"
 #include "SignupResponse.h"
 
+
+
 //constructor
-LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory* factory) :IRequestHandler(factory)
+LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory* factory) : IRequestHandler(factory)
 {
+	this->m_handlerFactory = factory;
 }
 
 /*
@@ -34,7 +37,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	RequestResult res;
 	res._newHandler = nullptr;
 	
-	LoginManager &man = this->m_handlerFactory->getLoginManager();
+	LoginManager& man = this->m_handlerFactory->getLoginManager();
 	if (request.getId() == LOGIN_CODE)
 	{
 		LoginRequest req(request.getBuffer());

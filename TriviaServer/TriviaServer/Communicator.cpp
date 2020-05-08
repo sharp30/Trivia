@@ -120,7 +120,8 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 			//change RequestHandler
 			delete client->second;
-			client->second = reqResult._newHandler;
+			if(reqResult._newHandler != nullptr)
+				client->second = reqResult._newHandler;
 
 			//send response to cl
 			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
@@ -142,7 +143,7 @@ void Communicator::acceptClient()
 		throw std::exception("Can't accept client");
 	}
 	//insert to clients list
-	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)new LoginRequestHandler()));
+	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket,(IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler()));
 
 	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);

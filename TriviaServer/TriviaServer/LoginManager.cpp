@@ -33,6 +33,8 @@ void LoginManager::login(string username, string password) throw()
 	try
 	{
 		this->m_database->doesUserExist(username, password);
+		//check if user is not logged yet
+		this->m_loggedUsers.push_back(LoggedUser(username));
 	}
 	catch (std::exception er)
 	{
