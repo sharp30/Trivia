@@ -9,7 +9,7 @@ using std::exception;
 class SqliteDataBase : IDatabase
 {
 public:
-	SqliteDataBase();
+	SqliteDataBase() throw();
 	~SqliteDataBase();
 	virtual bool doesUserExist(string username, string password) throw();
 	virtual void addNewUser(string username, string password, string email) throw();

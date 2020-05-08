@@ -14,7 +14,9 @@ SqliteDataBase::SqliteDataBase()
 	//Opened Successfully
 }
 
-
+/*
+The d'tor will close the data base
+*/
 SqliteDataBase::~SqliteDataBase()
 {
 	sqlite3_close(this->_dataBase);
@@ -42,7 +44,6 @@ bool SqliteDataBase::doesUserExist(string username, string password)
 		throw er;
 	}
 	
-
 	return rValue;
 }
 
