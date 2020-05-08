@@ -6,6 +6,11 @@
 #include "LoginResponse.h"
 #include "SignupResponse.h"
 
+//constructor
+LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory* factory) :IRequestHandler(factory)
+{
+}
+
 /*
 This function checks if the request relevant to the handler
 Input: request : The request that was Sent :RequestInfo

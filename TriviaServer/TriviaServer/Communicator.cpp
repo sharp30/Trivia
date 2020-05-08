@@ -7,8 +7,9 @@
 #include "RequestInfo.h"
 #include "ConversationUtils.h"
 // ----------------Constructor ----------------
-Communicator::Communicator()
+Communicator::Communicator(RequestHandlerFactory* factory)
 {
+	this->m_handlerFactory = factory;
 	_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (_serverSocket == INVALID_SOCKET)
 	{
@@ -147,25 +148,6 @@ void Communicator::acceptClient()
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 	clientThread.detach();
 
-}
-/*
-This function converts from binary to integer value
-For Example:0111 ==> 7
-Input : bin - vector of chars: the value in binary
-Output:The integer value
-*/
-int Communicator::convertBinaryToInt(char* buff,int size)
-{
-	const int COUNTING_BASE = 2; //The binary base ==> 2
-	int val = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		int bit = buff[i];
-		val += pow(2, size - i - 1) * bit;
-	}
-
-	return val;
 }
 
 

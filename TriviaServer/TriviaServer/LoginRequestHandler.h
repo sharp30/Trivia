@@ -8,6 +8,7 @@
 class LoginRequestHandler : IRequestHandler
 {
 public:
+	LoginRequestHandler(RequestHandlerFactory* factory);
 	virtual bool isRequestRelevant(RequestInfo request);
 	virtual RequestResult handleRequest(RequestInfo request);
 

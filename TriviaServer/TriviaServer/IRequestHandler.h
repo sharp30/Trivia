@@ -7,6 +7,7 @@
 class IRequestHandler
 {
 public:
+	IRequestHandler(RequestHandlerFactory* factory);
 	virtual bool isRequestRelevant(RequestInfo) = 0;
 	virtual RequestResult handleRequest(RequestInfo) = 0;
 protected:

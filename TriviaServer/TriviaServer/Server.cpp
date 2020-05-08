@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-Server::Server()
+//Server::Server()
 {
 	
 }
@@ -11,7 +11,8 @@ Server::Server()
 Server::Server(IDatabase& database)
 {
 	this->m_database = database;
-}
+	this->m_communicator(&this->m_handlerFactory);
+}	
 
 /*
 This function manages the server running
