@@ -1,5 +1,5 @@
 #include "LoginManager.h"
-
+#include <algorithm>
 /*
 The function will signup a new user to the system -> send it's details to the DB
 input: user's details (username, password, email)
@@ -43,5 +43,14 @@ output: none
 */
 void LoginManager::logout(string username) throw()
 {
-	//TODO: remove user from logged users vector
+	try
+	{
+		vector<LoggedUser>::iterator place = std::find(this->m_loggedUsers.begin(), this->m_loggedUsers.end(), username); //find place of username in vector
+		this->m_loggedUsers.erase(place);
+	}
+	catch (std::exception er)
+	{
+		std::string s = "Can't delete user" + username; //optional
+		throw std::exception(s.c_str());
+	}
 }
