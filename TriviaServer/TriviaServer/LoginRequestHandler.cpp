@@ -67,6 +67,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 }
 
 //is this really the purpose?
+/*
 RequestResult LoginRequestHandler::login(LoginRequest req)
 {
 	LoginManager& man = this->m_handlerFactory->getLoginManager();
@@ -86,3 +87,4 @@ RequestResult LoginRequestHandler::signup(SignupRequest req)
 }
 
 
+*/

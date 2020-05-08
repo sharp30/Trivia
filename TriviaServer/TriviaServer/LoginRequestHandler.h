@@ -13,8 +13,8 @@ public:
 
 protected:
 	RequestHandlerFactory* m_handlerFactory;
-	RequestResult login(LoginRequest req);
-	RequestResult signup(SignupRequest req);
+	//RequestResult login(LoginRequest req);
+	//RequestResult signup(SignupRequest req);
 	///temporaly only--should be in other place.
 	
 	static const int LOGIN_CODE = 20;
