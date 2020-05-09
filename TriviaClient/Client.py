@@ -26,6 +26,7 @@ def main():
         choice = print_menu()
     except Exception as e:
         print(e)
+        sys.exit()
     
     while choice != 0:
         try:
@@ -60,7 +61,7 @@ def print_menu():
     The function will print the menu for the user
     """
     choice = -1
-    while not (int(choice) in MESSAGES.keys() or choice == 0):
+    while not (int(choice) in MESSAGES.keys() or int(choice) == 0):
         print("Enter your choice:")
         print("0. Exit")
         print("1. Signup")
