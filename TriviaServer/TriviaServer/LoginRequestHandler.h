@@ -14,7 +14,6 @@ public:
 	virtual RequestResult handleRequest(RequestInfo request);
 
 protected:
-	RequestHandlerFactory* m_handlerFactory;
 	//RequestResult login(LoginRequest req);
 	//RequestResult signup(SignupRequest req);
 	///temporaly only--should be in other place.

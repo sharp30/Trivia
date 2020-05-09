@@ -119,10 +119,12 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
-			delete client->second;
-			if(reqResult._newHandler != nullptr)
+			if (reqResult._newHandler != nullptr)
+			{
+				std::cout << (reqResult._newHandler == nullptr);
+				delete client->second;
 				client->second = reqResult._newHandler;
-
+			}
 			//send response to cl
 			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
 			send(clientSock, response, reqResult._buffer.size(), 0);//add To conversation utils

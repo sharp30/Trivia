@@ -11,5 +11,4 @@ public:
 	virtual bool isRequestRelevant(RequestInfo);
 	virtual RequestResult handleRequest(RequestInfo);
 protected:
-	RequestHandlerFactory* m_handlerFactory;
 };

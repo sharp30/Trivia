@@ -11,7 +11,7 @@
 //constructor
 LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory* factory) : IRequestHandler(factory)
 {
-	this->m_handlerFactory = factory;
+
 }
 
 /*

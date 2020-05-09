@@ -1,5 +1,6 @@
 #include "LoginManager.h"
 #include <algorithm>
+#include <cassert>
 //------------constructor------------
 LoginManager::LoginManager(IDatabase* database)
 {
@@ -14,6 +15,12 @@ void LoginManager::signup(string username, string password, string email) throw(
 {
 	try
 	{
+		//does the user exist in the database.
+		if (m_database->doesUserExist(username, password))
+		{
+			throw std::exception((username + "is already exists").c_str());
+		}
+
 		this->m_database->addNewUser(username, password, email);
 	}
 	catch (std::exception er)
@@ -32,8 +39,13 @@ void LoginManager::login(string username, string password) throw()
 {
 	try
 	{
-		this->m_database->doesUserExist(username, password);
-		//check if user is not logged yet
+		//Does the user exist in the DataBase
+		if(!this->m_database->doesUserExist(username, password))
+			throw std::exception((username + " doesn't Exist").c_str());
+
+		//Is the user logged already
+		if (std::find(this->m_loggedUsers.begin(), this->m_loggedUsers.end(), username) != this->m_loggedUsers.end()) 
+			throw std::exception((username + " is already logged").c_str());
 		this->m_loggedUsers.push_back(LoggedUser(username));
 	}
 	catch (std::exception er)
@@ -57,6 +69,6 @@ void LoginManager::logout(string username) throw()
 	}
 	catch (std::exception er)
 	{
-                throw er;
+         throw er;
 	}
 }
