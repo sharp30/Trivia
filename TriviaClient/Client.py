@@ -55,19 +55,17 @@ def connect_to_server():
     return sock
 
 
-
 def print_menu():
     """
     The function will print the menu for the user
     """
     choice = -1
-    while int(choice) not in MESSAGES.keys() and choice != 0:
+    while not (int(choice) in MESSAGES.keys() or choice == 0):
         print("Enter your choice:")
         print("0. Exit")
         print("1. Signup")
         print("2. Login")
         choice = input("Enter: ")
-
     return int(choice)
 
 
