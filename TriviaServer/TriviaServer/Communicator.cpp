@@ -4,11 +4,16 @@
 #include <string>
 #include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
+
+
 #include "RequestInfo.h"
 #include "ConversationUtils.h"
+#include "JsonResponsePacketSerializer.h"
+
 // ----------------Constructor ----------------
-Communicator::Communicator()
+Communicator::Communicator(RequestHandlerFactory* factory)
 {
+	this->m_handlerFactory = factory;
 	_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (_serverSocket == INVALID_SOCKET)
 	{
@@ -85,9 +90,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 	while (true) 
 	{
-		//receive data from client
-		//TOOD:recieve utils function + check validation
-
 		try
 		{
 			ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
@@ -114,18 +116,27 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 		delete[] reqContent;
 		reqContent = nullptr;
-		if (client->second->isRequestRelevant(req))
+
+		vector<unsigned char> finalBuffer;
+		if (client->second->isRequestRelevant(req)) 	
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
-			delete client->second;
-			client->second = reqResult._newHandler;
+			if (reqResult._newHandler != nullptr)
+			{
+				delete client->second;
+				client->second = reqResult._newHandler;
+			}
 
-			//send response to cl
-			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
-			send(clientSock, response, reqResult._buffer.size(), 0);//add To conversation utils
+			finalBuffer = reqResult._buffer;
+			//send response to client
 		}
+		else
+		{
+			finalBuffer = ConversationUtils::buildErrorResponse("You cant access this action\n");
+		}
+		ConversationUtils::sendToSocket(clientSock, finalBuffer); //TODO: move away from this scope
 	}
 }
 
@@ -142,31 +153,12 @@ void Communicator::acceptClient()
 		throw std::exception("Can't accept client");
 	}
 	//insert to clients list
-	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket, (IRequestHandler*)new LoginRequestHandler()));
+	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket,(IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler()));
 
 	//call to managing thread
 	std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 	clientThread.detach();
 
-}
-/*
-This function converts from binary to integer value
-For Example:0111 ==> 7
-Input : bin - vector of chars: the value in binary
-Output:The integer value
-*/
-int Communicator::convertBinaryToInt(char* buff,int size)
-{
-	const int COUNTING_BASE = 2; //The binary base ==> 2
-	int val = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		int bit = buff[i];
-		val += pow(2, size - i - 1) * bit;
-	}
-
-	return val;
 }
 
 

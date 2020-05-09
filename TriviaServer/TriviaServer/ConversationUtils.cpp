@@ -1,5 +1,6 @@
 #include "ConversationUtils.h"
-
+#include "JsonResponsePacketSerializer.h"
+#include "ErrorResponse.h"
 /*
 This function gets input of length bytes from the socket
 Input:sock: The socket with the client
@@ -29,6 +30,19 @@ void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) t
 		throw std::exception(s.c_str());
 	}
 
+}
+
+void ConversationUtils::sendToSocket(SOCKET sock, vector<unsigned char> data) throw()
+{
+	try 
+	{
+		char* response = (char*)&(data.begin()); //from vector<unsigned char> to char *
+		send(sock, response, data.size(), 0);
+	}
+	catch (std::exception er)
+	{
+		throw er;
+	}
 }
 
 /*
@@ -107,5 +121,15 @@ vector<unsigned char> ConversationUtils::castIntToByte(int val, int requiredByte
 	}
 
 	return result;
+}
+/*
+This function creates an Errors response and encocde it.
+Input:errMsg -> the message Error
+Output: The encoded response :vector<unsigned char>
+*/
+vector<unsigned char> ConversationUtils::buildErrorResponse(std::string errorMsg)
+{
+	ErrorResponse er(errorMsg);
+	return JsonResponsePacketSerializer::serializeResponse((Response*)&er);
 }
 

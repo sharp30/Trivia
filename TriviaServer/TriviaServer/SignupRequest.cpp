@@ -24,7 +24,7 @@ Output:The password:string
 */
 string SignupRequest::getPassword()
 {
-	return this->_email;
+	return this->_password;
 }
 
 /*

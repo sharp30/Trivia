@@ -1,8 +1,9 @@
 #include "Server.h"
-
+#include "SqliteDataBase.h"
 int main()
 {
-	Server server;
+	SqliteDataBase data;
+	Server server((IDatabase&)data);
 
 	server.run();
 
