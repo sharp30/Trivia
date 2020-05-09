@@ -18,7 +18,7 @@ public:
 	static vector<unsigned char> castJsonToBin(json j);
 	static int castByteToInt(vector<unsigned char> buff);
 	static vector<unsigned char> castIntToByte(int val, int requiredBytes) throw();
-	
+	static vector<unsigned char> buildErrorResponse(std::string errorMsg);
 private:
     ConversationUtils() = default;  // beacuse it's a static class
 	static const int BITS_IN_BYTE = 8;

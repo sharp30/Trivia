@@ -90,8 +90,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 	while (true) 
 	{
-		//receive data from client
-		//TOOD:recieve utils function + check validation
 		try
 		{
 			ConversationUtils::receiveFromSocket(clientSock, id, ID_LENGTH);
@@ -119,23 +117,26 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		delete[] reqContent;
 		reqContent = nullptr;
 
-		if (client->second->isRequestRelevant(req)) //TODO:send Error Response otherwise.		
+		vector<unsigned char> finalBuffer;
+		if (client->second->isRequestRelevant(req)) 	
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
 			if (reqResult._newHandler != nullptr)
 			{
-				std::cout << (reqResult._newHandler == nullptr);
 				delete client->second;
 				client->second = reqResult._newHandler;
 			}
 
+			finalBuffer = reqResult._buffer;
 			//send response to client
-			ConversationUtils::sendToSocket(clientSock, reqResult._buffer); //TODO: move away from this scope
 		}
-		//need to be here
-		//TODO:add Error Response
+		else
+		{
+			finalBuffer = ConversationUtils::buildErrorResponse("You cant access this action\n");
+		}
+		ConversationUtils::sendToSocket(clientSock, finalBuffer); //TODO: move away from this scope
 	}
 }
 
