@@ -31,6 +31,19 @@ void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) t
 
 }
 
+void ConversationUtils::sendToSocket(SOCKET sock, vector<unsigned char> data) throw()
+{
+	try 
+	{
+		char* response = (char*)&(data.begin()); //from vector<unsigned char> to char *
+		send(sock, response, data.size(), 0);
+	}
+	catch (std::exception er)
+	{
+		throw er;
+	}
+}
+
 /*
 This function casts bson to json object
 Input:buff -> bson as binary buff

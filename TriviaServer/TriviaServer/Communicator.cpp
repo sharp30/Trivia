@@ -4,8 +4,12 @@
 #include <string>
 #include "LoginRequestHandler.h"
 #pragma comment (lib, "ws2_32.lib")
+
+
 #include "RequestInfo.h"
 #include "ConversationUtils.h"
+#include "JsonResponsePacketSerializer.h"
+
 // ----------------Constructor ----------------
 Communicator::Communicator(RequestHandlerFactory* factory)
 {
@@ -114,6 +118,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 
 		delete[] reqContent;
 		reqContent = nullptr;
+
 		if (client->second->isRequestRelevant(req)) //TODO:send Error Response otherwise.		
 		{
 			RequestResult reqResult = client->second->handleRequest(req);
@@ -125,10 +130,12 @@ void Communicator::handleNewClient(SOCKET clientSock)
 				delete client->second;
 				client->second = reqResult._newHandler;
 			}
-			//send response to cl
-			char* response = (char*)&(*reqResult._buffer.begin());//from vector<unsigned char> to char *
-			send(clientSock, response, reqResult._buffer.size(), 0);//add To conversation utils
+
+			//send response to client
+			ConversationUtils::sendToSocket(clientSock, reqResult._buffer); //TODO: move away from this scope
 		}
+		//need to be here
+		//TODO:add Error Response
 	}
 }
 
