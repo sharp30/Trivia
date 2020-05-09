@@ -26,7 +26,7 @@ def main():
         choice = print_menu()
     except Exception as e:
         print(e)
-    
+        exit()
     while choice != 0:
         try:
             msg = MESSAGES[choice]()
