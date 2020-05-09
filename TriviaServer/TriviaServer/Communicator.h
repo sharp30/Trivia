@@ -7,6 +7,7 @@
 
 #include "IRequestHandler.h"
 #include "WSAInitializer.h"
+#include "RequestHandlerFactory.h"
 
 const int PORT = 2020;
 using std::map;
@@ -14,7 +15,7 @@ using std::map;
 class Communicator
 {
 public:
-	Communicator();
+	Communicator(RequestHandlerFactory* factory);
 	void startHandleRequest();
 protected:
 	void bindAndListen();
@@ -22,10 +23,8 @@ protected:
 	void acceptClient();
 	map<SOCKET, IRequestHandler*> _mClients; 
 	SOCKET _serverSocket; //the listening socket
+	RequestHandlerFactory* m_handlerFactory;
 
 private:
-
-	static int convertBinaryToInt(char* str, int size);
-	static vector<unsigned char> convertDetailsToVector(char* code, char* size, char* content);
 	WSAInitializer _wsa;
 };

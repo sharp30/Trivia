@@ -16,6 +16,7 @@ string LoginRequest::getUsername()
 {
 	return this->_username;
 }
+
 /*
 This function returns the password
 Input:None
