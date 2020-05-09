@@ -1,7 +1,15 @@
+import bson
+
 class Message:
     def __init__(self, code):
         self._msg_code = code
 
+
+    def to_json(self):
+        """
+        definition will be in child's class
+        """
+        pass
 
     def get_code(self):
         return self._msg_code
@@ -10,7 +18,7 @@ class Message:
         """
         The function will calculate the size of the message's content and convert it to bytes object
         """
-        length = bytes(Message.length_to_dec_sequence(len(self.to_json())))
+        return bytes(Message.length_to_dec_sequence(len(self.to_json())))
 
 
     def export_message(self):
@@ -18,7 +26,7 @@ class Message:
         The function will cast this object to a binary sequence of type 'bytes'
         """
         # build the binary message: [code~1byte~][content size~4bytes~][content~xbytes~]
-        return bytes([super().get_code()]) + self.message_content_size_bytes() + bytes(self.to_json(), 'utf-8')
+        return bytes([self.get_code()]) + self.message_content_size() + self.to_json()
 
     @staticmethod
     def length_to_dec_sequence(length): 
