@@ -1,5 +1,4 @@
 #pragma once
-//empty interface for now
 #include "RequestInfo.h"
 #include "RequestResult.h"
 

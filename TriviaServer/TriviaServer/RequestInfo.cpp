@@ -2,11 +2,12 @@
 
 
 //------------------constructor--------------------
-RequestInfo::RequestInfo(int id, time_t time, vector<unsigned char> buff)
+
+RequestInfo::RequestInfo(int id, std::vector<unsigned char> buff, int size)
 {
 	this->_id = id;
-	this->_receivalTime = time;
-	this->_buffer = buff;
+	this->_receivalTime =std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());// the time now
+	this->_buffer = ConversationUtils::castBinToJson(buff); // from char* to vector<unsigned char>
 }
 
 /*
@@ -36,7 +37,7 @@ This function returns the buffer
 Input:None
 Output:the data part of the request
 */
-vector<unsigned char> RequestInfo::getBuffer()
+json RequestInfo::getBuffer()
 {
 	return this->_buffer;
 }
