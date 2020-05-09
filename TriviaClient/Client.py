@@ -26,8 +26,12 @@ def main():
         choice = print_menu()
     except Exception as e:
         print(e)
+<<<<<<< HEAD
         sys.exit()
     
+=======
+        exit()
+>>>>>>> d8369f42c364da78313b4d4dff8f4e5b0ece5ac4
     while choice != 0:
         try:
             msg = MESSAGES[choice]()
