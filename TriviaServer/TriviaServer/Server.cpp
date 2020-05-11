@@ -6,11 +6,7 @@
 Server* Server::s_m_server = nullptr;
 
 //-----------constructor--------------
-Server::Server(IDatabase& database) :m_handlerFactory(&database),m_communicator(&this->m_handlerFactory),m_database(database)
-{
-	//this->m_database = database;
-	//this->m_communicator(&this->m_handlerFactory);
-}	
+Server::Server(IDatabase& database) :m_handlerFactory(&database),m_communicator(&this->m_handlerFactory),m_database(database){}	
 
 Server* Server::CreateServer(IDatabase& database)
 {
@@ -48,5 +44,4 @@ Server::~Server()
 	{
 		delete s_m_server;
 	}
-
 }

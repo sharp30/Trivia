@@ -134,9 +134,16 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		}
 		else
 		{
-			finalBuffer = ConversationUtils::buildErrorResponse("You cant access this action\n");
+			finalBuffer = ConversationUtils::buildErrorResponse("You can't access this action\n");
 		}
-		ConversationUtils::sendToSocket(clientSock, finalBuffer); //TODO: move away from this scope
+		try
+		{
+			ConversationUtils::sendToSocket(clientSock, finalBuffer); //TODO: move away from this scope
+		}
+		catch (std::exception er)
+		{
+			std::cout << "Fuck" << std::endl;
+		}
 	}
 }
 

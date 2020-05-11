@@ -23,7 +23,7 @@ void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) t
 		throw std::exception(s.c_str());
 	}
 
-	if (res == INVALID_SOCKET)
+	if (res == INVALID_SOCKET || length != res)
 	{
 		std::string s = "Error while recieving from socket: ";
 		s += std::to_string(sock);
@@ -34,14 +34,22 @@ void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) t
 
 void ConversationUtils::sendToSocket(SOCKET sock, vector<unsigned char> data) throw()
 {
+	int res = 0;
 	try 
 	{
 		char* response = (char*)&(data.begin()); //from vector<unsigned char> to char *
-		send(sock, response, data.size(), 0);
+		res = send(sock, response, data.size(), 0);
 	}
 	catch (std::exception er)
 	{
 		throw er;
+	}
+
+	if (res == SOCKET_ERROR || data.size() != res)
+	{
+		std::string s = "Error while recieving from socket: ";
+		s += std::to_string(sock);
+		throw std::exception(s.c_str());
 	}
 }
 

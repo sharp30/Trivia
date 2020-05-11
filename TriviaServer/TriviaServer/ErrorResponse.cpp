@@ -4,7 +4,7 @@
 ErrorResponse::ErrorResponse(string errMessage)
 {
 	this->errorMessage = errMessage;
-	this->messageCode = 301;
+	this->messageCode = MSG_CODE;
 }
 
 /*

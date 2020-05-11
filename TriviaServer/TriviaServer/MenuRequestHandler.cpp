@@ -4,9 +4,9 @@ MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory) :IRequest
 {
 }
 //Empty for now
-bool MenuRequestHandler::isRequestRelevant(RequestInfo)
+bool MenuRequestHandler::isRequestRelevant(RequestInfo info)
 {
-	return true;
+	return info.getId() == MSG_CODE;
 }
 
 RequestResult MenuRequestHandler::handleRequest(RequestInfo)

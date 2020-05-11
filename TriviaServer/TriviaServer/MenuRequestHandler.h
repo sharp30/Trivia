@@ -11,4 +11,5 @@ public:
 	virtual bool isRequestRelevant(RequestInfo);
 	virtual RequestResult handleRequest(RequestInfo);
 protected:
+	static const int MSG_CODE = 15;
 };
