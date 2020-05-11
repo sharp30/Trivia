@@ -6,11 +6,13 @@
 Server* Server::s_m_server = nullptr;
 
 //-----------constructor--------------
-Server::Server(IDatabase& database) :m_handlerFactory(&database),m_communicator(&this->m_handlerFactory),m_database(database){}	
+Server::Server(IDatabase& database) : m_handlerFactory(&database),
+m_communicator(*Communicator::CreateCommunicator(&this->m_handlerFactory)),
+m_database(database){}	
 
 Server* Server::CreateServer(IDatabase& database)
 {
-	if (s_m_server == 0) // check whether a server already exists
+	if (s_m_server == nullptr) // check whether a server already exists
 	{
 		s_m_server = new Server(database);
 	}

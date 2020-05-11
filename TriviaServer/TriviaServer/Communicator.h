@@ -15,8 +15,10 @@ using std::map;
 class Communicator
 {
 public:
-	Communicator(RequestHandlerFactory* factory);
+	static Communicator* CreateCommunicator(RequestHandlerFactory* factory);
 	void startHandleRequest();
+	~Communicator();
+
 protected:
 	void bindAndListen();
 	void handleNewClient(SOCKET clientSock);
@@ -26,5 +28,8 @@ protected:
 	RequestHandlerFactory* m_handlerFactory;
 
 private:
+	Communicator(RequestHandlerFactory* factory);
+	static Communicator* s_m_communicator;
+
 	WSAInitializer _wsa;
 };

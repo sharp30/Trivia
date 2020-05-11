@@ -93,6 +93,4 @@ RequestResult LoginRequestHandler::signup(SignupRequest req)
 		RequestResult res = { JsonResponsePacketSerializer::serializeResponse((Response*)&rep),nullptr };
 		return res;
 }
-
-
 */
