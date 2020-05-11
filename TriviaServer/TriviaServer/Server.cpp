@@ -2,16 +2,25 @@
 #include <thread>
 #include <string>
 #include <iostream>
-/*Server::Server()
-{
-	
-}*/
+
+Server* Server::s_m_server = nullptr;
+
 //-----------constructor--------------
 Server::Server(IDatabase& database) :m_handlerFactory(&database),m_communicator(&this->m_handlerFactory),m_database(database)
 {
 	//this->m_database = database;
 	//this->m_communicator(&this->m_handlerFactory);
 }	
+
+Server* Server::CreateServer(IDatabase& database)
+{
+	if (s_m_server == 0) // check whether a server already exists
+	{
+		s_m_server = new Server(database);
+	}
+
+	return s_m_server;
+}
 
 /*
 This function manages the server running
@@ -30,5 +39,14 @@ void Server::run()
 		std::cin >> inp;
 	}
 	std::cout << "finished";
+
+}
+
+Server::~Server()
+{
+	if (s_m_server != nullptr)
+	{
+		delete s_m_server;
+	}
 
 }

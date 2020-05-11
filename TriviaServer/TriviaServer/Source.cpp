@@ -3,9 +3,10 @@
 int main()
 {
 	SqliteDataBase data;
-	Server server((IDatabase&)data);
 
-	server.run();
+	Server* server = Server::CreateServer((IDatabase&)data);
+
+	server->run();
 
 	return 0;
 }
