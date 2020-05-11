@@ -10,6 +10,8 @@
 #include "ConversationUtils.h"
 #include "JsonResponsePacketSerializer.h"
 
+Communicator* Communicator::s_m_communicator = nullptr;
+
 // ----------------Constructor ----------------
 Communicator::Communicator(RequestHandlerFactory* factory)
 {
@@ -20,6 +22,20 @@ Communicator::Communicator(RequestHandlerFactory* factory)
 		throw std::exception("Can't create Socket");
 	}
 }
+
+/*
+
+*/
+Communicator* Communicator::CreateCommunicator(RequestHandlerFactory* factory)
+{
+	if (s_m_communicator == nullptr) // check whether a server already exists
+	{
+		s_m_communicator = new Communicator(factory);
+	}
+
+	return s_m_communicator;
+}
+
 /*
 This function handles the communication with the clietns
 Input:None
@@ -34,6 +50,18 @@ void Communicator::startHandleRequest()
 		acceptClient();
 	}
 }
+
+/*
+
+*/
+Communicator::~Communicator()
+{
+	if (s_m_communicator != nullptr)
+	{
+		delete s_m_communicator;
+	}
+}
+
 /*
 This function binds the server socket to the requested port, and start listening
 Input:None
