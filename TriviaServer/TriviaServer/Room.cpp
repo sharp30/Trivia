@@ -48,11 +48,17 @@ bool Room::isUserExist(LoggedUser userToSearch)
 {
 	return std::find(this->_users.begin(), this->_users.end(), userToSearch) != this->_users.end();
 }
+
+
+void Room::getAllUsers()
+{
+	//empty for now
+}
+
+
+
 //getters
 bool Room::isActive()
 {
 	return this->_isActive;
 }
-
-
-

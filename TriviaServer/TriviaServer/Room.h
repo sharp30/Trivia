@@ -21,7 +21,6 @@ public:
 	void getAllUsers();//need to think on return type
 
 protected:
-
 	vector<LoggedUser> _users;
 	//room's data
 	int _id;
