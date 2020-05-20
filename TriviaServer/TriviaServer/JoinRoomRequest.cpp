@@ -1,9 +1,9 @@
-#include "GetPlayersInRoomRequest.h"
+#include "JoinRoomRequest.h"
 
 /*
 ctor of this class- cast json to object
 */
-GetPlayersInRoomRequest::GetPlayersInRoomRequest(nlohmann::json j)
+JoinRoomRequest::JoinRoomRequest(nlohmann::json j)
 {
 	this->roomId = j.at("roomId").get<unsigned int>();
 }
@@ -14,7 +14,7 @@ This function returns the room id
 Input:None
 Output: The room id
 */
-unsigned int GetPlayersInRoomRequest::getRoomId()
+unsigned int JoinRoomRequest::getRoomId()
 {
 	return this->roomId;
 }
