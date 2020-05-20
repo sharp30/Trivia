@@ -1,6 +1,6 @@
 #include "RoomManager.h"
 #include <cstdlib>
-
+//----------------constructor------------
 RoomManager::RoomManager()
 {
 	this->_freeId.insert(0); //first value
