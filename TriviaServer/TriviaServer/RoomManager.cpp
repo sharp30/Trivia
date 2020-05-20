@@ -1,6 +1,11 @@
 #include "RoomManager.h"
 #include <cstdlib>
 
+RoomManager::RoomManager()
+{
+	this->_freeId.insert(0); //first value
+}
+
 /*
 This function creates a new room 
 Input: creator - the creator of the room :LoggedUser
@@ -68,7 +73,8 @@ Output:The id for the room
 int RoomManager::findNextRoomId()
 {
 	int place = *(this->_freeId.begin());
-	
+	this->_freeId.erase(this->_freeId.begin()); //delete value
+
 	if (this->_freeId.empty()) // if it was taken from end
 		this->_freeId.insert(place + 1);
 

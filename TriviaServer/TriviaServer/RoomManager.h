@@ -2,7 +2,6 @@
 
 #include "LoggedUser.h"
 #include "Room.h"
-#include "Range.h"
 
 #include <map>
 #include <set>
@@ -14,7 +13,7 @@ class RoomManager
 {
 public:
 
-	RoomManager() = default;
+	RoomManager();
 
 	void createRoom(LoggedUser creator) throw();
 	void deleteRoom(int roomId) throw();
