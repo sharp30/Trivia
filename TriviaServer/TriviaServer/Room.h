@@ -12,10 +12,10 @@ class Room
 {
 public:
 
-	Room();
+	Room(int roomId, LoggedUser creator);//for now
 
-	void addUser(LoggedUser newToAdd);
-	void removeUser(LoggedUser userToRemove);
+	void addUser(LoggedUser userToAdd) throw();
+	void removeUser(LoggedUser userToRemove) throw();
 	bool isUserExist(LoggedUser userToSearch);
 	bool isActive();
 	void getAllUsers();//need to think on return type
