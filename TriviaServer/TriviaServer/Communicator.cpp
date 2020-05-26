@@ -166,11 +166,11 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		}
 		try
 		{
-			ConversationUtils::sendToSocket(clientSock, finalBuffer); //TODO: move away from this scope
+			ConversationUtils::sendToSocket(clientSock, finalBuffer);
 		}
 		catch (std::exception er)
 		{
-			std::cout << "Fuck" << std::endl;
+			std::cout << er.what() << std::endl; 
 		}
 	}
 }
