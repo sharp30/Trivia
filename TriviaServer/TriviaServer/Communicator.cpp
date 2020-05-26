@@ -170,7 +170,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		}
 		catch (std::exception er)
 		{
-			std::cout << "Fuck" << std::endl; // remove this line
+			std::cout << er.what() << std::endl; 
 		}
 	}
 }
