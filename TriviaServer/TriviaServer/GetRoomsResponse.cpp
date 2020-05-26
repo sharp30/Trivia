@@ -14,5 +14,23 @@ output: json format of this object
 */
 json GetRoomsResponse::castToJson() const
 {
-	return json{ {"status", this->status} };
+	string roomsStr = castRoomsToString();
+	return json{ {"status", this->status}, {"Rooms", castRoomsToString()} };
+}
+
+string GetRoomsResponse::castRoomsToString() const
+{
+	string str = "";
+
+	vector<Room> temp;
+
+	std::copy(this->rooms.begin(), this->rooms.end(), temp);
+
+	for (vector<Room>::iterator it = temp.begin(); it != this->rooms.end(); it++)
+	{
+		str += it->getName();
+		str += ", ";
+	}
+
+	return str.substr(0, str.length() - 2);
 }
