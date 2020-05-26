@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Response.h"
-#include <vector>
-class LoginResponse : Response
+
+class CreateRoomResponse : Response
 {
 public:
-	LoginResponse(int _status);
+	CreateRoomResponse(int _status);
 	virtual json castToJson() const;
-protected:
 
+protected:
 	unsigned int status;
 };
