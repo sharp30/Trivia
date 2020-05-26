@@ -1,6 +1,10 @@
 #pragma once
 
 #include "Response.h"
+#include "Room.h"
+#include <vector>
+
+using std::vector;
 
 class GetRoomsResponse : Response
 {
@@ -10,4 +14,5 @@ public:
 
 protected:
 	unsigned int status;
+	vector<Room> rooms;
 };
