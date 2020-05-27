@@ -47,6 +47,23 @@ bool SqliteDataBase::doesUserExist(string username, string password)
 	return rValue;
 }
 
+//returns id of user - //TODO
+int SqliteDataBase::getUserID(string username)
+{
+	string sqlStatement = "SELECT ID FROM USERS WHERE USERNAME = \"" + username + "\";";
+	int id = 0;
+	try
+	{
+		executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &id);
+	}
+	catch(std::exception er)
+	{
+		throw er;
+	}
+
+	return id;
+}
+
 
 /*
 The funtion will add a new user to the users database
@@ -58,7 +75,6 @@ void SqliteDataBase::addNewUser(string username, string password, string email)
 	//insert user to Users
 	std::string sqlStatement = "INSERT INTO Users (USERNAME, PASSWORD, EMAIL) "
 		"VALUES (\"" + username + "\", \"" + password + "\", \"" + email + "\");";
-
 	try
 	{
 		executeCommand(sqlStatement.c_str());
@@ -67,6 +83,28 @@ void SqliteDataBase::addNewUser(string username, string password, string email)
 	{
 		throw er;
 	}
+}
+/*
+This function returns the total amount of answers of a specific user
+Input:The name of the user : string
+Output:The amount : int
+*/
+int SqliteDataBase::getNumOfTotalAnswers(string username)
+{
+	std::string sqlStatment = "Select Count(Game_Id) From Players_Answers Where User_Id =" + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue, &num);
+	return amount;
+}
+
+//TODO - documentation
+int SqliteDataBase::getNumOfPlayerGames(string username)
+{
+	string sqlStatement = "SELECT COUNT(DISTINCT Game_Id) FROM Players_Answers WHERE User_Id = " + std::to_string(getUserID(username)) + ";";
+	int amount = 0;
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
 }
 
 /*
@@ -114,6 +152,18 @@ int SqliteDataBase::callbackCheckExistence(void* data, int argc, char** argv, ch
 {
 	//if this function was called it means that there are 1 or more records
 	*(bool*)data = true;
+	return 0;
+}
+
+/*
+This function inserts the result from the sql statement to variable in data
+Input:pointer to int, number of fields, strings with the data, strings with fields names
+Output:0 if succeededs
+*/
+int SqliteDataBase::callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName)
+{
+	*(int*)data = std::stoi(argv[0]);
+	//maybe add some checking here
 	return 0;
 }
 
