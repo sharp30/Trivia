@@ -84,6 +84,25 @@ void SqliteDataBase::addNewUser(string username, string password, string email)
 		throw er;
 	}
 }
+//TODO -DOCUMENTATION
+int SqliteDataBase::getPlayerAverageAnswerTime(string username)
+{
+	std::string sqlStatement= "SELECT AVG(Answer_Time) FROM Players_Answers WHERE User_Id = " + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+
+}
+//TODO -DOCUMENTATION
+int SqliteDataBase::getNumOfCorrectAnswers(string username)
+{
+	std::string sqlStatement = "SELECT COUNT(ID) FROM Players_Answers WHERE Is_Correct = 1  AND  User_Id =" + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+}
 /*
 This function returns the total amount of answers of a specific user
 Input:The name of the user : string
@@ -91,10 +110,10 @@ Output:The amount : int
 */
 int SqliteDataBase::getNumOfTotalAnswers(string username)
 {
-	std::string sqlStatment = "Select Count(Game_Id) From Players_Answers Where User_Id =" + std::to_string(this->getUserID(username)) + ";";
+	std::string sqlStatment = "SELECT COUNT(Game_Id) FROM Players_Answers WHERE User_Id =" + std::to_string(this->getUserID(username)) + ";";
 	int amount = 0;
 
-	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue, &num);
+	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue, &amount);
 	return amount;
 }
 
