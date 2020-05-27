@@ -55,7 +55,10 @@ void Room::getAllUsers()
 	//empty for now
 }
 
-
+string Room::getName() const
+{
+	return this->_name;
+}
 
 //getters
 bool Room::isActive()

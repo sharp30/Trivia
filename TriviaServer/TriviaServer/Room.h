@@ -19,6 +19,7 @@ public:
 	bool isUserExist(LoggedUser userToSearch);
 	bool isActive();
 	void getAllUsers();//need to think on return type
+	string getName() const;
 
 protected:
 	vector<LoggedUser> _users;

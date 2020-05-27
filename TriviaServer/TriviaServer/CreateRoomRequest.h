@@ -3,7 +3,6 @@
 #include <string>
 #include "json.hpp"
 
-
 using std::string;
 
 class CreateRoomRequest

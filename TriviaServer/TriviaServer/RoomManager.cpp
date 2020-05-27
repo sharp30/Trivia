@@ -27,7 +27,7 @@ void RoomManager::deleteRoom(int roomId) throw()
 {
 	if (!this->doesRoomExist(roomId))
 		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
-	this->_rooms.erase(std::find(this->_rooms.begin(), this->_rooms.end(), roomId));
+	this->_rooms.erase(this->_rooms.find(roomId));
 	this->_freeId.insert(roomId);
 }
 

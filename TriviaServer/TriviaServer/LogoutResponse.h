@@ -1,12 +1,11 @@
 #pragma once
 
 #include "Response.h"
-#include <vector>
 
-class LoginResponse : Response
+class LogoutResponse : Response
 {
 public:
-	LoginResponse(int _status);
+	LogoutResponse(int _status);
 	virtual json castToJson() const;
 protected:
 
