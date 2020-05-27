@@ -11,9 +11,14 @@ class SqliteDataBase : IDatabase
 public:
 	SqliteDataBase() throw();
 	~SqliteDataBase();
+	
 	virtual bool doesUserExist(string username, string password) throw();
 	virtual void addNewUser(string username, string password, string email) throw();
-
+	//statistics
+	virtual int getPlayerAverageAnswerTime(string username);//game?
+	virtual int getNumOfCorrectAnswers(string username);
+	virtual int getNumOfTotalAnswers(string username); //game?
+	virtual int getNumOfPlayerGames(string username);
 private:
 	const string DB_NAME = "OurDB.sqlite"; 
 	sqlite3* _dataBase;

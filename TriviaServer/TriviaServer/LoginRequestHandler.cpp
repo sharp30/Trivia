@@ -25,6 +25,7 @@ bool LoginRequestHandler::isRequestRelevant(RequestInfo request)
 }
 
 
+
 /*
 This function handles a request and returns the result of the request
 Input: request: The request that was sent:RequestInfo
