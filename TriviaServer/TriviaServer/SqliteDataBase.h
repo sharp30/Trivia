@@ -3,8 +3,10 @@
 #include "sqlite3.h"
 #include <io.h>
 #include <exception>
+#include <vector>
 
 using std::exception;
+using std::vector;
 
 class SqliteDataBase : IDatabase
 {
@@ -16,10 +18,13 @@ public:
 	virtual void addNewUser(string username, string password, string email) throw();
 	
 	//statistics
-	virtual int getPlayerAverageAnswerTime(string username);//game?
+	virtual int getPlayerAverageAnswerTime(string username);//game? --- shouldn't it return a float?
 	virtual int getNumOfCorrectAnswers(string username);
 	virtual int getNumOfTotalAnswers(string username); //game?
 	virtual int getNumOfPlayerGames(string username);
+	virtual vector<string> getBestPlayers();
+
+
 private:
 	const string DB_NAME = "OurDB.sqlite"; 
 	sqlite3* _dataBase;

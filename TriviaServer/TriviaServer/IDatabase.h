@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
 
 using std::string;
+using std::vector;
 
 class IDatabase
 {
@@ -14,4 +16,5 @@ public:
 	virtual int getNumOfCorrectAnswers(string username) = 0;
 	virtual int getNumOfTotalAnswers(string username) = 0; //game?
 	virtual int getNumOfPlayerGames(string username) = 0;
+	virtual vector<string> getBestPlayers() = 0;
 };

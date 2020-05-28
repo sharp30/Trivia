@@ -127,6 +127,18 @@ int SqliteDataBase::getNumOfPlayerGames(string username)
 }
 
 /*
+The function will return the names of the 5 best players according to their points in the following format:
+			vector: {"playername:points","playername:points","playername:points"}
+input: none
+output: vector of details as described below
+*/
+vector<string> SqliteDataBase::getBestPlayers()
+{
+	//TODO: decide in which way the best players will be chosen and choose them
+	return vector<string>();
+}
+
+/*
 The function will get sql statement and execute it on the db of the class
 input: sql statement
 output: true or false if everything went fine
