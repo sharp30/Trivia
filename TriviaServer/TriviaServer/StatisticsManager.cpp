@@ -27,3 +27,14 @@ vector<string> StatisticsManager::getStatistics(string username) throw()
 
 	return stats;
 }
+
+/*
+The function will return the names of the 5 best players according to their points in the following format:
+			vector: {"playername:points","playername:points","playername:points"}
+input: none
+output: vector of details as described below
+*/
+vector<string> StatisticsManager::getBestPlayers(string username) throw()
+{
+	return this->m_database->getBestPlayers();
+}

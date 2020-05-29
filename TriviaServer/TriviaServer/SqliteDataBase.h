@@ -4,6 +4,7 @@
 #include <io.h>
 #include <exception>
 #include <vector>
+#include <algorithm>
 
 using std::exception;
 using std::vector;
@@ -16,13 +17,15 @@ public:
 	
 	virtual bool doesUserExist(string username, string password) throw();
 	virtual void addNewUser(string username, string password, string email) throw();
-	
+	virtual void addPlayerToBestPlayers(string username) throw();
+
 	//statistics
 	virtual int getPlayerAverageAnswerTime(string username);//game? --- shouldn't it return a float?
 	virtual int getNumOfCorrectAnswers(string username);
 	virtual int getNumOfTotalAnswers(string username); //game?
 	virtual int getNumOfPlayerGames(string username);
 	virtual vector<string> getBestPlayers();
+	virtual int calcPoints(string username);
 
 
 private:
@@ -33,4 +36,7 @@ private:
 	void executeCommand(const char* statement, int (*callback)(void*, int, char**, char**), void* arg) throw();
 	static int callbackCheckExistence(void* data, int argc, char** argv, char** azColName);
 	static int callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName);
+	static int callbackGetBestPlayers(void* data, int argc, char** argv, char** azColName);
+
+	void cleanBestPlayersTable();
 };
