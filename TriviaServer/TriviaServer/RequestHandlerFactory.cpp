@@ -40,3 +40,21 @@ LoginManager& RequestHandlerFactory::getLoginManager()
 {
 	return this->m_loginManger;
 }
+/*
+This function returns reference to the statistics Manager
+Input:None
+Output:reference to the login manager
+*/
+StatisticsManager& RequestHandlerFactory::getStatisticsManager()
+{
+	return this->m_statsManager;
+}
+/*
+This function returns reference to the Room Manager
+Input:None
+Output:reference to the login manager
+*/
+RoomManager& RequestHandlerFactory::getRoomManager()
+{
+	return this->m_roomManager;
+}

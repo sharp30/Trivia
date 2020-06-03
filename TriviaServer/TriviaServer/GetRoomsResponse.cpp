@@ -1,9 +1,10 @@
 #include "GetRoomsResponse.h"
 
 
-GetRoomsResponse::GetRoomsResponse(int _status)
+GetRoomsResponse::GetRoomsResponse(int status,vector<Room> rooms)
 {
-	this->status = _status;
+	this->_rooms = rooms;
+	this->_status = _status;
 	this->messageCode = 43;
 }
 
@@ -15,7 +16,7 @@ output: json format of this object
 json GetRoomsResponse::castToJson() const
 {
 	string roomsStr = castRoomsToString();
-	return json{ {"status", this->status}, {"Rooms", castRoomsToString()} };
+	return json{ {"status", this->_status}, {"Rooms", castRoomsToString()} };
 }
 
 
@@ -23,7 +24,7 @@ string GetRoomsResponse::castRoomsToString() const
 {
 	string str = "";
 
-	vector<Room> temp = this->rooms;
+	vector<Room> temp = this->_rooms;
 
 	for (vector<Room>::iterator it = temp.begin(); it != temp.end(); it++)
 	{

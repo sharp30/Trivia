@@ -7,7 +7,7 @@
 
 
 
-//constructor
+//constructoràá
 LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory* factory) : IRequestHandler(factory)
 {
 
@@ -69,7 +69,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	}
 
 	if(actionResult)
-		res._newHandler =(IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(); //it's doing someting!!!
+		res._newHandler =(IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(); //it's doing something!!!
 	
 	return res;
 }

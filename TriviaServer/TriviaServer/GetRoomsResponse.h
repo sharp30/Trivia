@@ -12,11 +12,11 @@ using std::string;
 class GetRoomsResponse : Response
 {
 public:
-	GetRoomsResponse(int _status);
+	GetRoomsResponse(int _status, vector<Room> rooms);
 	virtual json castToJson() const;
 	string castRoomsToString() const;
 
 protected:
-	unsigned int status;
-	vector<Room> rooms;
+	unsigned int _status;
+	vector<Room> _rooms;
 };
