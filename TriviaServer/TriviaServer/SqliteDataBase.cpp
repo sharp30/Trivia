@@ -47,6 +47,27 @@ bool SqliteDataBase::doesUserExist(string username, string password)
 	return rValue;
 }
 
+/*
+The function will find the ID of a user by his username
+input: user's name
+output: the ID of the user
+*/
+int SqliteDataBase::getUserID(string username)
+{
+	string sqlStatement = "SELECT ID FROM USERS WHERE USERNAME = \"" + username + "\";";
+	int id = 0;
+	try
+	{
+		executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &id);
+	}
+	catch(std::exception er)
+	{
+		throw er;
+	}
+
+	return id;
+}
+
 
 /*
 The funtion will add a new user to the users database
@@ -58,7 +79,6 @@ void SqliteDataBase::addNewUser(string username, string password, string email)
 	//insert user to Users
 	std::string sqlStatement = "INSERT INTO Users (USERNAME, PASSWORD, EMAIL) "
 		"VALUES (\"" + username + "\", \"" + password + "\", \"" + email + "\");";
-
 	try
 	{
 		executeCommand(sqlStatement.c_str());
@@ -67,6 +87,106 @@ void SqliteDataBase::addNewUser(string username, string password, string email)
 	{
 		throw er;
 	}
+}
+
+/*
+the function will calculate the points of a user and add him to the best players table if needed
+--NOTE: this function should be called for each user after a game is finished!!--
+input: player's username
+output: none
+*/
+void SqliteDataBase::addPlayerToBestPlayers(string username) throw()
+{
+	vector<string> best = getBestPlayers();
+	bool isOneOfTheBest = true;
+	std::reverse(best.begin(), best.end());
+	int points = calcPoints(username);
+
+	if (stoi(best.begin()->substr(best.begin()->rfind(':') + 1)) > points)
+		throw std::exception("player is not one of the best players");
+
+	//insert user to Users
+	std::string sqlStatement = "INSERT INTO Best_Players (Player_Name, Points) "
+		"VALUES (\"" + username + "\", " + std::to_string(points) + ");";
+	
+	executeCommand(sqlStatement.c_str());
+	cleanBestPlayersTable();
+}
+
+//TODO -DOCUMENTATION
+int SqliteDataBase::getPlayerAverageAnswerTime(string username)
+{
+	std::string sqlStatement= "SELECT AVG(Answer_Time) FROM Players_Answers WHERE User_Id = " + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+
+}
+//TODO -DOCUMENTATION
+int SqliteDataBase::getNumOfCorrectAnswers(string username)
+{
+	std::string sqlStatement = "SELECT COUNT(ID) FROM Players_Answers WHERE Is_Correct = 1  AND  User_Id =" + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+}
+/*
+This function returns the total amount of answers of a specific user
+Input:The name of the user : string
+Output:The amount : int
+*/
+int SqliteDataBase::getNumOfTotalAnswers(string username)
+{
+	std::string sqlStatment = "SELECT COUNT(Game_Id) FROM Players_Answers WHERE User_Id =" + std::to_string(this->getUserID(username)) + ";";
+	int amount = 0;
+
+	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+}
+
+//TODO - documentation
+int SqliteDataBase::getNumOfPlayerGames(string username)
+{
+	string sqlStatement = "SELECT COUNT(DISTINCT Game_Id) FROM Players_Answers WHERE User_Id = " + std::to_string(getUserID(username)) + ";";
+	int amount = 0;
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	return amount;
+}
+
+/*
+The function will return the names of the 5 best players according to their points in the following format:
+			vector: {"playername:points","playername:points","playername:points"}
+input: none
+output: vector of details as described below
+*/
+vector<string> SqliteDataBase::getBestPlayers()
+{
+	string sqlStatement = "SELECT * FROM Best_Players ORDER BY Points DESC LIMIT 5;";
+	vector<string> result;
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &result);
+	
+	return result;
+}
+
+/*
+The function will calculate the general score of a user - each right answer equals 1 point
+input: a user's username
+output: user's score
+*/
+int SqliteDataBase::calcPoints(string username)
+{
+	//TODO: in the future, change the way of score calculating
+	int points = 0;
+	int userId = getUserID(username);
+
+	string sqlStatement = "SELECT COUNT(DISTINCT Id) FROM Players_Answers WHERE User_Id = " + std::to_string(userId) + " "
+		"AND Is_Correct = 1;";
+
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &points);
+	return points;
 }
 
 /*
@@ -117,3 +237,46 @@ int SqliteDataBase::callbackCheckExistence(void* data, int argc, char** argv, ch
 	return 0;
 }
 
+/*
+This function inserts the result from the sql statement to variable in data
+Input:pointer to int, number of fields, strings with the data, strings with fields names
+Output:0 if succeededs
+*/
+int SqliteDataBase::callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName)
+{
+	*(int*)data = std::stoi(argv[0]);
+	//maybe add some checking here
+	return 0;
+}
+
+/*
+This function inserts the result from the sql statement to variable in data
+Input:pointer to vector of string, number of fields, strings with the data, strings with fields names
+Output: 0 if succeededs
+*/
+int SqliteDataBase::callbackGetBestPlayers(void* data, int argc, char** argv, char** azColName)
+{
+	string record = argv[0];
+	record += ":";
+	record += argv[1];
+
+	((vector<string>*)data)->push_back(record);
+
+	return 0;
+}
+
+/*
+The function will make sure that the best players table holds 5 records only!
+input: none
+output: none
+*/
+void SqliteDataBase::cleanBestPlayersTable()
+{
+	string subSqlStatement = "SELECT Points FROM Best_Players "
+		"ORDER BY Points DESC "
+		"LIMIT 1 OFFSET 4"; // find the minimum score required to stay in the table
+	
+	string sqlStatement = "DELETE FROM [Best_Players] WHERE Points < (" + subSqlStatement + ");";
+	
+	executeCommand(sqlStatement.c_str());
+}
