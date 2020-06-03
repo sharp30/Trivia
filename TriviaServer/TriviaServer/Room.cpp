@@ -49,10 +49,19 @@ bool Room::isUserExist(LoggedUser userToSearch)
 	return std::find(this->_users.begin(), this->_users.end(), userToSearch) != this->_users.end();
 }
 
-
-void Room::getAllUsers()
+//returns string of all the users in the room
+//for example:ofir, omri, david, moshe
+string Room::getAllUsers()
 {
-	//empty for now
+	string users = "";
+	for (size_t i = 0; i < this->_users.size();i++)
+	{
+		users += this->_users[i].getUsername() + ", ";
+	}
+	if (users.size() > 2)
+		users.substr(0, users.size() - 2);
+	return users;
+
 }
 
 string Room::getName() const

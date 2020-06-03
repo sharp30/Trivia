@@ -1,8 +1,11 @@
 #include "GetPlayersInRoomResponse.h"
 
 
-GetPlayersInRoomResponse::GetPlayersInRoomResponse()
+
+
+GetPlayersInRoomResponse::GetPlayersInRoomResponse(string players)
 {
+	this->_players = players;
 	this->messageCode = 47;
 }
 
@@ -18,15 +21,5 @@ json GetPlayersInRoomResponse::castToJson() const
 
 string GetPlayersInRoomResponse::castPlayersToString() const
 {
-	string str = "";
-
-	vector<string> temp = this->players;
-
-	for (vector<string>::iterator it = temp.begin(); it != temp.end(); ++it)
-	{
-		str += *it;
-		str += ", ";
-	}
-
-	return str.substr(0, str.length() - 2);
+	this->_players;
 }

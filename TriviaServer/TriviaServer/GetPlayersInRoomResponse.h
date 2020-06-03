@@ -8,11 +8,11 @@ using std::vector;
 class GetPlayersInRoomResponse : Response
 {
 public:
-	GetPlayersInRoomResponse();
+	GetPlayersInRoomResponse(string players);
 	virtual json castToJson() const;
 	string castPlayersToString() const;
 
 protected:
-	vector<string> players;
+	string _players;
 
 };

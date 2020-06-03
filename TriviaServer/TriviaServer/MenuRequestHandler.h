@@ -6,7 +6,6 @@
 #include "CreateRoomRequest.h"
 #include "JoinRoomRequest.h"
 #include "GetPlayersInRoomRequest.h"
-
 //class RequestHandlerFactory;
 
 class MenuRequestHandler : IRequestHandler
