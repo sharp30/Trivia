@@ -12,7 +12,8 @@
         <TextBlock Text="Password:" Margin="91,126,536,267" />
         <Button Content="Sign In"
             Width="130"
-            Height="30" Margin="594,101,76,292"/>
+            Height="30" Margin="594,101,76,292"
+            Click="SignInClick"/>
         <Button Content="Sign Up"
             Width="130"
             Height="30" Margin="330,169,332,220"/>
@@ -31,7 +32,7 @@
         <Button Content="Quit"
             Width="130"
             Height="30" Margin="36,368,626,21"/>
-        <TextBox Text="Enter" Margin="208,69,239,319" />
-        <TextBox Text="Enter" Margin="208,121,239,267" />
+        <TextBox Name="TBUsername" Text="Enter" Margin="208,69,239,319" />
+        <TextBox Name="TBPassword" Text="Enter" Margin="208,121,239,267" />
     </Grid>
 </Window>

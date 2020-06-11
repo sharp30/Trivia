@@ -20,9 +20,23 @@ namespace TriviaClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string username;
+        private string password;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            
+        }
+
+        private void SignInClick(object sender, RoutedEventArgs e)
+        {
+            this.username = TBUsername.Text;
+            this.password = TBPassword.Text;
+
+            TBUsername.Text = "yay";
+            TBPassword.Text = "yay";
         }
     }
 }
