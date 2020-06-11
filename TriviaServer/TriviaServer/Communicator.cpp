@@ -149,14 +149,15 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		vector<unsigned char> finalBuffer;
 		if (client->second->isRequestRelevant(req)) 	
 		{
-			connected = req.getId() != LOGOUT;//if logout
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
-			if (reqResult._newHandler != nullptr)//if succeeded
+			if (reqResult._success)//if succeeded
 			{
-				delete client->second;
+				if(reqResult._newHandler)
+					delete client->second;
 				client->second = reqResult._newHandler;
+				connected = req.getId() != LOGOUT;//if logout
 			}
 			finalBuffer = reqResult._buffer;
 			//send response to client
