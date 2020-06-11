@@ -52,13 +52,19 @@ bool RoomManager::doesRoomExist(int roomId)
 {
 	return this->_rooms.find(roomId) != this->_rooms.end();
 }
+void RoomManager::addPlayerToRoom(int roomId, string user)
+{
+	if(!this->doesRoomExist(roomId))
+		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
+	this->_rooms[roomId].addUser(user);
+}
 /*
 This function returns string of all the users in the room
 Input: roomId - the id of the room
 Output: string of all the users in the room
 Throw: If the room doesn't exist
 */
-string RoomManager::getPlayersInRoom(int roomId) throw()
+vector<string> RoomManager::getPlayersInRoom(int roomId) throw()
 {
 	if (!this->doesRoomExist(roomId))
 		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());

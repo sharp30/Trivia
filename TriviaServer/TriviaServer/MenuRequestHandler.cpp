@@ -7,10 +7,11 @@
 #include "CreateRoomResponse.h"
 #include "GetRoomsResponse.h"
 
-//-----------------constructor---------
-MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory) :IRequestHandler(factory)
+//-----------------constructor--------------------
+MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
 {
 }
+
 //Empty for now
 bool MenuRequestHandler::isRequestRelevant(RequestInfo info)
 {
@@ -19,7 +20,6 @@ bool MenuRequestHandler::isRequestRelevant(RequestInfo info)
 
 RequestResult MenuRequestHandler::handleRequest(RequestInfo info)
 {
-
 	return (this->*m_functions.at(info.getId()))(info);
 }
 
@@ -30,21 +30,22 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	RequestResult res;
 	try
 	{
-		(this->m_handlerFactory->getRoomManager()).createRoom(request.getCreatorName());
+		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername());
 	}
 	catch(std::exception e)
 	{
 		actionResult = false;
 	}
+
 	CreateRoomResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	//res._newHandler 
+	if (actionResult)
+		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
 	return res;
 }
 
 RequestResult MenuRequestHandler::getRooms(RequestInfo info)
 {
-	//GetRoomsRequest request(info.getBuffer()); // maybe not needed
 	bool actionResult = true;
 	vector<Room> rooms;
 	RequestResult res;
@@ -58,7 +59,8 @@ RequestResult MenuRequestHandler::getRooms(RequestInfo info)
 	}
 	GetRoomsResponse response((int)actionResult, rooms);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	//res._newHandler =
+	if (actionResult)
+		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
 	return res;
 }
 
@@ -69,24 +71,30 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	RequestResult res;
 	try 
 	{
-		//this->m_handlerFactory->getRoomManager()
+		this->m_handlerFactory->getRoomManager().addPlayerToRoom(req.getRoomId(),this->m_user.getUsername());
 	}
 	catch (std::exception e)
 	{
 		actionResult = false;
 	}
-	return RequestResult();
+
+	JoinRoomResponse response((int)actionResult);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+	return res;
 }
 
 RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 {
 	GetPlayersInRoomRequest req(info.getBuffer());
 	bool actionResult = true;
-	string users = "";
+	vector<string> users;
 	RequestResult res;
 	try
 	{
-		users = this->m_handlerFactory->getRoomManager().getPlayersInRoom();
+		users = this->m_handlerFactory->getRoomManager().getPlayersInRoom(req.getRoomId());
 	}
 	catch (std::exception e)
 	{
@@ -94,6 +102,35 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 	}
 	GetPlayersInRoomResponse response(users);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
 	return res;
 }
 
+RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
+{
+	bool actionResult = true;
+	std::vector<string> data;
+	RequestResult res;
+	try
+	{
+		data = this->m_handlerFactory->getStatisticsManager().getStatistics(m_user.getUsername());
+
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	GetStatisticsResponse response((int)actionResult, data);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+	return res;
+}
+
+RequestResult MenuRequestHandler::logout(RequestInfo info)
+{
+	return RequestResult();
+}

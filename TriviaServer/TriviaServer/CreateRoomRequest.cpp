@@ -5,7 +5,7 @@ ctor of this class- cast json to object
 */
 CreateRoomRequest::CreateRoomRequest(nlohmann::json j)
 {
-	this->creatorName = j.at("creatorName").get<string>();
+	//this->creatorName = j.at("creatorName").get<string>();
 	this->roomName = j.at("roomName").get<string>();
 	this->maxUsers = j.at("maxUsers").get<unsigned int>();
 	this->questionCount = j.at("questionCount").get<unsigned int>();
@@ -21,15 +21,18 @@ string CreateRoomRequest::getRoomName()
 {
 	return this->roomName;
 }
+
 /*
 This function returns the creator name
 Input: None
 Output: The room name
-*/
+
 string CreateRoomRequest::getCreatorName()
 {
 	return this->creatorName;
 }
+*/
+
 /*
 This function returns the max amount of users in the room
 Input: None

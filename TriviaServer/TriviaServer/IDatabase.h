@@ -13,9 +13,9 @@ public:
 	virtual void addPlayerToBestPlayers(string username) = 0;
 
 	//statistics
-	virtual int getPlayerAverageAnswerTime(string username) = 0;//game?
+	virtual float getPlayerAverageAnswerTime(string username) = 0;
 	virtual int getNumOfCorrectAnswers(string username) = 0;
-	virtual int getNumOfTotalAnswers(string username) = 0; //game?
+	virtual int getNumOfTotalAnswers(string username) = 0; 
 	virtual int getNumOfPlayerGames(string username) = 0;
 	virtual vector<string> getBestPlayers() = 0;
 	virtual int calcPoints(string username) = 0;

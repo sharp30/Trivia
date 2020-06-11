@@ -3,7 +3,7 @@
 
 
 
-GetPlayersInRoomResponse::GetPlayersInRoomResponse(string players)
+GetPlayersInRoomResponse::GetPlayersInRoomResponse(vector<string> players)
 {
 	this->_players = players;
 	this->messageCode = 47;
@@ -19,7 +19,18 @@ json GetPlayersInRoomResponse::castToJson() const
 	return json{ {"PlayersInRoom", castPlayersToString()} };
 }
 
+
 string GetPlayersInRoomResponse::castPlayersToString() const
 {
-	this->_players;
+	string txt = "";
+
+	for (int i = 0; i < this->_players.size(); i++)
+	{
+		txt += this->_players[i] + " ,";
+	}
+
+	if (this->_players.size() > 2)
+		txt = txt.substr(0, txt.size() - 2);
+	
+	return txt;
 }

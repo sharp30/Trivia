@@ -18,7 +18,7 @@ public:
 	void removeUser(LoggedUser userToRemove) throw();
 	bool isUserExist(LoggedUser userToSearch);
 	bool isActive();
-	string getAllUsers();//need to think on return type
+	vector<string> getAllUsers();//need to think on return type
 	string getName() const;
 
 protected:

@@ -26,9 +26,9 @@ This function creates an MenuRequestHandler on the heap memory and returns it's 
 Input:None
 Output:The address of the instance :MenuRequestHandler*
 */
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(string user)
 {
-	return new MenuRequestHandler(this);
+	return new MenuRequestHandler(this,LoggedUser(user));
 }
 
 /*

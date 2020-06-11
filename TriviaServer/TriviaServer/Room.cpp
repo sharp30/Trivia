@@ -20,7 +20,7 @@ Throw : The function will throw exception if the is in the room
 void Room::addUser(LoggedUser userToAdd) throw()
 {
 	if (this->isUserExist(userToAdd))
-		throw std::exception(("User: " + userToAdd.getUsername() + " already in the room").c_str());
+		throw std::exception(("User: " + userToAdd.getUsername() + " already in room" + std::to_string(this->_id)).c_str());
 
 	this->_users.push_back(userToAdd);
 
@@ -51,17 +51,9 @@ bool Room::isUserExist(LoggedUser userToSearch)
 
 //returns string of all the users in the room
 //for example:ofir, omri, david, moshe
-string Room::getAllUsers()
+vector<string> Room::getAllUsers()
 {
-	string users = "";
-	for (size_t i = 0; i < this->_users.size();i++)
-	{
-		users += this->_users[i].getUsername() + ", ";
-	}
-	if (users.size() > 2)
-		users.substr(0, users.size() - 2);
-	return users;
-
+	return this->_users;
 }
 
 string Room::getName() const

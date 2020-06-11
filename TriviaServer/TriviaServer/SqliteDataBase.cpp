@@ -114,12 +114,12 @@ void SqliteDataBase::addPlayerToBestPlayers(string username) throw()
 }
 
 //TODO -DOCUMENTATION
-int SqliteDataBase::getPlayerAverageAnswerTime(string username)
+float SqliteDataBase::getPlayerAverageAnswerTime(string username)
 {
 	std::string sqlStatement= "SELECT AVG(Answer_Time) FROM Players_Answers WHERE User_Id = " + std::to_string(this->getUserID(username)) + ";";
-	int amount = 0;
+	float amount = 0;
 
-	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &float);
 	return amount;
 
 }
