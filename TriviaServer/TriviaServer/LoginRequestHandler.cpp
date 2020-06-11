@@ -36,11 +36,12 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	bool actionResult = true;//is the login or the signup succeeded
 	RequestResult res;
 	res._newHandler = nullptr;
-	
+	string username = "";
 	LoginManager& man = this->m_handlerFactory->getLoginManager();
 	if (request.getId() == LOGIN_CODE)
 	{
 		LoginRequest req(request.getBuffer());
+		username = req.getUsername();
 		try
 		{
 			man.login(req.getUsername(), req.getPassword());
@@ -56,6 +57,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	else
 	{
 		SignupRequest req(request.getBuffer());
+		username = req.getUsername();
 		try
 		{
 			man.signup(req.getUsername(),req.getPassword(),req.getEmail());
@@ -69,7 +71,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo request)
 	}
 
 	if(actionResult)
-		res._newHandler =(IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(); //it's doing something!!!
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(username)); //it's doing something!!!
 	
 	return res;
 }

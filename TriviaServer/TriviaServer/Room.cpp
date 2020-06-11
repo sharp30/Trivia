@@ -1,15 +1,19 @@
 #include "Room.h"
 
 //-------constructor-----------
-Room::Room(int roomId, LoggedUser creator)
+
+
+
+Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int questionTime, int questionAmount)
 {
 	this->_id = roomId;
 	this->_users.push_back(creator);
-	
+
 	//other variables:
-	this->_isActive = false;
-	this->_maxPlayers = 2;//default-value
-	this->_name = "Avram";
+	this->questionAmount = questionAmount;
+	this->_questionTime = questionTime;
+	this->_maxPlayers = maxPlayers;//default-value
+	this->_name = name;
 }
 /*
 This function adds user from a room
@@ -49,11 +53,16 @@ bool Room::isUserExist(LoggedUser userToSearch)
 	return std::find(this->_users.begin(), this->_users.end(), userToSearch) != this->_users.end();
 }
 
-//returns string of all the users in the room
-//for example:ofir, omri, david, moshe
+//returns vector of string of all the users in the room
+//for example:[ofir, omri, david, moshe]
 vector<string> Room::getAllUsers()
 {
-	return this->_users;
+	vector<string> all;
+	for (int i = 0; i < this->_users.size(); i++)
+	{
+		all.push_back(this->_users[i].getUsername());
+	}
+	return all;
 }
 
 string Room::getName() const

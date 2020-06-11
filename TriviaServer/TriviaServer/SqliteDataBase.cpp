@@ -119,7 +119,7 @@ float SqliteDataBase::getPlayerAverageAnswerTime(string username)
 	std::string sqlStatement= "SELECT AVG(Answer_Time) FROM Players_Answers WHERE User_Id = " + std::to_string(this->getUserID(username)) + ";";
 	float amount = 0;
 
-	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &float);
+	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &amount);
 	return amount;
 
 }

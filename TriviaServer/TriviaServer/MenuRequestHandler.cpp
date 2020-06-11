@@ -40,7 +40,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 	return res;
 }
 
@@ -60,7 +60,7 @@ RequestResult MenuRequestHandler::getRooms(RequestInfo info)
 	GetRoomsResponse response((int)actionResult, rooms);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 	return res;
 }
 
@@ -82,7 +82,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 	return res;
 }
 
@@ -103,7 +103,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 	GetPlayersInRoomResponse response(users);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 	return res;
 }
 
@@ -126,11 +126,30 @@ RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res._newHandler = this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername());
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 	return res;
 }
 
 RequestResult MenuRequestHandler::logout(RequestInfo info)
 {
-	return RequestResult();
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		this->m_handlerFactory->getLoginManager().logout(this->m_user.getUsername());
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	LogoutResponse response((int)actionResult);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	
+	if (actionResult)
+		res.setNewHandler(nullptr);
+
+	return res;
 }

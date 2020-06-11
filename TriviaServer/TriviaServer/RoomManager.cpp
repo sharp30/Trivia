@@ -11,10 +11,10 @@ This function creates a new room
 Input: creator - the creator of the room :LoggedUser
 Output:None
 */
-void RoomManager::createRoom(LoggedUser creator) 
+void RoomManager::createRoom(LoggedUser creator, string name, int userAmount, int questionTime, int questionAmount) throw()
 {
 	int id = this->findNextRoomId();
-	this->_rooms.insert(std::pair<int, Room>(id, Room(id, creator)));
+	this->_rooms.insert(std::pair<int, Room>(id, Room(id, creator,name,userAmount,questionTime,questionAmount)));
 }
 
 /*
