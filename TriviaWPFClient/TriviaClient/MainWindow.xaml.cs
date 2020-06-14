@@ -38,5 +38,29 @@ namespace TriviaClient
             TBUsername.Text = "yay";
             TBPassword.Text = "yay";
         }
+
+        private void TBUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void myButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_signup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TBPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
