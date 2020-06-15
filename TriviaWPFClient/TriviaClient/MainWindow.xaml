@@ -16,17 +16,27 @@
             <RowDefinition Height="197*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Magshimim Trivia 2020" Margin="214,24,251,132" FontSize="30" Grid.ColumnSpan="2"/>
-        <Button Content="Best Scores"
+        <Button x:Name="Btn_BestScores" Content="Best Scores"
             Width="130"
-            Height="30" Margin="354,147,34,20" Grid.Row="1" Grid.Column="1"/>
-        <Button Content="Quit"
+            Height="30" Margin="354,147,34,20" Grid.Row="1" Grid.Column="1" Click="Btn_BestScores_Click"/>
+        <Button
+            x:Name="btn_quit"
+            Content="Quit"
             Width="130"
-            Height="30" Margin="23,147,149,20" Grid.Row="1" RenderTransformOrigin="0.473,-0.283" />
-        <TextBox Name="TBUsername" Margin="173,69,228,0" TextChanged="TBUsername_TextChanged" Height="77" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-        <TextBox Name="TBPassword" Margin="173,170,228,7" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TBPassword_TextChanged"
- />
+            Height="30" Margin="0,147,149,20" Grid.Row="1" RenderTransformOrigin="0.473,-0.283" Click="Btn_quit_Click" HorizontalAlignment="Right" />
+        <TextBox Name="TBUsername" Margin="0,69,228,0" TextChanged="TBUsername_TextChanged" Height="77" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="419" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.655"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <PasswordBox Name="TBPassword" Margin="0,164,228,0" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="419"/>
         <Label Content="Username:" HorizontalAlignment="Left" Margin="173,69,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="173,170,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="173,164,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2"/>
         <Button  
                Name="btn_signin"
                Content="Sign In"
@@ -35,7 +45,7 @@
                Background="DodgerBlue"
                Padding="10"
             FontSize="16"   
-            Margin="240,11,280,132" Grid.Row="1" Click="myButton_Click" Grid.ColumnSpan="2">
+            Margin="240,11,280,132" Grid.Row="1" Click="Btn_signin" Grid.ColumnSpan="2">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -58,6 +68,15 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <TextBlock Margin="44,154,405,18" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.022"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform><Hyperlink NavigateUri="www.google.com">Go to Bing</Hyperlink></TextBlock>
 
     </Grid>
 </Window>
