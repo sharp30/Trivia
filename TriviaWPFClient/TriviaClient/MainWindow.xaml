@@ -68,7 +68,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock Margin="44,154,405,18" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+        <TextBlock Margin="18,159,415,13" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
