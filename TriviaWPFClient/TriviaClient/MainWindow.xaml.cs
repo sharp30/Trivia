@@ -28,12 +28,11 @@ namespace TriviaClient
         {
             InitializeComponent();
             this.Hide();
-            bool isConnected = true;// CreateConnection();
-            if(isConnected)
+            bool isConnected = Communicator.Connect("127.0.0.1", 2020);
+            if (!isConnected)
             {
-                MessageBoxResult  res = MessageBox.Show("Sorry man can't connect to server", "ERROR MESSAGE", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                MessageBoxResult res = MessageBox.Show("Sorry man can't connect to server", "ERROR MESSAGE", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
                 btn_quit.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-
             }
             this.Show();
             

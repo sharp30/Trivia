@@ -13,6 +13,7 @@ namespace TriviaClient
         public static Socket serverSocket;
         public static bool Connect(string serverIp,int port)
         {
+            serverSocket = null;
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress ipaddress = System.Net.IPAddress.Parse(serverIp);
             IPEndPoint ipEndPoint = new IPEndPoint(ipaddress, port);
