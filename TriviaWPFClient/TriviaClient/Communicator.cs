@@ -28,6 +28,10 @@ namespace TriviaClient
             serverSocket = sock;
             return true;
         }
+        
+        public static void SendMessage()
+        {
 
+        }
     }
 }
