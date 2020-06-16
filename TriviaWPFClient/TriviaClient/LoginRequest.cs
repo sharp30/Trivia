@@ -14,7 +14,8 @@ namespace TriviaClient
 
         public LoginRequest(string _username, string _password)
         {
-
+            this.username = _username;
+            this.password = _password;
         }
 
         public string GetUsername()
