@@ -13,7 +13,7 @@ namespace TriviaClient
         input: Request object
         output: bytes array represents the encoded message
         */
-        public static byte[] Encode(LoginRequest req)
+        public static byte[] Encode(Request req)
         {
             return new byte[5];
         }

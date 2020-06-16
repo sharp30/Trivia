@@ -34,7 +34,7 @@ namespace TriviaClient
          Input:The request to be sent to the server
          Output:The response from the server
          */
-        public static Response Communicate(LoginRequest req)
+        public static Response Communicate(Request req)
         {
             //send
             byte[] mes = RequestEncoder.Encode(req);
