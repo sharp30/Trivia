@@ -8,11 +8,15 @@ namespace TriviaClient
 {
     public class  Request
     {
-        protected int messageCode;
+        protected int _messageCode;
 
+        public Request(int code)
+        {
+            this._messageCode = code;
+        }
         public int GetMsgCode()
         {
-            return this.messageCode;
+            return this._messageCode;
         }
 
         virtual public string CastToJson()
