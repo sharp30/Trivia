@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    public class Request
+    public abstract class Request
     {
+        uint code;
 
+        virtual ToJson();
     }
 }
