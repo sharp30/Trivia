@@ -7,28 +7,28 @@ using Newtonsoft.Json;
 
 namespace TriviaClient
 {
-    public class LoginRequest
+    public class LoginRequest : Request
     {
-        protected string username;
-        protected string password;
+        protected string _username;
+        protected string _password;
 
-        public LoginRequest(string _username, string _password)
+        public LoginRequest(string username, string password):base(20)
         {
-            this.username = _username;
-            this.password = _password;
+            this._username = username;
+            this._password = password;
         }
 
         public string GetUsername()
         {
-            return this.username;
+            return this._username;
         }
 
         public string GetPassword()
         {
-            return this.password;
+            return this._password;
         }
 
-        public string CastToJson()
+        public override string CastToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }

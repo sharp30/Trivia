@@ -13,9 +13,25 @@ namespace TriviaClient
         input: Request object
         output: bytes array represents the encoded message
         */
-        public static byte[] Encode(LoginRequest req)
+        public static byte[] Encode(Request req)
         {
-            return new byte[5];
+            byte[] data = Convert.FromBase64String(req.CastToJson());
+            byte[] full = new byte[5+data.Length];
+
+
+
+        }
+        public static byte[] FromIntToByte(int val,int size)
+        {
+            byte[] arr = new byte[size];
+            for (int i = 0; i<size; i++)
+            {
+                arr[i] = (byte)(val %256);
+                val /= 256;
+            }
+            return arr;           
+
+
         }
     }
 }
