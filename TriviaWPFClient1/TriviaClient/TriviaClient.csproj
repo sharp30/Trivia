@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0E728F8-C367-49BE-9D40-2FFFD31AC432}</ProjectGuid>
+    <ProjectGuid>{B97BDA3D-9B92-4E91-8AFA-1442057B4238}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TriviaClient</RootNamespace>
     <AssemblyName>TriviaClient</AssemblyName>
@@ -58,13 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Communicator.cs" />
-    <Compile Include="LoginRequest.cs" />
-    <Compile Include="MenuWindow.xaml.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RequestEncoder.cs" />
-    <Compile Include="SignupRequest.cs" />
-    <Compile Include="SignupWindow.xaml.cs" />
+    <Page Include="MenuWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SignupWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +73,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communicator.cs" />
+    <Compile Include="MenuWindow.xaml.cs">
+      <DependentUpon>MenuWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginRequest.cs" />
+    <Compile Include="RequestEncoder.cs" />
+<<<<<<< HEAD
+    <Compile Include="Request.cs" />
+=======
+    <Compile Include="Response.cs" />
+    <Compile Include="SignupRequest.cs" />
+>>>>>>> b527db53c2fa9a3c7fa25dfe78eff0c29b0a9202
+    <Compile Include="SignupWindow.xaml.cs">
+      <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -96,6 +112,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
