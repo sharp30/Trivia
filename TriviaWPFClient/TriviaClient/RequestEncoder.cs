@@ -16,11 +16,19 @@ namespace TriviaClient
         public static byte[] Encode(Request req)
         {
             byte[] data = Convert.FromBase64String(req.CastToJson());
-            byte[] full = new byte[5+data.Length];
+        
 
+            byte[] code = FromIntToByte(req.GetMsgCode(), 1);
+            byte[] size = FromIntToByte(data.Length, 4);
 
+            byte[] full = new byte[5 + data.Length];
+            Array.Copy(code, 0, full, 0, code.Length);
+            Array.Copy(size, 0, full, code.Length, size.Length);
+            Array.Copy(code, 0, full, code.Length + size.Length, data.Length);
 
+            return full;
         }
+
         public static byte[] FromIntToByte(int val,int size)
         {
             byte[] arr = new byte[size];
@@ -29,9 +37,8 @@ namespace TriviaClient
                 arr[i] = (byte)(val %256);
                 val /= 256;
             }
+
             return arr;           
-
-
         }
     }
 }
