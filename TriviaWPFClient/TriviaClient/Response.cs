@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    public class Response
+    public class  Request
     {
         protected int messageCode;
 
@@ -15,6 +15,8 @@ namespace TriviaClient
             return this.messageCode;
         }
 
-
-    }
+        virtual public string CastToJson()
+        {
+            return "";
+        }
 }
