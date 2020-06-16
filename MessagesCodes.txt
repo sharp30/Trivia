@@ -1,0 +1,20 @@
+Requests:
+* SignUp - 10
+* Login - 20
+* CreateRoom - 40
+* GetRooms - 42
+* JoinRoom 44
+* GetPlayersInRoom 46
+* Get Statistics - 70
+* Logout - 100
+
+Responses:
+* SignUp - 11
+* Login - 21
+* CreateRoom - 42
+* GetRooms - 43
+* JoinRoom - 45
+* GetPlayersInRoom - 47
+* Get Statistics - 71
+* Logout - 101
+* Error - 99
