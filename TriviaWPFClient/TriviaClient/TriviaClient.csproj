@@ -80,7 +80,12 @@
     </Compile>
     <Compile Include="LoginRequest.cs" />
     <Compile Include="RequestEncoder.cs" />
+<<<<<<< HEAD
     <Compile Include="Request.cs" />
+=======
+    <Compile Include="Response.cs" />
+    <Compile Include="SignupRequest.cs" />
+>>>>>>> b527db53c2fa9a3c7fa25dfe78eff0c29b0a9202
     <Compile Include="SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
