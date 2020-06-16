@@ -21,17 +21,15 @@ namespace TriviaClient
 
 
         }
-        public static byte FromIntToByte(int val,int size)
+        public static byte[] FromIntToByte(int val,int size)
         {
             byte[] arr = new byte[size];
             for (int i = 0; i<size; i++)
             {
-
+                arr[i] = (byte)(val %256);
+                val /= 256;
             }
-            {
-
-            }
-            
+            return arr;           
 
 
         }
