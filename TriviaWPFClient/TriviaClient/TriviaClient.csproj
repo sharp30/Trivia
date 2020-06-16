@@ -81,6 +81,7 @@
     <Compile Include="LoginRequest.cs" />
     <Compile Include="RequestEncoder.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="SignupRequest.cs" />
     <Compile Include="SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
