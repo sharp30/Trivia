@@ -34,10 +34,10 @@ protected:
 };
 const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_functions =
 {
-	{41	 , &MenuRequestHandler::createRoom},
-	{43  , &MenuRequestHandler::getRooms},
-	{45  , &MenuRequestHandler::joinRoom},
-	{47  , &MenuRequestHandler::getPlayersInRoom},
-	{71  , &MenuRequestHandler::getStatisticsRequest},
-	{101 , &MenuRequestHandler::logout}
+	{40 , &MenuRequestHandler::createRoom},
+	{42, &MenuRequestHandler::getRooms},
+	{44 , &MenuRequestHandler::joinRoom},
+	{46 , &MenuRequestHandler::getPlayersInRoom},
+	{70, &MenuRequestHandler::getStatisticsRequest},
+	{100, &MenuRequestHandler::logout}
 };
