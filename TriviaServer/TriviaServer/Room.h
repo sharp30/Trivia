@@ -12,13 +12,13 @@ class Room
 {
 public:
 
-	Room(int roomId, LoggedUser creator);//for now
+	Room(int roomId, LoggedUser creator,string name,int maxPlayers,int questionTime,int questionAmount);//for now
 
 	void addUser(LoggedUser userToAdd) throw();
 	void removeUser(LoggedUser userToRemove) throw();
 	bool isUserExist(LoggedUser userToSearch);
 	bool isActive();
-	void getAllUsers();//need to think on return type
+	vector<string> getAllUsers();//need to think on return type
 	string getName() const;
 
 protected:
@@ -28,6 +28,7 @@ protected:
 	string _name;
 	unsigned int _maxPlayers;
 	unsigned int _questionTime;
+	unsigned int questionAmount;
 	bool _isActive; // maybe will be enum in the future.
 
 };
