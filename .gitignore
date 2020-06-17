@@ -1,7 +1,7 @@
-.csproj
 .git
 .vs
 
+*.csproj
 *.rsuser
 *.suo
 *.user
