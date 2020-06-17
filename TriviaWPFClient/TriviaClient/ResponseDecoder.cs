@@ -20,15 +20,17 @@ namespace TriviaClient
             switch (code)
             {
                 case 11:
-
+                    response = JsonConvert.DeserializeObject<SignupResponse>(str);
                     break;
                 case 21:
                     response = JsonConvert.DeserializeObject<LoginResponse>(str);
                     break;
+                default:
+                    break;
             }
 
 
-            
+            return response;
         }
         
     }

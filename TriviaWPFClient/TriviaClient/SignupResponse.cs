@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    class LoginResponse : Response
+    class SignupResponse : Response
     {
-        public const int MESSAGE_CODE = 21;
-        LoginResponse() : base(MESSAGE_CODE)
+        public const int MESSAGE_CODE = 11;
+        SignupResponse() : base(MESSAGE_CODE)
         {
 
         }
