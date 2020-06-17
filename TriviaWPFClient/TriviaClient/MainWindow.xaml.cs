@@ -43,7 +43,10 @@ namespace TriviaClient
             this.username = TBUsername.Text;
             this.password = TBPassword.Password;
 
+
             Communicator.Communicate(new LoginRequest(username, password));
+            
+            
             MenuWindow wind = new MenuWindow(username);
             wind.Show();
             this.Hide();

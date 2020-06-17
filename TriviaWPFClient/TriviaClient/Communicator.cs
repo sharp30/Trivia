@@ -35,7 +35,7 @@ namespace TriviaClient
          Input:The request to be sent to the server
          Output:The response from the server
          */
-        public static Response Communicate(LoginRequest req)
+        public static Response Communicate(Request req)
         {
             
             if(first)
@@ -62,8 +62,8 @@ namespace TriviaClient
 
             arr = new byte[size];
             serverSocket.Receive(arr, size, SocketFlags.None);
-            //return ResponseDecoder.doStuff();
-            return new Response();
+            ResponseDecoder.Decode(code,arr);
+
         }
 
         /*
