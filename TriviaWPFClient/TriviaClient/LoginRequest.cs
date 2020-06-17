@@ -9,28 +9,28 @@ namespace TriviaClient
 {
     public class LoginRequest : Request
     {
-        protected string _username;
-        protected string _password;
+        public string username { get; set; }
+        public string password { get; set; }
 
-        public LoginRequest(string username, string password):base(20)
+        public LoginRequest(string _username, string _password):base(20)
         {
-            this._username = username;
-            this._password = password;
+            this.username = _username;
+            this.password = _password;
         }
 
         public string GetUsername()
         {
-            return this._username;
+            return this.username;
         }
 
         public string GetPassword()
         {
-            return this._password;
+            return this.password;
         }
 
         public override string CastToJson()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.None);
         }
     }
 }

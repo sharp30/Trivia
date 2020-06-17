@@ -10,6 +10,7 @@ namespace TriviaClient
 {
     static class Communicator
     {
+        public static bool first = true;
         public static Socket serverSocket;
         public static bool Connect(string serverIp,int port)
         {
@@ -36,6 +37,12 @@ namespace TriviaClient
          */
         public static Response Communicate(LoginRequest req)
         {
+            
+            if(first)
+            {
+                serverSocket.Receive(new byte[5], 5, SocketFlags.None);
+            }
+            first = false;
             //send
             byte[] mes = RequestEncoder.Encode(req);
             serverSocket.Send(mes);
@@ -69,7 +76,7 @@ namespace TriviaClient
             int val = 0;
             for (int i = 0; i < data.Length; i++)
             {
-                val += (int)Math.Pow(256, i) * data[i];
+                val += (int)Math.Pow(256, i) * data[data.Length-i-1];
             }
             return val;
         }
