@@ -15,7 +15,7 @@ namespace TriviaClient
         */
         public static byte[] Encode(Request req)
         {
-            byte[] data =req.CastToJson();
+            byte[] data =req.CastToBson();
 
             byte[] code = FromIntToByte(req.GetMsgCode(), 1);
             byte[] size = FromIntToByte(data.Length, 4);
