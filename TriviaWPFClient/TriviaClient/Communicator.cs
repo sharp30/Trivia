@@ -27,7 +27,12 @@ namespace TriviaClient
                 return false;
             }
             serverSocket = sock;
+            byte[] arr = new byte[5];
+            serverSocket.Receive(arr,5,SocketFlags.None);
+
             return true;
+
+
         }
 
         /*
@@ -37,13 +42,7 @@ namespace TriviaClient
          */
         public static Response Communicate(Request req)
         {
-            
-            if(first)
-            {
-                serverSocket.Receive(new byte[5], 5, SocketFlags.None);
-            }
-            first = false;
-            //send
+
             byte[] mes = RequestEncoder.Encode(req);
             serverSocket.Send(mes);
 
@@ -53,24 +52,26 @@ namespace TriviaClient
 
             byte[] arr = new byte[CODE_LENGTH];
 
-            serverSocket.Receive(arr, CODE_LENGTH, SocketFlags.None);
+            serverSocket.Receive(arr);
             int code = FromByteToInt(arr);
 
             arr = new byte[SIZE_LENGTH];
-            serverSocket.Receive(arr, SIZE_LENGTH, SocketFlags.None);
+            serverSocket.Receive(arr, SIZE_LENGTH, 0);
             int size = FromByteToInt(arr);
 
             arr = new byte[size];
             serverSocket.Receive(arr, size, SocketFlags.None);
+
             return ResponseDecoder.Decode(code,arr);
 
-        }
 
-        /*
+        }
+/*
          This function transform for array of bytes to integer value
          Input:Pointer to bytes array
          Output: The integer value
          */
+        
         private static int FromByteToInt(byte[] data)
         {
             int val = 0;
