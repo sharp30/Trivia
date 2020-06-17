@@ -59,7 +59,14 @@ namespace TriviaClient
 
         private void Btn_Logout_Click(object sender, RoutedEventArgs e)
         {
-            TBHello.Text = username + " logged out!";
+            LogoutResponse response = (LogoutResponse)Communicator.Communicate(new LogoutRequest());
+            if (response.status == 1)
+            {
+                MainWindow wind = new MainWindow();
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
         }
     }
 }
