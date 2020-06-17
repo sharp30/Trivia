@@ -45,7 +45,7 @@
                Background="DodgerBlue"
                Padding="10"
             FontSize="16"   
-            Margin="240,11,280,132" Grid.Row="1" Click="Btn_signin" Grid.ColumnSpan="2">
+            Margin="242,27,278,116" Grid.Row="1" Click="Btn_signin" Grid.ColumnSpan="2">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -60,7 +60,7 @@
             Background="CadetBlue"
             BorderThickness="0"
             Padding="10"
-            Margin="276,85,312,74" Grid.Row="1" Grid.ColumnSpan="2" Click="btn_signup_Click">
+            Margin="276,108,312,51" Grid.Row="1" Grid.ColumnSpan="2" Click="btn_signup_Click">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -68,15 +68,6 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock Margin="18,159,415,13" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.022"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform><Hyperlink NavigateUri="www.google.com">Go to Bing</Hyperlink></TextBlock>
 
     </Grid>
 </Window>

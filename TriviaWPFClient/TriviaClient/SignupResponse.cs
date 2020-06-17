@@ -15,7 +15,5 @@ namespace TriviaClient
         {
 
         }
-
-
     }
 }

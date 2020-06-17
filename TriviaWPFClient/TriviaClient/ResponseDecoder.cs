@@ -34,6 +34,5 @@ namespace TriviaClient
 
             return response;
         }
-        
     }
 }
