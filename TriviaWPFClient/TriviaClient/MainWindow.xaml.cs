@@ -44,14 +44,14 @@ namespace TriviaClient
             this.password = TBPassword.Password;
 
 
-            Communicator.Communicate(new LoginRequest(username, password));
-            
-            
-            MenuWindow wind = new MenuWindow(username);
-            wind.Show();
-            this.Hide();
-            this.Close();
-
+            LoginResponse req = (LoginResponse)Communicator.Communicate(new LoginRequest(username, password));
+            if (req.status == 1)
+            {
+                MenuWindow wind = new MenuWindow(username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
 
         }
         private void Btn_quit_Click(object sender, RoutedEventArgs e)
@@ -79,10 +79,6 @@ namespace TriviaClient
             wind.Show();
             this.Hide();
             this.Close();
-
-            //NavigationService nav = NavigationService.GetNavigationService(this);
-            //Page1 p = new Page1();
-           // nav.Navigate(p);
 
         }
 

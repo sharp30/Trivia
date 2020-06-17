@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace TriviaClient
 {
@@ -14,28 +14,25 @@ namespace TriviaClient
 
         public static Response Decode(int code, byte[] arr)
         {
-            string str = Encoding.UTF8.GetString(arr);
+            MemoryStream ms = new MemoryStream(arr);
+            BsonReader reader = new BsonReader(ms);
+            JsonSerializer serializer = new JsonSerializer();
+
             Response response = null;
 
             switch (code)
             {
                 case 11:
-                    response = JsonConvert.DeserializeObject<SignupResponse>(str);
+                    response = serializer.Deserialize<SignupResponse>(reader);
                     break;
                 case 21:
-                    response = JsonConvert.DeserializeObject<LoginResponse>(str);
+                    response = serializer.Deserialize<LoginResponse>(reader);
                     break;
                 default:
                     break;
             }
 
-<<<<<<< HEAD
-            return new Response(21);
-            
-=======
-
             return response;
->>>>>>> a2d1e1437edb5f98d260a058ed5f4aa6e0ec9c62
         }
         
     }

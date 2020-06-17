@@ -1,28 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 
 namespace TriviaClient
 {
     class SignupRequest : Request
     {
-        public string _username { get; set; }
-        public string _password { get; set; }
-        public string _email { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
 
-        public SignupRequest(string username, string password, string email) : base(10)
+        public SignupRequest(string _username, string _password, string _email) : base(10)
         {
-            this._username = username;
-            this._password = password;
-            this._email = email;
+            this.username = _username;
+            this.password = _password;
+            this.email = _email;
         }
 
-        public override string CastToJson()
+        public override byte[] CastToJson()
         {
-            return JsonConvert.SerializeObject(this, Formatting.None);
+            MemoryStream ms = new MemoryStream();
+            using (BsonWriter writer = new BsonWriter(ms))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(writer, this);
+            }
+            return ms.ToArray();
         }
     }
 }

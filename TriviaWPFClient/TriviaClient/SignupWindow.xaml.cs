@@ -58,15 +58,14 @@ namespace TriviaClient
             this._password = TBPassword.Password;
             this._email = TBEmail.Text;
 
-            Communicator.Communicate(new SignupRequest(this._username, this._password, this._email));
-
-            MenuWindow wind = new MenuWindow(this._username);
-            wind.Show();
-            this.Hide();
-            this.Close();
-
-            //signupRequest
-            //move to menu
+            SignupResponse response = (SignupResponse)Communicator.Communicate(new SignupRequest(this._username, this._password, this._email));
+            if (response.status == 1)
+            {
+                MenuWindow wind = new MenuWindow(this._username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
         }
 
         private void TBPassword_TextChanged(object sender, TextChangedEventArgs e)
