@@ -19,9 +19,9 @@ namespace TriviaClient
             return this._messageCode;
         }
 
-        virtual public string CastToJson()
+        virtual public byte[] CastToJson()
         {
-            return "";
+            return null;
         }
     }
 }

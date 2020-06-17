@@ -62,7 +62,7 @@ namespace TriviaClient
 
             arr = new byte[size];
             serverSocket.Receive(arr, size, SocketFlags.None);
-            ResponseDecoder.Decode(code,arr);
+            return ResponseDecoder.Decode(code,arr);
 
         }
 

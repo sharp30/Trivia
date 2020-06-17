@@ -63,8 +63,8 @@ json ConversationUtils::castBinToJson(vector<unsigned char> buff)
 {
 	std::string s(buff.begin(), buff.end());
 	std::cout << s << std::endl;
-	return json::parse(s);
-} 
+	return json::from_bson(buff);
+}
 
 
 /*

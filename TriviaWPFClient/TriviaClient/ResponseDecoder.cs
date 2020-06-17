@@ -27,7 +27,7 @@ namespace TriviaClient
                     break;
             }
 
-
+            return new Response(21);
             
         }
         
