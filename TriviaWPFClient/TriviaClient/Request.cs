@@ -19,7 +19,7 @@ namespace TriviaClient
             return this._messageCode;
         }
 
-        virtual public byte[] CastToJson()
+        virtual public byte[] CastToBson()
         {
             return null;
         }

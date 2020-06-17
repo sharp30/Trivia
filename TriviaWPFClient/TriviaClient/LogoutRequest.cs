@@ -15,8 +15,7 @@ namespace TriviaClient
 
         public LogoutRequest() : base(MESSAGE_CODE){}
 
-        /*
-        public override byte[] CastToJson()
+        public override byte[] CastToBson()
         {
             MemoryStream ms = new MemoryStream();
             using (BsonWriter writer = new BsonWriter(ms))
@@ -26,6 +25,6 @@ namespace TriviaClient
             }
             return ms.ToArray();
         }
-        */
+      
     }
 }

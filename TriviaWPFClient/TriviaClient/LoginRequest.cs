@@ -30,7 +30,7 @@ namespace TriviaClient
             return this.password;
         }
 
-        public override byte[] CastToJson()
+        public override byte[] CastToBson()
         {
             MemoryStream ms = new MemoryStream();
             using (BsonWriter writer = new BsonWriter(ms))
