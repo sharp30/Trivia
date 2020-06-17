@@ -9,7 +9,11 @@ namespace TriviaClient
     public class Response
     {
         protected int messageCode;
-
+        
+        public Response(int code)
+        {
+            this.messageCode = code;
+        }
         public int GetMsgCode()
         {
             return this.messageCode;
