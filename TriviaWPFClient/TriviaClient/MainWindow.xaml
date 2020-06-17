@@ -16,9 +16,6 @@
             <RowDefinition Height="197*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Magshimim Trivia 2020" Margin="214,24,251,132" FontSize="30" Grid.ColumnSpan="2"/>
-        <Button x:Name="Btn_BestScores" Content="Best Scores"
-            Width="130"
-            Height="30" Margin="354,147,34,20" Grid.Row="1" Grid.Column="1" Click="Btn_BestScores_Click"/>
         <Button
             x:Name="btn_quit"
             Content="Quit"
@@ -68,6 +65,9 @@
                 </Style>
             </Button.Resources>
         </Button>
-
+        <Button Height="100" Width="100" Grid.Column="1" Margin="373,77,45,20" Grid.Row="1" Click="Btn_BestScores_Click" BorderThickness="0">
+            <Image Source="trophy.png" ></Image>
+        </Button>
+        <Rectangle Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="0" Margin="438,197,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="10"/>
     </Grid>
 </Window>

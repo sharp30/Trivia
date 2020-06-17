@@ -38,8 +38,9 @@ void ConversationUtils::sendToSocket(SOCKET sock, vector<unsigned char> data) th
 	int res = 0;
 	try 
 	{
-		char* response = (char*)&(data.begin()); //from vector<unsigned char> to char *
+		char* response = (char*)&(data[0]);//from vector<unsigned char> to char *
 		res = send(sock, response, data.size(), 0);
+
 	}
 	catch (std::exception er)
 	{
@@ -62,7 +63,6 @@ Output:json object
 json ConversationUtils::castBinToJson(vector<unsigned char> buff)
 {
 	std::string s(buff.begin(), buff.end());
-	std::cout << s << std::endl;
 	return json::from_bson(buff);
 }
 
