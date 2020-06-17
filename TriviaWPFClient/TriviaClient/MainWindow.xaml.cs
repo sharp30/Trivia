@@ -44,12 +44,11 @@ namespace TriviaClient
             this.password = TBPassword.Password;
 
             Communicator.Communicate(new LoginRequest(username, password));
+
             MenuWindow wind = new MenuWindow(username);
             wind.Show();
             this.Hide();
             this.Close();
-
-
         }
         private void Btn_quit_Click(object sender, RoutedEventArgs e)
         {
@@ -58,6 +57,7 @@ namespace TriviaClient
 
         private void TBUsername_TextChanged(object sender, TextChangedEventArgs e)
         {
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

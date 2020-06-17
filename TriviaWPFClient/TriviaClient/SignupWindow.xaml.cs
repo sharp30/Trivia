@@ -21,9 +21,9 @@ namespace TriviaClient
     /// </summary>
     public partial class SignupWindow : Window
     {
-         private string username;
-         private string password;
-         private string email;
+         private string _username;
+         private string _password;
+         private string _email;
             
         public SignupWindow()
         {
@@ -54,11 +54,13 @@ namespace TriviaClient
 
         private void Btn_Signup_Click(object sender, RoutedEventArgs e)
         {
-            this.username = TBUsername.Text;
-            this.password = TBPassword.Password;
-            this.email = TBEmail.Text;
+            this._username = TBUsername.Text;
+            this._password = TBPassword.Password;
+            this._email = TBEmail.Text;
 
-            MenuWindow wind = new MenuWindow(username);
+            Communicator.Communicate(new SignupRequest(this._username, this._password, this._email));
+
+            MenuWindow wind = new MenuWindow(this._username);
             wind.Show();
             this.Hide();
             this.Close();

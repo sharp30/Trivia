@@ -7,37 +7,22 @@ using Newtonsoft.Json;
 
 namespace TriviaClient
 {
-    class SignupRequest
+    class SignupRequest : Request
     {
-        protected string _username;
-        protected string _password;
-        protected string _email;
+        public string _username { get; set; }
+        public string _password { get; set; }
+        public string _email { get; set; }
 
-        public SignupRequest(string username, string password, string email)
+        public SignupRequest(string username, string password, string email) : base(10)
         {
             this._username = username;
             this._password = password;
             this._email = email;
         }
 
-        public string GetUsername()
+        public override string CastToJson()
         {
-            return this._username;
-        }
-
-        public string GetPassword()
-        {
-            return this._password;
-        }
-
-        public string GetEmail()
-        {
-            return this._email;
-        }
-
-        public string CastToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.None);
         }
     }
 }
