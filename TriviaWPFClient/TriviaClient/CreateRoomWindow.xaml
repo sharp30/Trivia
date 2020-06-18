@@ -17,6 +17,7 @@
             <RowDefinition Height="43*"/>
             <RowDefinition Height="197*"/>
         </Grid.RowDefinitions>
+        <TextBlock x:Name="usernameTB" Margin="0,57,98,101" FontSize="20" Grid.Column="1"/>
         <TextBlock Text="Magshimim Trivia 2020" Margin="192,37,239,121" FontSize="30" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Button
             x:Name="btn_back"
@@ -39,7 +40,7 @@
                Background="DodgerBlue"
                Padding="10"
                FontSize="16"   
-               Margin="206,109,280,34" Grid.Row="2" Click="Btn_create_Click" Grid.ColumnSpan="2" Grid.Column="1">
+               Margin="206,109,280,34" Grid.Row="2" Click="BtnCreateClick" Grid.ColumnSpan="2" Grid.Column="1">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -47,8 +48,5 @@
                 </Style>
             </Button.Resources>
         </Button>
-
-
-
     </Grid>
 </Window>
