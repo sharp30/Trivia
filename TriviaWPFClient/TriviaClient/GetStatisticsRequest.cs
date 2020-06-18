@@ -9,18 +9,13 @@ using Newtonsoft.Json.Bson;
 
 namespace TriviaClient
 {
-    public class LoginRequest : Request
+    class GetStatisticsRequest : Request
     {
-        public const int MESSAGE_CODE = 20;
-        public string username { get; set; }
-        public string password { get; set; }
-
-        public LoginRequest(string _username, string _password) : base(MESSAGE_CODE)
+        public const int MESSAGE_CODE = 70;
+        public GetStatisticsRequest() : base (MESSAGE_CODE)
         {
-            this.username = _username;
-            this.password = _password;
-        }
 
+        }
         public override byte[] CastToBson()
         {
             MemoryStream ms = new MemoryStream();

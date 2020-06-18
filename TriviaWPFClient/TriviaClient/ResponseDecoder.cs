@@ -22,11 +22,14 @@ namespace TriviaClient
 
             switch (code)
             {
-                case 11:
+                case SignupResponse.MESSAGE_CODE:
                     response = serializer.Deserialize<SignupResponse>(reader);
                     break;
-                case 21:
+                case LoginResponse.MESSAGE_CODE:
                     response = serializer.Deserialize<LoginResponse>(reader);
+                    break;
+                case GetStatisticsResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<GetStatisticsResponse>(reader);
                     break;
                 default:
                     break;

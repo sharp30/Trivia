@@ -27,8 +27,6 @@ namespace TriviaClient
         public SignupWindow()
         {
             InitializeComponent();
-
-            
         }
         
 
