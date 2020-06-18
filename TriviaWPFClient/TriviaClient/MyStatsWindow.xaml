@@ -23,7 +23,7 @@
             x:Name="btn_back"
             Content="Back"
             Height="30" Margin="374,157,44,10" RenderTransformOrigin="0.473,-0.283" Click="BtnBackClick" Grid.Column="2" Grid.Row="2" />
-        <TextBlock Text="My Statistics" Margin="251,109,368,49" FontSize="30" Grid.ColumnSpan="2" Grid.Column="1" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBlock Text="My Statistics" Margin="251,109,338,49" FontSize="30" Grid.ColumnSpan="2" Grid.Column="1" FontStyle="Italic" FontWeight="Bold"/>
         <TextBlock x:Name="gamesNumTB" Text="Number of games:" Margin="106,2,302,1" FontSize="20" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="CorrectAnsTB" Text="Number of correct answers:" Margin="106,9,302,148" FontSize="20" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="incorrectAnsTB" Text="Number of incorrect answers:" Margin="106,54,302,103" FontSize="20" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"/>
