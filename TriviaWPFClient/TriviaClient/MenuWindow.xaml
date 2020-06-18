@@ -15,7 +15,7 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Magshimim Trivia 2020" Margin="223,24,242,132" FontSize="30" Grid.ColumnSpan="2"/>
+        <TextBlock Text="Magshimim Trivia 2020" Margin="235,25,230,131" FontSize="30" Grid.ColumnSpan="2"/>
         <Button x:Name="Btn_BestScores" Content="Best Scores" Margin="323,150,65,18" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.538,0"/>
         <TextBox x:Name="TBHello" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="41" Margin="250,95,0,0" TextWrapping="Wrap" Text="Hello " VerticalAlignment="Top" Width="312" Grid.ColumnSpan="2" TextChanged="TBHello_TextChanged"/>
         <Button  

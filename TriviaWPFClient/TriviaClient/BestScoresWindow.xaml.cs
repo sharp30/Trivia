@@ -22,6 +22,25 @@ namespace TriviaClient
         public BestScoresWindow()
         {
             InitializeComponent();
+
+            BestScoresResponse = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
+
+            //add textBoxes
+            this.Hide();
+            TextBlock txt = new TextBlock { Text = "Galant", FontSize = 15 };
+            for (int i = 0; i < 5; i++)
+            {
+                txt = new TextBlock { Text = "Galant"+i.ToString()+"                    " + (i*50).ToString(), FontSize = 40, Margin = new Thickness(90,35*i,120,35*(i+1)) };
+                Grid.SetRow(txt, i);
+                mainPart.Children.Add(txt);
+            }
+            
+                
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
