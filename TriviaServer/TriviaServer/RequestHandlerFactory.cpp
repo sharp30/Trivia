@@ -26,9 +26,9 @@ This function creates an MenuRequestHandler on the heap memory and returns it's 
 Input:None
 Output:The address of the instance :MenuRequestHandler*
 */
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(string user)
 {
-	return new MenuRequestHandler(this);
+	return new MenuRequestHandler(this,LoggedUser(user));
 }
 
 /*
@@ -39,4 +39,22 @@ Output:reference to the login manager
 LoginManager& RequestHandlerFactory::getLoginManager()
 {
 	return this->m_loginManger;
+}
+/*
+This function returns reference to the statistics Manager
+Input:None
+Output:reference to the login manager
+*/
+StatisticsManager& RequestHandlerFactory::getStatisticsManager()
+{
+	return this->m_statsManager;
+}
+/*
+This function returns reference to the Room Manager
+Input:None
+Output:reference to the login manager
+*/
+RoomManager& RequestHandlerFactory::getRoomManager()
+{
+	return this->m_roomManager;
 }
