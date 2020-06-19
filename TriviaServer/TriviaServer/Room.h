@@ -11,7 +11,7 @@ using std::string;
 class Room
 {
 public:
-
+	Room() = default;
 	Room(int roomId, LoggedUser creator,string name,int maxPlayers,int questionTime,int questionAmount);//for now
 
 	void addUser(LoggedUser userToAdd) throw();

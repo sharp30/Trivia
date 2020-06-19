@@ -30,7 +30,8 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	RequestResult res;
 	try
 	{
-		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername());
+		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(), request.getRoomName(), request.getMaxUsers(),
+			request.getAnswerTimeOut(), request.getQuestionCount());
 	}
 	catch(std::exception e)
 	{
