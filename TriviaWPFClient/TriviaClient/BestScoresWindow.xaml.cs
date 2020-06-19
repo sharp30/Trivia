@@ -23,16 +23,23 @@ namespace TriviaClient
         {
             InitializeComponent();
 
-            //BestScoresResponse response = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
+            BestScoresResponse response = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
+            string data = response.UserStatistics;
+            string[] dous = data.Split(',');
 
             //add textBoxes
             this.Hide();
-            TextBlock txt = new TextBlock { Text = "Galant", FontSize = 15 };
-            for (int i = 0; i < 5; i++)
+            TextBlock txt = null;
+            int count = 0;
+            foreach (string s in dous)
             {
-                txt = new TextBlock { Text = "Galant"+i.ToString()+"                    " + (i*50).ToString(), FontSize = 40, Margin = new Thickness(90,35*i,120,35*(i+1)) };
-                Grid.SetRow(txt, i);
+                string[] parts = s.Split(':');
+
+                txt = new TextBlock { Text =count.ToString() + ". "  + parts[0] + "                    " + parts[1], FontSize = 40, Margin = new Thickness(90,35*count,120,35*(count+1)) };
+
+                Grid.SetRow(txt, count);
                 mainPart.Children.Add(txt);
+                count++;
             }
             
                 
@@ -41,6 +48,14 @@ namespace TriviaClient
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Btn_back_Click(object sender, RoutedEventArgs e)
+        {
+            MenuWindow wind = new MenuWindow(this.);
+            wind.Show();
+            this.Hide();
+            this.Close();
         }
     }
 }

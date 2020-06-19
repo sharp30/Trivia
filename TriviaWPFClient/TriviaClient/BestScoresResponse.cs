@@ -14,9 +14,8 @@ namespace TriviaClient
         {
             status = 1;
         }
-        public string[] UserStatistics { get; set; }
+        public string UserStatistics { get; set; }
         public int status { get; set; }
-
     }
 
 }

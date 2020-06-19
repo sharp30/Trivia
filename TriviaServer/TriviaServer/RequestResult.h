@@ -13,4 +13,4 @@ typedef struct RequestResult
     vector<unsigned char> _buffer;
     IRequestHandler* _newHandler;
     bool _success;
-}RequestResult;
+}RequestResult;             

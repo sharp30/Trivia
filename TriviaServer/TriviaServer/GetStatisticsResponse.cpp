@@ -5,7 +5,7 @@ GetStatisticsResponse::GetStatisticsResponse(int _status, vector<string> data)
 {
 	this->status = _status;
 	this->messageCode = 71;
-	statistics = data;
+	this->statistics = data;
 }
 
 /*

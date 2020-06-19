@@ -15,15 +15,20 @@ namespace TriviaClient
         */
         public static byte[] Encode(Request req)
         {
+            int Isize =0 ;
             byte[] data =req.CastToBson();
 
             byte[] code = FromIntToByte(req.GetMsgCode(), 1);
-            byte[] size = FromIntToByte(data.Length, 4);
+            if (data != null)
+                Isize = data.Length;
+            
+           byte[] size = FromIntToByte(Isize, 4);
 
-            byte[] full = new byte[5 + data.Length];
+            byte[] full = new byte[5 + Isize];
             Array.Copy(code, 0, full, 0, code.Length);
             Array.Copy(size, 0, full, code.Length, size.Length);
-            Array.Copy(data, 0, full, code.Length + size.Length, data.Length);
+            if(data != null)
+                Array.Copy(data, 0, full, code.Length + size.Length,Isize);
 
             return full;
         }
