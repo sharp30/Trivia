@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TriviaClient
+﻿namespace TriviaClient
 {
     class GetStatisticsResponse : Response
     {
@@ -15,6 +9,6 @@ namespace TriviaClient
         public int correctAnswers { get; set; }
         public int incorrectAnswers { get; set; }
         public double avgTimePerAns { get; set; }
-        public GetStatisticsResponse() : base(MESSAGE_CODE){}
+        public GetStatisticsResponse() : base(MESSAGE_CODE) { }
     }
 }
