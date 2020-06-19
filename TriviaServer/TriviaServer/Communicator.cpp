@@ -167,10 +167,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		try
 		{
 			ConversationUtils::sendToSocket(clientSock, finalBuffer);
-			for (size_t i = 0; i < finalBuffer.size(); i++)
-			{
-				std::cout << (int)finalBuffer[i]<<std::endl;
-			}
 		}
 		catch (std::exception er)
 		{

@@ -10,7 +10,7 @@ public:
 	StatisticsManager() = default;
 	StatisticsManager(IDatabase* database);
 	vector<string> getStatistics(string username) throw();
-	vector<string> getBestPlayers(string username) throw();
+	vector<string> getBestPlayers() throw();
 
 private:
 	IDatabase* m_database;

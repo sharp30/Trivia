@@ -49,9 +49,12 @@ namespace TriviaClient
 
         private void Btn_MyStatus_Click(object sender, RoutedEventArgs e)
         {
-
+            MyStatsWindow wind = new MyStatsWindow(this.username);
+            wind.Show();
+            this.Hide();
+            this.Close();
         }
-
+            
         private void Btn_Quit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

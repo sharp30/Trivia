@@ -23,7 +23,7 @@ namespace TriviaClient
         {
             InitializeComponent();
 
-            BestScoresResponse = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
+            //BestScoresResponse response = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
 
             //add textBoxes
             this.Hide();

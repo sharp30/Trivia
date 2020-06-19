@@ -11,11 +11,11 @@ namespace TriviaClient
 {
     public class LoginRequest : Request
     {
-        public const int MESSAGE_CODE = 20;
+        //public const int MESSAGE_CODE = 20;
         public string username { get; set; }
         public string password { get; set; }
 
-        public LoginRequest(string _username, string _password) : base(MESSAGE_CODE)
+        public LoginRequest(string _username, string _password) : base(20)
         {
             this.username = _username;
             this.password = _password;

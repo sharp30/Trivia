@@ -8,9 +8,10 @@
         Title="CreateRoomWindow" Height="450" Width="800">
     <Grid Margin="0,-32,-28,13">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="134*"/>
-            <ColumnDefinition Width="259*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="268*"/>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="465*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="198*"/>
@@ -18,20 +19,20 @@
             <RowDefinition Height="197*"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="usernameTB" Margin="0,57,98,101" FontSize="20" Grid.Column="1"/>
-        <TextBlock Text="Magshimim Trivia 2020" Margin="192,37,239,121" FontSize="30" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <TextBlock Text="Magshimim Trivia 2020" Margin="192,37,239,121" FontSize="30" Grid.ColumnSpan="3" Grid.Column="1"/>
         <Button
             x:Name="btn_back"
             Content="Back"
-            Height="30" Margin="374,157,44,10" RenderTransformOrigin="0.473,-0.283" Click="BtnBackClick" Grid.Column="2" Grid.Row="2" />
-        <TextBox x:Name="TBRoomName" Margin="139,100,228,0" TextChanged="TBRoomName_TextChanged" Height="49" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" />
-        <TextBox x:Name="TBPlayers" Margin="139,154,228,0" TextChanged="TBPlayers_TextChanged" Height="49" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.RowSpan="2" />
-        <TextBox x:Name="TBQuestions" Margin="139,10,228,0" TextChanged="TBQuestions_TextChanged" Height="49" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" />
-        <TextBox x:Name="TBTimePerQuestion" Margin="139,21,228,126" Grid.ColumnSpan="2" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TBTimePerQuestions_TextChanged" Grid.Row="2" Grid.Column="1"/>
+            Height="30" Margin="321,157,44,10" RenderTransformOrigin="0.473,-0.283" Click="BtnBackClick" Grid.Column="3" Grid.Row="2" />
+        <TextBox x:Name="TBRoomName" Margin="139,100,228,0" Height="49" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" />
+        <TextBox x:Name="TBPlayers" Margin="139,154,228,0" Height="49" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.RowSpan="2" />
+        <TextBox x:Name="TBQuestions" Margin="139,10,228,0"  Height="49" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" />
+        <TextBox x:Name="TBTimePerQuestion" Margin="139,21,228,126" Grid.ColumnSpan="3" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="1"/>
 
-        <Label Content="Room Name:" HorizontalAlignment="Left" Margin="139,97,0,0" VerticalAlignment="Top" Width="419" BorderThickness="0" Grid.ColumnSpan="2" Grid.Column="1" Height="24"/>
-        <Label Content="Number Of Players:" HorizontalAlignment="Left" Margin="139.202,151,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Label Content="Number Of Questions:" HorizontalAlignment="Left" Margin="139,10,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1"/>
-        <Label Content="Time For Questions:" HorizontalAlignment="Left" Margin="139,21,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="1"/>
+        <Label Content="Room Name:" HorizontalAlignment="Left" Margin="139,97,0,0" VerticalAlignment="Top" Width="419" BorderThickness="0" Grid.ColumnSpan="3" Grid.Column="1" Height="24"/>
+        <Label Content="Number Of Players:" HorizontalAlignment="Left" Margin="139,151,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="3" Grid.Column="1"/>
+        <Label Content="Number Of Questions:" HorizontalAlignment="Left" Margin="139,10,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="Time For Questions:" HorizontalAlignment="Left" Margin="139,21,0,0" VerticalAlignment="Top" Width="353" BorderThickness="0" Grid.ColumnSpan="3" Grid.Row="2" Grid.Column="1"/>
         <Button  
                Name="BTN_Create"
                Content="Create Room"
@@ -40,7 +41,7 @@
                Background="DodgerBlue"
                Padding="10"
                FontSize="16"   
-               Margin="206,109,280,34" Grid.Row="2" Click="BtnCreateClick" Grid.ColumnSpan="2" Grid.Column="1">
+               Margin="206,109,280,34" Grid.Row="2" Click="BtnCreateClick" Grid.ColumnSpan="3" Grid.Column="1">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">

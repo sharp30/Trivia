@@ -8,8 +8,8 @@ namespace TriviaClient
 {
     class LogoutResponse : Response
     {
-        public const int MESSAGE_CODE = 101;
-        LogoutResponse() : base(MESSAGE_CODE)
+        //public const int MESSAGE_CODE = 101;
+        LogoutResponse() : base(101)
         {
 
         }

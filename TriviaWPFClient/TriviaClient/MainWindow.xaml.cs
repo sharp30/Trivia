@@ -29,10 +29,15 @@ namespace TriviaClient
             InitializeComponent();
             this.Hide();
             bool isConnected = Communicator.Connect("127.0.0.1", 2020);
-            if (!isConnected)
+            while (!isConnected)
             {
                 MessageBoxResult res = MessageBox.Show("Sorry man can't connect to server", "ERROR MESSAGE", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
-                btn_quit.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                if (res == MessageBoxResult.Cancel)
+                {
+                    btn_quit.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                    return;
+                }
+                isConnected = Communicator.Connect("127.0.0.1", 2020);
             }
             this.Show();
             

@@ -11,20 +11,14 @@ namespace TriviaClient
 {
     class GetStatisticsRequest : Request
     {
-        public const int MESSAGE_CODE = 70;
-        public GetStatisticsRequest() : base (MESSAGE_CODE)
+        //public const int MESSAGE_CODE = 70;
+        public GetStatisticsRequest() : base (70)
         {
 
         }
         public override byte[] CastToBson()
         {
-            MemoryStream ms = new MemoryStream();
-            using (BsonWriter writer = new BsonWriter(ms))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(writer, this);
-            }
-            return ms.ToArray();
+            return null;
         }
     }
 }

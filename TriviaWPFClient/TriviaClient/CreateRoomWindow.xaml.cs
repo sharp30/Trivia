@@ -24,6 +24,7 @@ namespace TriviaClient
         public int numberOfPlayers { set; get; }
         public int numberOfQuestions { set; get; }
         public int TimeForQuestion { set; get; }
+
         public CreateRoomWindow(string userName)
         {
             this.username = userName;
