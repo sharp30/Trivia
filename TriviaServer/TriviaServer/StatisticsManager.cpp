@@ -34,7 +34,7 @@ The function will return the names of the 5 best players according to their poin
 input: none
 output: vector of details as described below
 */
-vector<string> StatisticsManager::getBestPlayers(string username) throw()
+vector<string> StatisticsManager::getBestPlayers() throw()
 {
 	return this->m_database->getBestPlayers();
 }

@@ -177,6 +177,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	}
 }
 
+
 /*
 This funtion wait until a client connects and acccepts it
 Input:None
@@ -185,10 +186,12 @@ Output:None
 void Communicator::acceptClient()
 {
 	SOCKET clientSocket = accept(this->_serverSocket, NULL, NULL); //wait until client arrives and accepts it.
+	
 	if (clientSocket == INVALID_SOCKET)
 	{
 		throw std::exception("Can't accept client");
 	}
+
 	//insert to clients list
 	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket,(IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler()));
 
