@@ -25,6 +25,7 @@ public:
 \
 
 
+
 protected:
 	int findNextRoomId();
 	map<int, Room> _rooms;

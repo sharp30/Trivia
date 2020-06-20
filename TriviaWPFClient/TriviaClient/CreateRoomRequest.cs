@@ -10,14 +10,14 @@ namespace TriviaClient
     {
         //public const int MESSAGE_CODE = 40;
         public string _roomName { get; set; }
-        public int _numOfPlayers { get; set; }
-        public int _numOfQuestions { get; set; }
-        public int _timePerQuestion { get; set; }
+        public uint _maxPlayers { get; set; }
+        public uint _numOfQuestions { get; set; }
+        public uint _timePerQuestion { get; set; }
 
-        public CreateRoomRequest(string name, int players, int questions, int timeForQuestion) : base(40) 
+        public CreateRoomRequest(string name, uint players, uint questions, uint timeForQuestion) : base(40) 
         {
             this._roomName = name;
-            this._numOfPlayers = players;
+            this._maxPlayers = players;
             this._numOfQuestions = questions;
             this._timePerQuestion = timeForQuestion;
         }

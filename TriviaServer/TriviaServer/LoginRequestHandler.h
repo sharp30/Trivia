@@ -4,6 +4,10 @@
 #include "SignupRequest.h"
 #include "LoginManager.h"
 #include "RequestHandlerFactory.h"
+#include "JsonResponsePacketSerializer.h"
+#include "ConversationUtils.h"
+#include "LoginResponse.h"
+#include "SignupResponse.h"
 //empty class for this version
 
 class LoginRequestHandler : IRequestHandler
