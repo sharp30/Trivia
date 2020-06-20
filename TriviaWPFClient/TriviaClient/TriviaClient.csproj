@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="GetStatisticsRequest.cs" />
     <Compile Include="GetStatisticsResponse.cs" />
+    <Compile Include="JoinRoomRequest.xaml.cs">
+      <DependentUpon>JoinRoomRequest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginRequest.cs" />
     <Compile Include="LoginResponse.cs" />
     <Compile Include="LogoutRequest.cs" />
@@ -79,9 +82,13 @@
     <Compile Include="RequestEncoder.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="ResponseDecoder.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="SignupRequest.cs" />
     <Compile Include="SignupResponse.cs" />
     <Compile Include="SignupWindow.xaml.cs" />
+    <Compile Include="WaitingRoomWindow.xaml.cs">
+      <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="BestScoresWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +96,10 @@
     <Page Include="CreateRoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JoinRoomRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +124,10 @@
     <Page Include="SignupWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaitingRoomWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
