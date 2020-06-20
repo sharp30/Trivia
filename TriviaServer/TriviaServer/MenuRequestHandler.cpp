@@ -7,6 +7,9 @@
 #include "CreateRoomResponse.h"
 #include "GetRoomsResponse.h"
 
+//initialize messages codes
+map<string, int> MenuRequestHandler::MSG_CODES = MenuRequestHandler::initMsgCodes();
+ 
 //-----------------constructor--------------------
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
 {
