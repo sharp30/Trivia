@@ -78,5 +78,20 @@ namespace TriviaClient
                 mainPart.Children.Add(txt);
             }
         }
+
+        private void CloseBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CloseBTN_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -52,10 +52,10 @@ namespace TriviaClient
 
         private void Btn_back_Click(object sender, RoutedEventArgs e)
         {
-            MenuWindow wind = new MenuWindow(this.);
-            wind.Show();
-            this.Hide();
-            this.Close();
+           //MenuWindow wind = new MenuWindow(t);
+           //// wind.Show();
+            //this.Hide();
+            ///this.Close();
         }
     }
 }
