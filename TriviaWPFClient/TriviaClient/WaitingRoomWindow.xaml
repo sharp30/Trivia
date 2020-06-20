@@ -13,7 +13,16 @@
         <TextBlock x:Name="maxplayersTB" Text="max players: " Margin="125,118,502,251" FontSize="18"/>
         <TextBlock x:Name="questAmountTB" Text="Questions amount: " Margin="293,118,334,251" FontSize="18"/>
         <TextBlock x:Name="questTimeTB" Text="time per question: " Margin="505,118,122,251" FontSize="18"/>
+        <Button
+            x:Name="CloseBTN"
+            Content="Close Room" 
+            Margin="674,72,26,295" RenderTransformOrigin="0.473,-0.283" Click="BtnBackClick" Background="Red"/>
+        <Button
+            x:Name="StartBTN"
+            Content="Start Game"
+            Height="30" Margin="674,24,26,342" RenderTransformOrigin="0.473,-0.283" Click="BtnBackClick" Background="Green"/>
         <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,150,90,-124" VerticalAlignment="Top" Width="630"/>
+
 
 
     </Grid>
