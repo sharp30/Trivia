@@ -69,8 +69,8 @@
     </Compile>
     <Compile Include="GetStatisticsRequest.cs" />
     <Compile Include="GetStatisticsResponse.cs" />
-    <Compile Include="JoinRoomRequest.xaml.cs">
-      <DependentUpon>JoinRoomRequest.xaml</DependentUpon>
+    <Compile Include="JoinRoomWindow.xaml.cs">
+      <DependentUpon>JoinRoomWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginRequest.cs" />
     <Compile Include="LoginResponse.cs" />
@@ -97,9 +97,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="JoinRoomRequest.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="JoinRoomWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

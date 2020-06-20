@@ -15,13 +15,13 @@ using System.Windows.Shapes;
 namespace TriviaClient
 {
     /// <summary>
-    /// Interaction logic for JoinRoomRequest.xaml
+    /// Interaction logic for JoinRoomWindow.xaml
     /// </summary>
-    public partial class JoinRoomRequest : Window
+    public partial class JoinRoomWindow : Window
     {
         public Room[] availiableRooms { set; get; }
 
-        public JoinRoomRequest()
+        public JoinRoomWindow()
         {
             InitializeComponent();
 
