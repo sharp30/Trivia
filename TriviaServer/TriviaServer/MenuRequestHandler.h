@@ -26,16 +26,7 @@ protected:
 
 
 	static map<string, int> MSG_CODES;
-	static map<string, int> initMsgCodes()
-	{
-		map<string, int> m;
-		m["CREATE_ROOM"] = 40;
-		m["JOIN_ROOM"] = 44;
-		m["GET_STATS"] = 70;
-		m["LOGOUT"] = 100;
-
-		return m;
-	};
+	
 
 	LoggedUser m_user;
 	static const std::map<int, handler_func> m_functions;
