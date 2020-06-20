@@ -15,12 +15,15 @@ public:
 
 	RoomManager();
 
-	void createRoom(LoggedUser creator) throw();
+	void createRoom(LoggedUser creator,string name,int userAmount,int questionTime, int questionAmount) throw();
 	void deleteRoom(int roomId) throw();
 	bool getRoomState(int roomId) throw();
 	bool doesRoomExist(int roomId);
-
+	void addPlayerToRoom(int roomId,string user);
+	vector<string> getPlayersInRoom(int roomId);
 	vector<Room> getRooms();
+\
+
 
 protected:
 	int findNextRoomId();

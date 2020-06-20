@@ -8,7 +8,7 @@ using std::vector;
 class GetStatisticsResponse : Response
 {
 public:
-	GetStatisticsResponse(int _status);
+	GetStatisticsResponse(int _status,vector<string> data);
 	virtual json castToJson() const;
 	string castStatisticsToString() const;
 

@@ -20,9 +20,9 @@ public:
 	virtual void addPlayerToBestPlayers(string username) throw();
 
 	//statistics
-	virtual int getPlayerAverageAnswerTime(string username);//game? --- shouldn't it return a float?
+	virtual float getPlayerAverageAnswerTime(string username);
 	virtual int getNumOfCorrectAnswers(string username);
-	virtual int getNumOfTotalAnswers(string username); //game?
+	virtual int getNumOfTotalAnswers(string username); 
 	virtual int getNumOfPlayerGames(string username);
 	virtual vector<string> getBestPlayers();
 	virtual int calcPoints(string username);

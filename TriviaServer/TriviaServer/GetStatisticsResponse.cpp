@@ -1,10 +1,11 @@
 #include "GetStatisticsResponse.h"
 
-
-GetStatisticsResponse::GetStatisticsResponse(int _status)
+//------------constructor----------------
+GetStatisticsResponse::GetStatisticsResponse(int _status, vector<string> data)
 {
 	this->status = _status;
 	this->messageCode = 71;
+	statistics = data;
 }
 
 /*
