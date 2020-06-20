@@ -11,8 +11,8 @@ using std::string;
 class Room
 {
 public:
-
-	Room(int roomId, LoggedUser creator,string name,int maxPlayers,int questionTime,int questionAmount);//for now
+	
+	Room(int roomId, LoggedUser creator, string name, int maxPlayers, int questionTime, int questionAmount);
 
 	void addUser(LoggedUser userToAdd) throw();
 	void removeUser(LoggedUser userToRemove) throw();

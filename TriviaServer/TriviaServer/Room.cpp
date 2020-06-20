@@ -1,9 +1,6 @@
 #include "Room.h"
 
 //-------constructor-----------
-
-
-
 Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int questionTime, int questionAmount)
 {
 	this->_id = roomId;
@@ -15,6 +12,7 @@ Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int ques
 	this->_maxPlayers = maxPlayers;//default-value
 	this->_name = name;
 }
+
 /*
 This function adds user from a room
 Input : userToAdd: the user : LoggedUser
