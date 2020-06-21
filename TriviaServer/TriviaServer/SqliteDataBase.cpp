@@ -166,7 +166,7 @@ vector<string> SqliteDataBase::getBestPlayers()
 	string sqlStatement = "SELECT * FROM Best_Players ORDER BY Points DESC LIMIT 5;";
 	vector<string> result;
 
-	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &result);
+	executeCommand(sqlStatement.c_str(), callbackGetBestPlayers, &result);
 	
 	return result;
 }

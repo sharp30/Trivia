@@ -9,7 +9,7 @@ namespace TriviaClient
 {
     class BestScoresResponse : Response
     {
-        public const int MESSAGE_CODE = 81;
+        public const int MESSAGE_CODE = 75;
         public BestScoresResponse() : base(MESSAGE_CODE)
         {
             status = 1;

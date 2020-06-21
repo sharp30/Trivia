@@ -73,15 +73,6 @@ namespace TriviaClient
 
         }
 
-        private void Btn_BestScores_Click(object sender, RoutedEventArgs e)
-        {
-
-            BestScoresWindow wind = new BestScoresWindow();
-            wind.Show();
-            this.Hide();
-            this.Close();
-        }
-
         private void btn_signup_Click(object sender, RoutedEventArgs e)
         {
             SignupWindow wind = new SignupWindow();

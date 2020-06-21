@@ -23,7 +23,7 @@ protected:
 	RequestResult getPlayersInRoom(RequestInfo info);
 	RequestResult getStatisticsRequest(RequestInfo info);
 	RequestResult logout(RequestInfo info);
-
+	RequestResult getBestScores(RequestInfo info);
 
 	static const int MSG_CODE = 15;
 	static const int STATS_REQ_CODE = 70; // the message code of a getStatistics request

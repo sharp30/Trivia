@@ -6,6 +6,7 @@ Requests:
 * JoinRoom 44
 * GetPlayersInRoom 46
 * Get Statistics - 70
+* BestScores - 74
 * Logout - 100
 
 Responses:
@@ -16,5 +17,6 @@ Responses:
 * JoinRoom - 45
 * GetPlayersInRoom - 47
 * Get Statistics - 71
+* BestScores - 75
 * Logout - 101
 * Error - 99

@@ -6,7 +6,7 @@
 #include "LogoutResponse.h"
 #include "CreateRoomResponse.h"
 #include "GetRoomsResponse.h"
-
+#include "BestScoresResponse.h"
 
 const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_functions =
 {
@@ -15,6 +15,7 @@ const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_func
 	{44 , &MenuRequestHandler::joinRoom},
 	{46 , &MenuRequestHandler::getPlayersInRoom},
 	{70, &MenuRequestHandler::getStatisticsRequest},
+	{74, &MenuRequestHandler::getBestScores},
 	{100, &MenuRequestHandler::logout}
 };
 
@@ -160,6 +161,29 @@ RequestResult MenuRequestHandler::logout(RequestInfo info)
 
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	
+	if (actionResult)
+		res.setNewHandler(nullptr);
+
+	return res;
+}
+
+RequestResult MenuRequestHandler::getBestScores(RequestInfo info)
+{
+	RequestResult res;
+	vector<string> data;
+	bool actionResult = true;
+	try
+	{
+		data = this->m_handlerFactory->getStatisticsManager().getBestPlayers();
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+	BestScoresResponse response((int)actionResult, data);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
 	if (actionResult)
 		res.setNewHandler(nullptr);
 

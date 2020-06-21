@@ -30,7 +30,7 @@ namespace TriviaClient
             //add textBoxes
             this.Hide();
             TextBlock txt = null;
-            int count = 0;
+            int count = 1;
             foreach (string s in dous)
             {
                 string[] parts = s.Split(':');

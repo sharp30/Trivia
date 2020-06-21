@@ -13,7 +13,7 @@ This function creates an LoginRequestHandler on the heap memory and returns it's
 Input:None
 Output:The address of the instance :LoginRequestHandler*
 */
-RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database)
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database),m_statsManager(database)
 {
 }
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()

@@ -12,7 +12,8 @@ Output:None
 void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) throw()
 {
 	int res = 0;
-
+	if (length <= 0)
+		return;
 	try
 	{
 		res = recv(sock, buff,length, 0);
