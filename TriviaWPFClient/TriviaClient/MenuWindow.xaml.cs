@@ -39,7 +39,10 @@ namespace TriviaClient
 
         private void Btn_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateRoomWindow wind = new CreateRoomWindow(this.username);
+            wind.Show();
+            this.Hide();
+            this.Close();
         }
 
         private void Btn_joinRoom_Click(object sender, RoutedEventArgs e)
