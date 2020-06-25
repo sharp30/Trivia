@@ -22,20 +22,3 @@ json GetStatisticsResponse::castToJson() const
 		{"averageAnswerTime",this->statistics.at("averageAnswerTime")} };
 
 }
-
-/*
-string GetStatisticsResponse::castStatisticsToString() const
-{
-	string str = "";
-
-	vector<string> temp = this->statistics;
-
-	for (vector<string>::iterator it = temp.begin(); it != temp.end(); it++)
-	{
-		str += *it;
-		str += ", ";
-	}
-
-	return str.substr(0, str.length() - 2);
-}
-*/

@@ -37,6 +37,9 @@ namespace TriviaClient
                 case LogoutResponse.MESSAGE_CODE:
                     response = serializer.Deserialize<LogoutResponse>(reader);
                     break;
+                case CreateRoomResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<CreateRoomResponse>(reader);
+                    break;
                 default:
                     break;
             }
