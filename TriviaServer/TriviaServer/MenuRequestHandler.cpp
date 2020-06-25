@@ -123,7 +123,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
 {
 	bool actionResult = true;
-	std::vector<string> data;
+	std::map<string,string> data;
 	RequestResult res;
 	try
 	{

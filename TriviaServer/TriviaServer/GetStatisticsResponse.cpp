@@ -1,7 +1,7 @@
 #include "GetStatisticsResponse.h"
 
 //------------constructor----------------
-GetStatisticsResponse::GetStatisticsResponse(int _status, vector<string> data)
+GetStatisticsResponse::GetStatisticsResponse(int _status, std::map<string,string> data)
 {
 	this->status = _status;
 	this->messageCode = 71;
@@ -15,9 +15,15 @@ output: json format of this object
 */
 json GetStatisticsResponse::castToJson() const
 {
-	return json{ {"UserStatistics", castStatisticsToString() } };
+	return json{ {"status",this->status},
+		{"gamesAmount",this->statistics.at("gamesAmount")},
+		{"correctAnswers",this->statistics.at("correctAnswers")},
+		{"incorrectAnswers",this->statistics.at("incorrectAnswers")},
+		{"averageAnswerTime",this->statistics.at("averageAnswerTime")} };
+
 }
 
+/*
 string GetStatisticsResponse::castStatisticsToString() const
 {
 	string str = "";
@@ -32,3 +38,4 @@ string GetStatisticsResponse::castStatisticsToString() const
 
 	return str.substr(0, str.length() - 2);
 }
+*/

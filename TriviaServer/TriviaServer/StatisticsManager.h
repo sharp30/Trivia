@@ -1,7 +1,8 @@
 #pragma once
 #include "IDatabase.h"
 #include <vector>
-
+#include "map"
+using std::map;
 using std::vector;
 
 class StatisticsManager
@@ -9,7 +10,7 @@ class StatisticsManager
 public:
 	StatisticsManager() = default;
 	StatisticsManager(IDatabase* database);
-	vector<string> getStatistics(string username) throw();
+	map<string,string> getStatistics(string username) throw();
 	vector<string> getBestPlayers() throw();
 
 private:

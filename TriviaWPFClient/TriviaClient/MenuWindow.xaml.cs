@@ -47,12 +47,14 @@ namespace TriviaClient
 
         private void Btn_joinRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            JoinRoomWindow wind = new JoinRoomWindow
         }
 
         private void Btn_MyStatus_Click(object sender, RoutedEventArgs e)
         {
             MyStatsWindow wind = new MyStatsWindow(this.username);
+            if (wind.IsFailed())
+                return;
             wind.Show();
             this.Hide();
             this.Close();

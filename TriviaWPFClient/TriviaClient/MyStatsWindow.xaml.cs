@@ -17,10 +17,12 @@ namespace TriviaClient
 {
     public partial class MyStatsWindow : Window
     {
-         private string _username;
-            
+        private string _username;
+        private bool _isFailed;
         public MyStatsWindow(string username)
         {
+
+            this._isFailed = false;
             this._username = username;
             InitializeComponent();
             usernameTB.Text += this._username;
@@ -28,7 +30,10 @@ namespace TriviaClient
             SetStatistics();
         }
         
-
+        public bool IsFailed()
+        {
+            return this._isFailed;
+        }
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
             MenuWindow wind = new MenuWindow(_username);
@@ -47,17 +52,14 @@ namespace TriviaClient
             GetStatisticsResponse response = (GetStatisticsResponse)Communicator.Communicate(new GetStatisticsRequest());
             if (response.status != 1) // invalid response will take the user back to menu
             {
-                MenuWindow wind = new MenuWindow(_username);
-                wind.Show();
-                this.Hide();
-                this.Close();
+                this._isFailed = true;
             }
             else
             {
                 gamesNumTB.Text += response.gamesAmount;
                 CorrectAnsTB.Text += response.correctAnswers;
                 incorrectAnsTB.Text += response.incorrectAnswers;
-                avgTimeTB.Text += response.avgTimePerAns;
+                avgTimeTB.Text += response.incorrectAnswers;
             }
         }
     }
