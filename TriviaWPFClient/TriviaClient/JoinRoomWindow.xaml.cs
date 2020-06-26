@@ -44,7 +44,6 @@ namespace TriviaClient
                 this.availiableRooms = response.rooms.Split(',');
                 UpdateRoomsListGrid();
             }
-        
         }
 
         /*
