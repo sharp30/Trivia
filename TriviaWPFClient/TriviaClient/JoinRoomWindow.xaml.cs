@@ -19,16 +19,17 @@ namespace TriviaClient
     /// </summary>
     public partial class JoinRoomWindow : Window
     {
-        public Room[] availiableRooms { set; get; }
+        public Room[] availiableRoom { set; get; }
+        public string[] availiableRooms { set; get; }
 
         public JoinRoomWindow()
         {
             InitializeComponent();
 
             //add buttons of rooms
-            this.Hide();
+            //this.Hide();
 
-            UpdateRoomsListGrid();
+            RefreshRoomsList();
         }
 
         /*
@@ -38,11 +39,17 @@ namespace TriviaClient
         */
         private void RefreshRoomsList()
         {
-            //#TODO: get players list from server, if a change was detected, change the attribute array of players and call the UpdatePlayersListGrid function
+            GetRoomsResponse response = (GetRoomsResponse)Communicator.Communicate(new GetRoomsRequest());
+            if(response.status == 1)
+            {
+                this.availiableRooms = response.rooms.Split(',');
+                UpdateRoomsListGrid();
+            }
+        
         }
 
         /*
-        The function will add the new players that has joined to the grid
+        The function will add the new rooms that has joined to the grid
         input: none
         output: none
         */
@@ -52,7 +59,7 @@ namespace TriviaClient
 
             for (int i = 0; i < this.availiableRooms.Length; i++)
             {
-                btn = new Button { Content = this.availiableRooms[i].roomName, FontSize = 25, Margin = new Thickness(90, 35 * i, 120, 35 * (i + 1)) };
+                btn = new Button { Content = this.availiableRooms[i], FontSize = 25, Margin = new Thickness(90, 20 * i, 120, 20 * (i + 1)) };
                 Grid.SetRow(btn, i);
                 mainPart.Children.Add(btn);
             }

@@ -47,7 +47,9 @@ namespace TriviaClient
 
         private void Btn_joinRoom_Click(object sender, RoutedEventArgs e)
         {
-            JoinRoomWindow wind; //new JoinRoomWindow
+            JoinRoomWindow wind = new JoinRoomWindow() ; //new JoinRoomWindow
+            wind.Show();
+            this.Hide();
         }
 
         private void Btn_MyStatus_Click(object sender, RoutedEventArgs e)

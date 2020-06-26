@@ -4,7 +4,7 @@
 GetRoomsResponse::GetRoomsResponse(int status,vector<Room> rooms)
 {
 	this->_rooms = rooms;
-	this->_status = _status;
+	this->_status = status;
 	this->messageCode = 43;
 }
 
@@ -15,8 +15,8 @@ output: json format of this object
 */
 json GetRoomsResponse::castToJson() const
 {
-	string roomsStr = castRoomsToString();
-	return json{ {"status", this->_status}, {"Rooms", castRoomsToString()} };
+	//string roomsStr = castRoomsToString();
+	return json{ {"status", this->_status}, {"rooms", castRoomsToString()} };
 }
 
 
