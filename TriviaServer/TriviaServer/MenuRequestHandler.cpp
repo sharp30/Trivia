@@ -185,7 +185,7 @@ RequestResult MenuRequestHandler::getBestScores(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler(nullptr);
 
 	return res;
 }
