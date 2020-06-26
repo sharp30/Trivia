@@ -1,6 +1,7 @@
 #include "MenuRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "GetStatisticsResponse.h"
+#include "GetRoomStateResponse.h"
 #include "GetPlayersInRoomResponse.h"
 #include "JoinRoomResponse.h"
 #include "LogoutResponse.h"
@@ -102,6 +103,28 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 {
 	GetPlayersInRoomRequest req(info.getBuffer());
+	bool actionResult = true;
+	vector<string> users;
+	RequestResult res;
+	try
+	{
+		users = this->m_handlerFactory->getRoomManager().getPlayersInRoom(req.getRoomId());
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+	GetPlayersInRoomResponse response(users);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+	return res;
+}
+
+//TODO: change this function to work with room state request
+RequestResult MenuRequestHandler::getRoomState(RequestInfo info)
+{
+	GetRoomStateRequest req(info.getBuffer());
 	bool actionResult = true;
 	vector<string> users;
 	RequestResult res;

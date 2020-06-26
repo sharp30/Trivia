@@ -12,8 +12,9 @@ using std::string;
 class GetRoomStateResponse : Response
 {
 public:
-	GetRoomStateResponse(int status, vector<Room> rooms);
+	GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, float timeToAnswer);
 	virtual json castToJson() const;
+	string castPlayersToString() const;
 
 protected:
 	unsigned int _status;
