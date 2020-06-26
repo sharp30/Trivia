@@ -59,7 +59,7 @@ namespace TriviaClient
 
             for (int i = 0; i < this.availiableRooms.Length; i++)
             {
-                btn = new Button { Content = this.availiableRooms[i], FontSize = 25, Margin = new Thickness(90, 20 * i, 120, 20 * (i + 1)) };
+                btn = new Button { Content = this.availiableRooms[i], FontSize = 25, Margin = new Thickness(90, 10 * i, 120, 10 * (i + 1)) };
                 Grid.SetRow(btn, i);
                 mainPart.Children.Add(btn);
             }
