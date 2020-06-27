@@ -15,6 +15,7 @@ const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_func
 	{42, &MenuRequestHandler::getRooms},
 	{44 , &MenuRequestHandler::joinRoom},
 	{46 , &MenuRequestHandler::getPlayersInRoom},
+	{48 , &MenuRequestHandler::getRoomState},
 	{70, &MenuRequestHandler::getStatisticsRequest},
 	{74, &MenuRequestHandler::getBestScores},
 	{100, &MenuRequestHandler::logout}
@@ -126,20 +127,23 @@ RequestResult MenuRequestHandler::getRoomState(RequestInfo info)
 {
 	GetRoomStateRequest req(info.getBuffer());
 	bool actionResult = true;
+	Room room;
 	vector<string> users;
 	RequestResult res;
 	try
 	{
-		users = this->m_handlerFactory->getRoomManager().getPlayersInRoom(req.getRoomId());
+		room = this->m_handlerFactory->getRoomManager().getRoom(req.getRoomId());
 	}
 	catch (std::exception e)
 	{
 		actionResult = false;
 	}
-	GetPlayersInRoomResponse response(users);
+	GetRoomStateResponse response(room);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	
 	if (actionResult)
 		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+	
 	return res;
 }
 

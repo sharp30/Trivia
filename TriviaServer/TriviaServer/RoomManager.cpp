@@ -88,6 +88,12 @@ vector<Room> RoomManager::getRooms()
 
 	return all;
 }
+Room RoomManager::getRoom(unsigned int roomID) throw()
+{
+	if (doesRoomExist(roomID))
+		return this->_rooms.at(roomID);
+	throw std::exception("Room doesn't exist");
+}
 /*
 This function returns the id for the room (the smallest one)
 Input:None

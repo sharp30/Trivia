@@ -74,6 +74,16 @@ int Room::getID() const
 	return this->_id;
 }
 
+int Room::getQuestionsAmount() const
+{
+	return this->_questionAmount;
+}
+
+int Room::getQuestionsTime() const
+{
+	return this->_questionTime;
+}
+
 bool Room::isActive()
 {
 	return this->_isActive;

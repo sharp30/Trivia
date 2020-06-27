@@ -22,6 +22,7 @@ public:
 	void addPlayerToRoom(int roomId,string user);
 	vector<string> getPlayersInRoom(int roomId);
 	vector<Room> getRooms();
+	Room getRoom(unsigned int roomID);
 
 protected:
 	int findNextRoomId();

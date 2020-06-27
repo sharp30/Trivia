@@ -22,6 +22,9 @@ public:
 	vector<string> getAllUsers();
 	string getName() const;
 	int getID() const;
+	int getQuestionsAmount() const;
+	int getQuestionsTime() const;
+
 
 protected:
 	vector<LoggedUser> _users;

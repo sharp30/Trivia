@@ -10,9 +10,9 @@
         <TextBlock x:Name="usernameTB" Margin="21,24,604,336" FontSize="20"/>
         <TextBlock Text="Magshimim Trivia 2020" Margin="244,24,193,310" FontSize="30"/>
         <TextBlock x:Name="roomnameTB" HorizontalAlignment="Center" Margin="163,72,164,0" TextWrapping="Wrap" Text="You are connected to room " VerticalAlignment="Top" Height="46" Width="463" TextAlignment="Center" FontSize="25"/>
-        <TextBlock x:Name="maxplayersTB" Text="max players: " Margin="125,118,502,251" FontSize="18"/>
-        <TextBlock x:Name="questAmountTB" Text="Questions amount: " Margin="293,118,334,251" FontSize="18"/>
-        <TextBlock x:Name="questTimeTB" Text="time per question: " Margin="505,118,122,251" FontSize="18"/>
+        <TextBlock x:Name="maxplayersTB" Text="Players amount: " Margin="61,118,518,251" FontSize="18"/>
+        <TextBlock x:Name="questAmountTB" Text="Questions amount: " Margin="277,118,302,251" FontSize="18"/>
+        <TextBlock x:Name="questTimeTB" Text="time per question: " Margin="511,118,65,251" FontSize="18"/>
         <Button
             x:Name="CloseBTN"
             Content="Close Room" 
