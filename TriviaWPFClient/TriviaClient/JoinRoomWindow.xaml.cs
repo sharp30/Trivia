@@ -19,15 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class JoinRoomWindow : Window
     {
+        public string username { set; get; }
         public Room[] availiableRoom { set; get; }
         public string[] availiableRooms { set; get; }
 
-        public JoinRoomWindow()
+        public JoinRoomWindow(string uName)
         {
             InitializeComponent();
-
-            //add buttons of rooms
-            //this.Hide();
+            this.username = uName;
 
             RefreshRoomsList();
         }
@@ -45,7 +44,6 @@ namespace TriviaClient
                 this.availiableRooms = response.rooms.Split(',');
                 UpdateRoomsListGrid();
             }
-        
         }
 
         /*
@@ -56,12 +54,39 @@ namespace TriviaClient
         private void UpdateRoomsListGrid()
         {
             Button btn = null;
+            
+            //clear previous values in Grid
+            mainPart.Children.Clear();
 
             for (int i = 0; i < this.availiableRooms.Length; i++)
             {
-                btn = new Button { Content = this.availiableRooms[i], FontSize = 25, Margin = new Thickness(90, 20 * i, 120, 20 * (i + 1)) };
+                //TODO: change content of button to the room's name
+                btn = new Button { Name = this.availiableRooms[i], Content = "room" + i.ToString(), FontSize = 25, Margin = new Thickness(40, 25, 40, 25)};
+                btn.Click += new RoutedEventHandler(RoomBtnClicked);
                 Grid.SetRow(btn, i);
                 mainPart.Children.Add(btn);
+            }
+        }
+
+        protected void RoomBtnClicked(object sender, RoutedEventArgs e)
+        {
+            string id = ((Button)sender).Name;
+
+            JoinRoomResponse response = (JoinRoomResponse)Communicator.Communicate(new JoinRoomRequest(uint.Parse(id)));
+
+            /*
+            TODO in future
+            SomeDataType = GetRoomData();
+            Room room = new Room(someDatatype.something)
+            */
+            if (response.status == 1)
+            {
+                /*
+                WaitingRoomWindow wind = new WaitingRoomWindow(false, this.username, this.room);
+                wind.Show();
+                this.Hide();
+                this.Close();
+                */            
             }
         }
     }

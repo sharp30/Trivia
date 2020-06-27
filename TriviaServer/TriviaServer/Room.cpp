@@ -63,12 +63,17 @@ vector<string> Room::getAllUsers()
 	return all;
 }
 
+//getters
 string Room::getName() const
 {
 	return this->_name;
 }
 
-//getters
+int Room::getID() const
+{
+	return this->_id;
+}
+
 bool Room::isActive()
 {
 	return this->_isActive;

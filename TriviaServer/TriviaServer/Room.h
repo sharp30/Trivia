@@ -21,6 +21,7 @@ public:
 	bool isActive();
 	vector<string> getAllUsers();
 	string getName() const;
+	int getID() const;
 
 protected:
 	vector<LoggedUser> _users;
