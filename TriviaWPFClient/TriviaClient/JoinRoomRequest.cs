@@ -9,20 +9,13 @@ using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    class CreateRoomRequest : Request
+    class JoinRoomRequest :Request
     {
-        //public const int MESSAGE_CODE = 40;
-        public string roomName { get; set; }
-        public uint maxUsers { get; set; }
-        public uint questionCount { get; set; }
-        public uint answerTimeOut { get; set; }
-
-        public CreateRoomRequest(string name, uint players, uint questions, uint timeForQuestion) : base(40) 
+        public uint roomId { set; get; }
+       
+        public JoinRoomRequest(uint _roomId) : base(42)
         {
-            this.roomName = name;
-            this.maxUsers = players;
-            this.questionCount = questions;
-            this.answerTimeOut = timeForQuestion;
+            this.roomId = _roomId;
         }
         public override byte[] CastToBson()
         {

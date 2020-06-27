@@ -22,8 +22,6 @@ public:
 	void addPlayerToRoom(int roomId,string user);
 	vector<string> getPlayersInRoom(int roomId);
 	vector<Room> getRooms();
-\
-
 
 protected:
 	int findNextRoomId();

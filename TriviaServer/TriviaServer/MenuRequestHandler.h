@@ -2,6 +2,7 @@
 
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
+#include "GetRoomStateRequest.h"
 //#include "StatisticsManager.h"
 #include "CreateRoomRequest.h"
 #include "JoinRoomRequest.h"
@@ -23,7 +24,8 @@ protected:
 	RequestResult getPlayersInRoom(RequestInfo info);
 	RequestResult getStatisticsRequest(RequestInfo info);
 	RequestResult logout(RequestInfo info);
-
+	RequestResult getBestScores(RequestInfo info);
+	RequestResult getRoomState(RequestInfo info);
 
 	static const int MSG_CODE = 15;
 	static const int STATS_REQ_CODE = 70; // the message code of a getStatistics request
@@ -31,13 +33,4 @@ protected:
 	LoggedUser m_user;
 	static const std::map<int, handler_func> m_functions;
 
-};
-const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_functions =
-{
-	{40 , &MenuRequestHandler::createRoom},
-	{42, &MenuRequestHandler::getRooms},
-	{44 , &MenuRequestHandler::joinRoom},
-	{46 , &MenuRequestHandler::getPlayersInRoom},
-	{70, &MenuRequestHandler::getStatisticsRequest},
-	{100, &MenuRequestHandler::logout}
 };

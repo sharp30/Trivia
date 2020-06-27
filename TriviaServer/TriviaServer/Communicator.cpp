@@ -136,7 +136,10 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			{
 				delete[] reqContent;
 			}
-
+			if (dynamic_cast<LoginRequestHandler*>(client->second) != nullptr)
+			{
+				//this->m_handlerFactory->getLoginManager().logout();
+			}
 			std::cout << e.what();
 			return;
 		}
@@ -154,10 +157,12 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			//change RequestHandler
 			if (reqResult._success)//if succeeded
 			{
-				if(reqResult._newHandler)
-					delete client->second;
+				//if (reqResult._newHandler)
+				//{
+				delete client->second;
 				client->second = reqResult._newHandler;
 				connected = req.getId() != LOGOUT;//if logout
+				//}
 			}
 			finalBuffer = reqResult._buffer;
 			//send response to client

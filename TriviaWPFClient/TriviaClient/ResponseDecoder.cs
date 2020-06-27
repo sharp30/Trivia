@@ -31,6 +31,18 @@ namespace TriviaClient
                 case GetStatisticsResponse.MESSAGE_CODE:
                     response = serializer.Deserialize<GetStatisticsResponse>(reader);
                     break;
+                case BestScoresResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<BestScoresResponse>(reader);
+                    break;
+                case LogoutResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<LogoutResponse>(reader);
+                    break;
+                case CreateRoomResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<CreateRoomResponse>(reader);
+                    break;
+                case GetRoomsResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<GetRoomsResponse>(reader);
+                    break;
                 default:
                     break;
             }

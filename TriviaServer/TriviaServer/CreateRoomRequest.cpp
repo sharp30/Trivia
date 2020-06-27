@@ -5,7 +5,6 @@ ctor of this class- cast json to object
 */
 CreateRoomRequest::CreateRoomRequest(nlohmann::json j)
 {
-	//this->creatorName = j.at("creatorName").get<string>();
 	this->roomName = j.at("roomName").get<string>();
 	this->maxUsers = j.at("maxUsers").get<unsigned int>();
 	this->questionCount = j.at("questionCount").get<unsigned int>();

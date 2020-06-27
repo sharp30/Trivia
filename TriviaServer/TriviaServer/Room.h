@@ -11,24 +11,26 @@ using std::string;
 class Room
 {
 public:
+	Room() = default;
 
-	Room(int roomId, LoggedUser creator,string name,int maxPlayers,int questionTime,int questionAmount);//for now
+	Room(int roomId, LoggedUser creator, string name, int maxPlayers, int questionTime, int questionAmount);
 
 	void addUser(LoggedUser userToAdd) throw();
 	void removeUser(LoggedUser userToRemove) throw();
 	bool isUserExist(LoggedUser userToSearch);
 	bool isActive();
-	vector<string> getAllUsers();//need to think on return type
+	vector<string> getAllUsers();
 	string getName() const;
+	int getID() const;
 
 protected:
 	vector<LoggedUser> _users;
 	//room's data
+	int _questionAmount;
 	int _id;
 	string _name;
 	unsigned int _maxPlayers;
 	unsigned int _questionTime;
-	unsigned int questionAmount;
 	bool _isActive; // maybe will be enum in the future.
 
 };

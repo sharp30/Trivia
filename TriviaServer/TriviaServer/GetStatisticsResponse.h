@@ -1,19 +1,19 @@
 #pragma once
 
 #include "Response.h"
-#include <vector>
+#include <map>
 
 using std::vector;
 
 class GetStatisticsResponse : Response
 {
 public:
-	GetStatisticsResponse(int _status,vector<string> data);
+	GetStatisticsResponse(int _status,std::map<string,string> data);
 	virtual json castToJson() const;
-	string castStatisticsToString() const;
+//	string castStatisticsToString() const;
 
 protected:
-	vector<string> statistics;
+	std::map<string,string> statistics;
 	unsigned int status;
 
 };

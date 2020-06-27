@@ -2,7 +2,7 @@
 {
     internal class BestScoresRequest : Request
     {
-        public BestScoresRequest() :base(90)
+        public BestScoresRequest() :base(74)
         {
         }
     }

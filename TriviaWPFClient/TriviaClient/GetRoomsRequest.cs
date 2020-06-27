@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    class LogoutResponse : Response
+    class GetRoomsRequest : Request
     {
-        public const int MESSAGE_CODE = 101;
-        LogoutResponse() : base(101)
+
+        public GetRoomsRequest() : base  (42)
         {
 
         }
-        public int status { get; set; }
-
     }
 }

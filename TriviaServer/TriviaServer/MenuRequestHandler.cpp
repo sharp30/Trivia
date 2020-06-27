@@ -1,11 +1,25 @@
 #include "MenuRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "GetStatisticsResponse.h"
+#include "GetRoomStateResponse.h"
 #include "GetPlayersInRoomResponse.h"
 #include "JoinRoomResponse.h"
 #include "LogoutResponse.h"
 #include "CreateRoomResponse.h"
 #include "GetRoomsResponse.h"
+#include "BestScoresResponse.h"
+
+const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_functions =
+{
+	{40 , &MenuRequestHandler::createRoom},
+	{42, &MenuRequestHandler::getRooms},
+	{44 , &MenuRequestHandler::joinRoom},
+	{46 , &MenuRequestHandler::getPlayersInRoom},
+	{70, &MenuRequestHandler::getStatisticsRequest},
+	{74, &MenuRequestHandler::getBestScores},
+	{100, &MenuRequestHandler::logout}
+};
+
 
 //-----------------constructor--------------------
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
@@ -30,7 +44,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	RequestResult res;
 	try
 	{
-		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername());
+		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
 	}
 	catch(std::exception e)
 	{
@@ -107,10 +121,32 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 	return res;
 }
 
+//TODO: change this function to work with room state request
+RequestResult MenuRequestHandler::getRoomState(RequestInfo info)
+{
+	GetRoomStateRequest req(info.getBuffer());
+	bool actionResult = true;
+	vector<string> users;
+	RequestResult res;
+	try
+	{
+		users = this->m_handlerFactory->getRoomManager().getPlayersInRoom(req.getRoomId());
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+	GetPlayersInRoomResponse response(users);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+	return res;
+}
+
 RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
 {
 	bool actionResult = true;
-	std::vector<string> data;
+	std::map<string,string> data;
 	RequestResult res;
 	try
 	{
@@ -150,6 +186,29 @@ RequestResult MenuRequestHandler::logout(RequestInfo info)
 	
 	if (actionResult)
 		res.setNewHandler(nullptr);
+
+	return res;
+}
+
+RequestResult MenuRequestHandler::getBestScores(RequestInfo info)
+{
+	RequestResult res;
+	vector<string> data;
+	bool actionResult = true;
+	try
+	{
+		data = this->m_handlerFactory->getStatisticsManager().getBestPlayers();
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+	BestScoresResponse response((int)actionResult, data);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 
 	return res;
 }

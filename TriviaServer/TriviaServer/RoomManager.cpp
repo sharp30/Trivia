@@ -1,5 +1,6 @@
 #include "RoomManager.h"
 #include <cstdlib>
+
 //----------------constructor------------
 RoomManager::RoomManager()
 {

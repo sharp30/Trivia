@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B97BDA3D-9B92-4E91-8AFA-1442057B4238}</ProjectGuid>
+    <ProjectGuid>{3B58845E-BD06-4911-8D9A-D98166513DAD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TriviaClient</RootNamespace>
     <AssemblyName>TriviaClient</AssemblyName>
@@ -40,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,37 +60,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BestScoresWindow.xaml.cs">
-      <DependentUpon>BestScoresWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Communicator.cs" />
-    <Compile Include="CreateRoomRequest.cs" />
-    <Compile Include="CreateRoomResponse.cs" />
-    <Compile Include="CreateRoomWindow.xaml.cs">
-      <DependentUpon>CreateRoomWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GetStatisticsRequest.cs" />
-    <Compile Include="GetStatisticsResponse.cs" />
-    <Compile Include="LoginRequest.cs" />
-    <Compile Include="LoginResponse.cs" />
-    <Compile Include="LogoutRequest.cs" />
-    <Compile Include="LogoutResponse.cs" />
-    <Compile Include="MenuWindow.xaml.cs" />
-    <Compile Include="MyStatsWindow.xaml.cs" />
+    <Compile Include="GetRoomsRequest.cs" />
+    <Compile Include="GetRoomsResponse.cs" />
+    <Compile Include="JoinRoomRequest.cs" />
+    <Compile Include="JoinRoomResponse.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestEncoder.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="ResponseDecoder.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="SignupRequest.cs" />
     <Compile Include="SignupResponse.cs" />
     <Compile Include="SignupWindow.xaml.cs" />
+    <Compile Include="WaitingRoomWindow.xaml.cs" />
     <Page Include="BestScoresWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateRoomWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="JoinRoomWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +93,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BestScoresRequest.cs" />
+    <Compile Include="BestScoresResponse.cs" />
+    <Compile Include="BestScoresWindow.xaml.cs" />
+    <Compile Include="Communicator.cs" />
+    <Compile Include="CreateRoomRequest.cs" />
+    <Compile Include="CreateRoomResponse.cs" />
+    <Compile Include="CreateRoomWindow.xaml.cs" />
+    <Compile Include="GetStatisticsRequest.cs" />
+    <Compile Include="GetStatisticsResponse.cs" />
+    <Compile Include="JoinRoomWindow.xaml.cs" />
+    <Compile Include="LoginRequest.cs" />
+    <Compile Include="LoginResponse.cs" />
+    <Compile Include="LogoutRequest.cs" />
+    <Compile Include="LogoutResponse.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -114,8 +123,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WaitingRoomWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuWindow.xaml.cs" />
+    <Compile Include="MyStatsWindow.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -141,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trophy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

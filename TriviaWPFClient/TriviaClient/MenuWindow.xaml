@@ -16,7 +16,9 @@
             <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Magshimim Trivia 2020" Margin="235,25,230,131" FontSize="30" Grid.ColumnSpan="2"/>
-        <Button x:Name="Btn_BestScores" Content="Best Scores" Margin="323,150,65,18" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.538,0"/>
+        <Button Height="100" Width="100" Grid.Column="1" Margin="373,77,45,20" Grid.Row="1" Click="Btn_BestScores_Click" BorderThickness="0">
+            <Image Source="trophy.png"/>
+        </Button>     
         <TextBox x:Name="TBHello" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="41" Margin="250,95,0,0" TextWrapping="Wrap" Text="Hello " VerticalAlignment="Top" Width="312" Grid.ColumnSpan="2" TextChanged="TBHello_TextChanged"/>
         <Button  
             x:Name="Btn_joinRoom"

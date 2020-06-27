@@ -8,7 +8,7 @@
         public int gamesAmount { get; set; }
         public int correctAnswers { get; set; }
         public int incorrectAnswers { get; set; }
-        public double avgTimePerAns { get; set; }
+        public double averageAnswerTime { get; set; }
         public GetStatisticsResponse() : base(MESSAGE_CODE) { }
     }
 }

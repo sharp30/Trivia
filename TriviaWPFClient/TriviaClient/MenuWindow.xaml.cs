@@ -39,17 +39,24 @@ namespace TriviaClient
 
         private void Btn_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateRoomWindow wind = new CreateRoomWindow(this.username);
+            wind.Show();
+            this.Hide();
+            this.Close();
         }
 
         private void Btn_joinRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            JoinRoomWindow wind = new JoinRoomWindow() ; //new JoinRoomWindow
+            wind.Show();
+            this.Hide();
         }
 
         private void Btn_MyStatus_Click(object sender, RoutedEventArgs e)
         {
             MyStatsWindow wind = new MyStatsWindow(this.username);
+            if (wind.IsFailed())
+                return;
             wind.Show();
             this.Hide();
             this.Close();
@@ -71,5 +78,15 @@ namespace TriviaClient
                 this.Close();
             }
         }
+
+        private void Btn_BestScores_Click(object sender, RoutedEventArgs e)
+        {
+
+            BestScoresWindow wind = new BestScoresWindow();
+            wind.Show();
+            //this.Hide();
+            //this.Close();
+        }
+
     }
 }

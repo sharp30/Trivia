@@ -31,8 +31,6 @@ namespace TriviaClient
             serverSocket.Receive(arr,5,SocketFlags.None);
 
             return true;
-
-
         }
 
         /*
@@ -42,7 +40,6 @@ namespace TriviaClient
          */
         public static Response Communicate(Request req)
         {
-
             byte[] mes = RequestEncoder.Encode(req);
             serverSocket.Send(mes);
 
@@ -63,8 +60,6 @@ namespace TriviaClient
             serverSocket.Receive(arr, size, SocketFlags.None);
 
             return ResponseDecoder.Decode(code,arr);
-
-
         }
 /*
          This function transform for array of bytes to integer value
