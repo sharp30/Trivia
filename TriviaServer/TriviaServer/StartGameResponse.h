@@ -6,7 +6,7 @@ class StartGameResponse : Response
 {
 public:
 	StartGameResponse(int status);
-	virtual nlohmann::json castToJson();
+	virtual json castToJson() const;
 
 protected:
 	int _status;

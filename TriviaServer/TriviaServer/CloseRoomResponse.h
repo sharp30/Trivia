@@ -7,7 +7,7 @@ class CloseRoomResponse : Response
 {
 public:
 	CloseRoomResponse(int status);
-	virtual nlohmann::json castToJson();
+	virtual nlohmann::json castToJson() const;
 
 protected:
 	int _status;
