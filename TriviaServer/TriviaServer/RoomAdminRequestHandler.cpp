@@ -7,9 +7,8 @@
 #include "LeaveRoomResponse.h"
 
 //-----------------constructor------------------
-RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser connectedUser, Room connectedRoom) : RoomHandler(factory,connectedRoom,connectedUser),_connectedUser(connectedUser)
+RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser connectedUser, Room connectedRoom) : RoomHandler(factory,connectedRoom,connectedUser)
 {
-	this->_connectedRoom = connectedRoom;
 }
 
 bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo req)

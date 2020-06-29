@@ -10,13 +10,17 @@
 class IRequestHandler;
 class MenuRequestHandler;
 class LoginRequestHandler;
-
+class RoomAdminRequestHandler;
+class RoomMemberRequestHandler;
 class RequestHandlerFactory
 {
 public:
 	RequestHandlerFactory(IDatabase* database);
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler(string user);
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(int roomId, string user);
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(int roomId, string user);
+
 	LoginManager& getLoginManager();
 	StatisticsManager& getStatisticsManager();
 	RoomManager& getRoomManager();

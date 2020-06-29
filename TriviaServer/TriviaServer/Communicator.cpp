@@ -95,7 +95,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	const int ID_LENGTH = 1; // number of bytes the ID takes
 	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
 	const int LOGOUT = 101;
-	bool connected = true;
 	char id[ID_LENGTH];
 	char size[SIZE_LENGTH];
 	char* reqContent = nullptr;
@@ -117,7 +116,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		throw std::exception("Can't send message to client :<");
 	}
 
-	while (connected) 
+	while (true) 
 	{
 		try
 		{
@@ -155,14 +154,10 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
-			if (reqResult._success)//if succeeded
+			if (reqResult._newHandler)//if succeeded
 			{
-				//if (reqResult._newHandler)
-				//{
 				delete client->second;
 				client->second = reqResult._newHandler;
-				connected = req.getId() != LOGOUT;//if logout
-				//}
 			}
 			finalBuffer = reqResult._buffer;
 			//send response to client

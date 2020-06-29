@@ -14,6 +14,6 @@ protected:
 
 	
 	Room _connectedRoom;
-	LoggedUser _loggedUser;
+	LoggedUser _connectedUser;
 
 };

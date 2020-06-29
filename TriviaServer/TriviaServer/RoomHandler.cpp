@@ -4,8 +4,9 @@
 #include "GetRoomStateRequest.h"
 #include "GetRoomStateResponse.h"
 //---------------------   constructor ----------------------------------------
-RoomHandler::RoomHandler(RequestHandlerFactory* factory, Room room, LoggedUser user) :IRequestHandler(factory), _loggedUser(user)
+RoomHandler::RoomHandler(RequestHandlerFactory* factory, Room room, LoggedUser user) :IRequestHandler(factory), _connectedUser(user)
 {
+	this->_connectedRoom = room;
 }
 
 RequestResult RoomHandler::getRoomState(RequestInfo info)

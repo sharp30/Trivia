@@ -21,8 +21,10 @@ public:
 	void setRoomState(int roomId, RoomState state);
 	bool doesRoomExist(int roomId);
 	void addPlayerToRoom(int roomId,string user);
+	void RemovePlayerFromRoom(int roomId, string user);
 	vector<string> getPlayersInRoom(int roomId);
 	vector<Room> getRooms();
+    Room getRoom(int roomId);
 
 protected:
 	int findNextRoomId();
