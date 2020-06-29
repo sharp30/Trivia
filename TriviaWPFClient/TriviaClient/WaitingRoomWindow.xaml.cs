@@ -34,8 +34,21 @@ namespace TriviaClient
             this.username = _username;
 
             this.isAdmin = admin;
-            this.players = new string[this.room.numberOfPlayers];
-            this.players[0] = this.username;
+            this.players = new string[_room.numberOfPlayers];
+            this.players[0] = _username;
+
+            this.lastPlayerIndex = 1;
+
+            FillTBs();
+        }
+        public WaitingRoomWindow(bool admin, string _username, string[] _players, Room _room)
+        {
+            InitializeComponent();
+            this.room = _room;
+            this.username = _username;
+
+            this.isAdmin = admin;
+            this.players = _players;
             this.lastPlayerIndex = 1;
 
             FillTBs();

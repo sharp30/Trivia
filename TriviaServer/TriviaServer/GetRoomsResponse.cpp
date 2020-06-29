@@ -33,7 +33,9 @@ string GetRoomsResponse::castRoomsToString() const
 
 	for (vector<Room>::iterator it = temp.begin(); it != temp.end(); it++)
 	{
-		str += it->getID();
+		str += std::to_string(it->getID());
+		str += ":";
+		str += it->getName();
 		str += ",";
 	}
 

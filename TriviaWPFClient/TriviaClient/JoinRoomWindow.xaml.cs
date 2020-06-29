@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,7 +62,7 @@ namespace TriviaClient
             for (int i = 0; i < this.availiableRooms.Length; i++)
             {
                 //TODO: change content of button to the room's name
-                btn = new Button { Name = this.availiableRooms[i], Content = "room" + i.ToString(), FontSize = 25, Margin = new Thickness(40, 25, 40, 25)};
+                btn = new Button { Name = "r" + this.availiableRooms[i].Split(':')[0], Content = this.availiableRooms[i].Split(':')[1], FontSize = 25, Margin = new Thickness(40, 25, 40, 25)};
                 btn.Click += new RoutedEventHandler(RoomBtnClicked);
                 Grid.SetRow(btn, i);
                 mainPart.Children.Add(btn);
@@ -70,23 +71,25 @@ namespace TriviaClient
 
         protected void RoomBtnClicked(object sender, RoutedEventArgs e)
         {
-            string id = ((Button)sender).Name;
+            uint id = uint.Parse(((Button)sender).Name.Substring(1));
+            string roomName = (string)((Button)sender).Content;
 
-            JoinRoomResponse response = (JoinRoomResponse)Communicator.Communicate(new JoinRoomRequest(uint.Parse(id)));
+            JoinRoomResponse response = (JoinRoomResponse)Communicator.Communicate(new JoinRoomRequest(id));
 
             /*
             TODO in future
-            SomeDataType = GetRoomData();
+            SomeDataType = GetRoomData(id);
             Room room = new Room(someDatatype.something)
             */
+            GetRoomStateResponse res = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest(id));
+
+            Room room = new Room(roomName, (uint)res.players.Split(',').Length, res.questionCount, res.answerTimeOut);
             if (response.status == 1)
             {
-                /*
-                WaitingRoomWindow wind = new WaitingRoomWindow(false, this.username, this.room);
+                WaitingRoomWindow wind = new WaitingRoomWindow(false, this.username, res.players.Split(','), room);
                 wind.Show();
                 this.Hide();
-                this.Close();
-                */            
+                this.Close();           
             }
         }
     }

@@ -101,23 +101,11 @@ vector<Room> RoomManager::getRooms()
 
 	return all;
 }
-Room RoomManager::getRoom(int roomId)
+Room RoomManager::getRoom(unsigned int roomID) throw()
 {
-	if (!this->doesRoomExist(roomId))
-		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
-	return this->_rooms[roomId];
-}
-void RoomManager::eraseRoom(int roomId)
-{
-	std::this_thread::sleep_for(std::chrono::seconds(5));
-	try
-	{
-		this->deleteRoom(roomId);
-	}
-	catch (std::exception e)
-	{
-		
-	}
+	if (doesRoomExist(roomID))
+		return this->_rooms.at(roomID);
+	throw std::exception("Room doesn't exist");
 }
 /*
 This function returns the id for the room (the smallest one)

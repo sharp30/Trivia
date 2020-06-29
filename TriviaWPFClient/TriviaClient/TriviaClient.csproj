@@ -62,6 +62,8 @@
     </ApplicationDefinition>
     <Compile Include="GetRoomsRequest.cs" />
     <Compile Include="GetRoomsResponse.cs" />
+    <Compile Include="GetRoomStateRequest.cs" />
+    <Compile Include="GetRoomStateResponse.cs" />
     <Compile Include="JoinRoomRequest.cs" />
     <Compile Include="JoinRoomResponse.cs" />
     <Compile Include="Request.cs" />

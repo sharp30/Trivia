@@ -2,18 +2,18 @@
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TriviaClient
 {
-    class JoinRoomRequest :Request
+    class GetRoomStateRequest : Request
     {
         public uint roomId { set; get; }
-       
-        public JoinRoomRequest(uint _roomId) : base(44)
+
+        public GetRoomStateRequest(uint _roomId) : base(48)
         {
             this.roomId = _roomId;
         }

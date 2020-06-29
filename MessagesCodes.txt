@@ -16,7 +16,7 @@ Requests:
 Responses:
 * Login - 21
 * SignUp - 11
-* CreateRoom - 42
+* CreateRoom - 41
 * GetRooms - 43
 * JoinRoom - 45
 * GetPlayersInRoom - 47
