@@ -59,4 +59,3 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 	res.setNewHandler(nullptr);
 	return res;  
 }
-
