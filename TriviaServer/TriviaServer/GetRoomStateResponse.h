@@ -12,7 +12,8 @@ using std::string;
 class GetRoomStateResponse : Response
 {
 public:
-	GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, float timeToAnswer);
+	GetRoomStateResponse(Room room);
+	GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer);
 	virtual json castToJson() const;
 	string castPlayersToString() const;
 
@@ -21,5 +22,5 @@ protected:
 	bool hasGameBegun;
 	vector<string> players;
 	unsigned int questionCount;
-	float answerTimeOut;
+	unsigned int answerTimeOut;
 };

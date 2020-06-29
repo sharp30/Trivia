@@ -24,7 +24,7 @@ public:
 	void RemovePlayerFromRoom(int roomId, string user);
 	vector<string> getPlayersInRoom(int roomId);
 	vector<Room> getRooms();
-    Room getRoom(int roomId);
+	Room getRoom(unsigned int roomID);
 
 
 	void eraseRoom(int roomId);

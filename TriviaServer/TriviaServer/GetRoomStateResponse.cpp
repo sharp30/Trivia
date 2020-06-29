@@ -1,8 +1,19 @@
 #include "GetRoomStateResponse.h"
 
-GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, float timeToAnswer)
+GetRoomStateResponse::GetRoomStateResponse(Room room)
 {
-	this->messageCode = 48;
+	this->messageCode = 49;
+
+	this->_status = 1;
+	this->hasGameBegun = room.isActive();
+	this->players = room.getAllUsers();
+	this->questionCount = room.getQuestionsAmount();
+	this->answerTimeOut = room.getQuestionsTime();
+}
+
+GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer)
+{
+	this->messageCode = 49;
 
 	this->_status = status;
 	this->hasGameBegun = gameBegun;
@@ -14,7 +25,7 @@ GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<st
 json GetRoomStateResponse::castToJson() const
 {
 	return json{ {"status", this->_status}, {"hasGameBegun", this->hasGameBegun}, {"players", castPlayersToString() },
-		{"answerCount", this->questionCount}, {"answerTimeOut", this->answerTimeOut} };
+		{"questionCount", this->questionCount}, {"answerTimeOut", this->answerTimeOut} };
 }
 
 string GetRoomStateResponse::castPlayersToString() const
@@ -23,11 +34,8 @@ string GetRoomStateResponse::castPlayersToString() const
 
 	for (int i = 0; i < this->players.size(); i++)
 	{
-		txt += this->players[i] + " ,";
+		txt += this->players[i] + ",";
 	}
 
-	if (this->players.size() > 2)
-		txt = txt.substr(0, txt.size() - 2);
-
-	return txt;
+	return txt.substr(0, txt.size() - 1);
 }
