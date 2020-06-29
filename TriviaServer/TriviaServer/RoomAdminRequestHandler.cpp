@@ -6,6 +6,8 @@
 #include "GetRoomStateResponse.h"
 #include "LeaveRoomResponse.h"
 
+
+#include <thread>
 //-----------------constructor------------------
 RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser connectedUser, Room connectedRoom) : RoomHandler(factory,connectedRoom,connectedUser)
 {
@@ -19,6 +21,9 @@ bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo req)
 
 RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 {
+	if (req.getId() == 48)//getRoomState
+		return getRoomState(req);
+
 	bool actionResult = true;
 	RequestResult res;
 	if (req.getId() == 50) // startRoom
@@ -34,11 +39,13 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		StartGameResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
 	}
-	if (req.getId() == 52)// close
+	else if (req.getId() == 52)// close
 	{
 		try
 		{
 			this->m_handlerFactory->getRoomManager().setRoomState(_connectedRoom.getID(), CLOSED); // -1 = Inactive // after X time delete the room
+			std::thread t(&RoomManager::eraseRoom, &this->m_handlerFactory->getRoomManager(), this->_connectedRoom.getID());
+			t.detach();
 		}
 		catch (std::exception e)
 		{
@@ -47,11 +54,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		CloseRoomResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
 	}
-	//dual
-	if (req.getId() == 54)//getRoomState
-	{
-		return getRoomState(req);
-	}
+	
 
 	res.setNewHandler(nullptr);
 	return res;  

@@ -26,6 +26,8 @@ public:
 	vector<Room> getRooms();
     Room getRoom(int roomId);
 
+
+	void eraseRoom(int roomId);
 protected:
 	int findNextRoomId();
 	map<int, Room> _rooms;

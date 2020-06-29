@@ -1,5 +1,6 @@
 #include "RoomManager.h"
 #include <cstdlib>
+#include <thread>
 
 //----------------constructor------------
 RoomManager::RoomManager()
@@ -105,6 +106,18 @@ Room RoomManager::getRoom(int roomId)
 	if (!this->doesRoomExist(roomId))
 		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
 	return this->_rooms[roomId];
+}
+void RoomManager::eraseRoom(int roomId)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+	try
+	{
+		this->deleteRoom(roomId);
+	}
+	catch (std::exception e)
+	{
+		
+	}
 }
 /*
 This function returns the id for the room (the smallest one)
