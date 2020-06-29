@@ -1,5 +1,6 @@
 #include "RoomManager.h"
 #include <cstdlib>
+#include <thread>
 
 //----------------constructor------------
 RoomManager::RoomManager()
@@ -38,11 +39,17 @@ Input: roomId - the id of the room : int
 Output:The state of the room : bool
 Throw: If the room doesn't exist
 */
-bool RoomManager::getRoomState(int roomId) throw()
+RoomState RoomManager::getRoomState(int roomId) throw()
 {
 	if (!this->doesRoomExist(roomId))
 		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
-	return this->_rooms.at(roomId).isActive();
+	return this->_rooms.at(roomId).getState();
+}
+void RoomManager::setRoomState(int roomId, RoomState state)
+{
+	if(!doesRoomExist(roomId))
+		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
+	this->_rooms[roomId].setState(state);
 }
 /*
 This function checks if a room already exists
@@ -58,6 +65,12 @@ void RoomManager::addPlayerToRoom(int roomId, string user)
 	if(!this->doesRoomExist(roomId))
 		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
 	this->_rooms[roomId].addUser(user);
+}
+void RoomManager::RemovePlayerFromRoom(int roomId, string user)
+{
+	if (!this->doesRoomExist(roomId))
+		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
+	this->_rooms[roomId].removeUser(user);
 }
 /*
 This function returns string of all the users in the room
@@ -87,6 +100,24 @@ vector<Room> RoomManager::getRooms()
 	}
 
 	return all;
+}
+Room RoomManager::getRoom(int roomId)
+{
+	if (!this->doesRoomExist(roomId))
+		throw std::exception(("Room " + std::to_string(roomId) + "doesn't exist").c_str());
+	return this->_rooms[roomId];
+}
+void RoomManager::eraseRoom(int roomId)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+	try
+	{
+		this->deleteRoom(roomId);
+	}
+	catch (std::exception e)
+	{
+		
+	}
 }
 /*
 This function returns the id for the room (the smallest one)

@@ -6,7 +6,7 @@ LeaveRoomResponse::LeaveRoomResponse(int status)
 	this->messageCode = 55;
 }
 
-nlohmann::json LeaveRoomResponse::castToJson()
+nlohmann::json LeaveRoomResponse::castToJson() const
 {
 	return nlohmann::json{ {"status",_status} };
 }
