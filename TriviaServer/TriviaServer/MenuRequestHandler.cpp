@@ -189,7 +189,7 @@ RequestResult MenuRequestHandler::logout(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	
 	if (actionResult)
-		res.setNewHandler(nullptr);
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler());
 
 	return res;
 }
