@@ -44,8 +44,8 @@ namespace TriviaClient
             this.lastPlayerIndex = 1;
             this.state = 0;//Waiting
 
-
-            //FillTBs();
+            if (admin)
+                this.LeaveBTN.IsEnabled = false;           
             thread = new Thread(Threaded);
             thread.Start();
         }
@@ -66,6 +66,7 @@ namespace TriviaClient
                 this.StartBTN.IsEnabled = false;
                 this.CloseBTN.IsEnabled = false;
             }
+
         }
 
         private void FillTBs()
@@ -126,6 +127,7 @@ namespace TriviaClient
                 thread.Abort();
                 MenuWindow wind = new MenuWindow(this.username);
                 wind.Show();
+                this.Hide();
                 this.Close();
 
             }
@@ -145,7 +147,14 @@ namespace TriviaClient
             {
                 Thread.Sleep(3000);
                 RefreshPlayersList();
-            } 
+            }
+            if (this.state == -1 && !isAdmin)
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    LeaveBTN.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }));
+            }
         }
         public bool IsSamePlayers(string[] newList)
         {
@@ -167,7 +176,14 @@ namespace TriviaClient
 
         private void LeaveBTN_Click(object sender, RoutedEventArgs e)
         {
-            LeaveRoomResponse response = Communicator.Communicate(new LeaveRoomRequest());
+            LeaveRoomResponse response = (LeaveRoomResponse)Communicator.Communicate(new LeaveRoomRequest());
+            if(response.status == 1)
+            {
+                MenuWindow wind = new MenuWindow(this.username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
         }
     }
 }
