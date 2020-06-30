@@ -5,18 +5,18 @@ GetRoomStateResponse::GetRoomStateResponse(Room room)
 	this->messageCode = 49;
 
 	this->_status = 1;
-	this->hasGameBegun = room.getState() ==ACTIVE;
+	this->state =(int)room.getState();
 	this->players = room.getAllUsers();
 	this->questionCount = room.getQuestionAmount();
 	this->answerTimeOut = room.getQuestionTime();
 }
 
-GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer)
+GetRoomStateResponse::GetRoomStateResponse(int status, RoomState _state, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer)
 {
 	this->messageCode = 49;
 
 	this->_status = status;
-	this->hasGameBegun = gameBegun;
+	this->state = (int)_state;
 	this->players = _players;
 	this->questionCount = questionsAmount;
 	this->answerTimeOut = timeToAnswer;
@@ -24,7 +24,7 @@ GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<st
 
 json GetRoomStateResponse::castToJson() const
 {
-	return json{ {"status", this->_status}, {"hasGameBegun", this->hasGameBegun}, {"players", castPlayersToString() },
+	return json{ {"status", this->_status}, {"state", this->state}, {"players", castPlayersToString() },
 		{"questionCount", this->questionCount}, {"answerTimeOut", this->answerTimeOut} };
 }
 

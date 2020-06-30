@@ -38,6 +38,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		}
 		StartGameResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
+		res.setNewHandler(nullptr);
 	}
 	else if (req.getId() == 52)// close
 	{
@@ -53,9 +54,9 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		}
 		CloseRoomResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
+		if (actionResult)
+			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->_connectedUser.getUsername()));
 	}
 	
-
-	res.setNewHandler(nullptr);
 	return res;  
 }

@@ -43,9 +43,10 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomRequest request(info.getBuffer());
 	bool actionResult = true;
 	RequestResult res;
+	int id = 0;
 	try
 	{
-		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
+		id = (this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
 	}
 	catch(std::exception e)
 	{
@@ -55,7 +56,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomAdminRequestHandler(id,m_user.getUsername()));
 	return res;
 }
 
@@ -97,7 +98,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomMemberRequestHandler(req.getRoomId(),m_user.getUsername()));
 	return res;
 }
 

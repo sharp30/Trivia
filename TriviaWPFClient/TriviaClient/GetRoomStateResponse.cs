@@ -14,6 +14,8 @@ namespace TriviaClient
 		public string players { set; get; }
 		public uint questionCount { set; get; }
 		public uint answerTimeOut { set; get; }
+		public int state { set; get; }
+
 		public GetRoomStateResponse() : base(MESSAGE_CODE) { }
 	}
 }

@@ -11,6 +11,7 @@ Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int ques
 	this->_questionTime = questionTime;
 	this->_maxPlayers = maxPlayers;//default-value
 	this->_name = name;
+	this->_state = WAITNG;
 }
 
 /*

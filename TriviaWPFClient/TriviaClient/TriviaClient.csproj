@@ -60,12 +60,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CloseRoomRequest.cs" />
+    <Compile Include="CloseRoomResponse.cs" />
     <Compile Include="GetRoomsRequest.cs" />
     <Compile Include="GetRoomsResponse.cs" />
     <Compile Include="GetRoomStateRequest.cs" />
     <Compile Include="GetRoomStateResponse.cs" />
     <Compile Include="JoinRoomRequest.cs" />
     <Compile Include="JoinRoomResponse.cs" />
+    <Compile Include="LeaveRoomRequest.cs" />
+    <Compile Include="LeaveRoomResponse.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestEncoder.cs" />
     <Compile Include="Response.cs" />

@@ -3,7 +3,7 @@
 CloseRoomResponse::CloseRoomResponse(int status)
 {
 	this->_status = status;
-	this->messageCode = 51;
+	this->messageCode = 53;
 }
 
 nlohmann::json CloseRoomResponse::castToJson() const
