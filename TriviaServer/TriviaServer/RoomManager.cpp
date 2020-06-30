@@ -107,6 +107,19 @@ Room RoomManager::getRoom(unsigned int roomID) throw()
 		return this->_rooms.at(roomID);
 	throw std::exception("Room doesn't exist");
 }
+void RoomManager::eraseRoom(int roomId)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+	try
+	{
+		this->deleteRoom(roomId);
+	}
+	catch (std::exception e)
+	{
+
+	}
+}
+
 /*
 This function returns the id for the room (the smallest one)
 Input:None

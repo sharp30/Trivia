@@ -39,6 +39,11 @@ namespace TriviaClient
 
             this.lastPlayerIndex = 1;
 
+            if (!isAdmin)//disable buttons
+            {
+                this.StartBTN.IsEnabled = false;
+                this.CloseBTN.IsEnabled = false;
+            }
             FillTBs();
         }
         public WaitingRoomWindow(bool admin, string _username, string[] _players, Room _room)
@@ -72,6 +77,9 @@ namespace TriviaClient
         */
         private void RefreshPlayersList()
         {
+
+             GetRoomStateResponse response = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest());
+               
             //#TODO: get players list from server, if a change was detected, change the attribute array of players and call the UpdatePlayersListGrid function
         }
 
@@ -104,7 +112,7 @@ namespace TriviaClient
 
         private void StartBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

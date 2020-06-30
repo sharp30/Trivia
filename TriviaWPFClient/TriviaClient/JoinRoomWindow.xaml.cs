@@ -21,9 +21,7 @@ namespace TriviaClient
     public partial class JoinRoomWindow : Window
     {
         public string username { set; get; }
-        public Room[] availiableRoom { set; get; }
-        public string[] availiableRooms { set; get; }
-
+        public Dictionary<string,string> availiableRoom { set; get; }
         public JoinRoomWindow(string uName)
         {
             InitializeComponent();
@@ -40,9 +38,18 @@ namespace TriviaClient
         private void RefreshRoomsList()
         {
             GetRoomsResponse response = (GetRoomsResponse)Communicator.Communicate(new GetRoomsRequest());
+            availiableRoom = new Dictionary<string, string>();
             if(response.status == 1)
             {
-                this.availiableRooms = response.rooms.Split(',');
+                if (!response.rooms.Equals(""))
+                {
+                    string[] rooms = response.rooms.Split(',');
+                    for (int i = 0; i < rooms.Length; i++)
+                    {
+                        string[] parts = rooms[i].Split(':');
+                        availiableRoom.Add(parts[0], parts[1]);
+                    }
+                }
                 UpdateRoomsListGrid();
             }
         }
@@ -58,14 +65,15 @@ namespace TriviaClient
             
             //clear previous values in Grid
             mainPart.Children.Clear();
-
-            for (int i = 0; i < this.availiableRooms.Length; i++)
+            int count = 0;
+            foreach (KeyValuePair<string, string> entry in availiableRoom)
             {
                 //TODO: change content of button to the room's name
-                btn = new Button { Name = "r" + this.availiableRooms[i].Split(':')[0], Content = this.availiableRooms[i].Split(':')[1], FontSize = 25, Margin = new Thickness(40, 25, 40, 25)};
+                btn = new Button { Name = "r" + entry.Key, Content = entry.Value, FontSize = 25, Margin = new Thickness(40, 25, 40, 25)};
                 btn.Click += new RoutedEventHandler(RoomBtnClicked);
-                Grid.SetRow(btn, i);
+                Grid.SetRow(btn, count);
                 mainPart.Children.Add(btn);
+                count++;
             }
         }
 
@@ -76,12 +84,7 @@ namespace TriviaClient
 
             JoinRoomResponse response = (JoinRoomResponse)Communicator.Communicate(new JoinRoomRequest(id));
 
-            /*
-            TODO in future
-            SomeDataType = GetRoomData(id);
-            Room room = new Room(someDatatype.something)
-            */
-            GetRoomStateResponse res = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest(id));
+            GetRoomStateResponse res = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest());
 
             Room room = new Room(roomName, (uint)res.players.Split(',').Length, res.questionCount, res.answerTimeOut);
             if (response.status == 1)
@@ -91,6 +94,11 @@ namespace TriviaClient
                 this.Hide();
                 this.Close();           
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshRoomsList();
         }
     }
 }

@@ -74,20 +74,11 @@ int Room::getID() const
 	return this->_id;
 }
 
-int Room::getQuestionsAmount() const
+unsigned int Room::getQuestionAmount() const
 {
 	return this->_questionAmount;
 }
 
-int Room::getQuestionsTime() const
-{
-	return this->_questionTime;
-}
-
-bool Room::isActive()
-{
-	return this->_questionAmount;
-}
 
 unsigned int Room::getMaxPlayersAmount() const
 {

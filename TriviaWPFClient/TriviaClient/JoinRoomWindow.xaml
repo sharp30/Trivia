@@ -7,9 +7,17 @@
         mc:Ignorable="d"
         Title="JoinRoomWindow" Height="450" Width="800">
     <Grid x:Name="grided" HorizontalAlignment="Left" Height="396" VerticalAlignment="Top" Width="790">
-        <TextBlock Text="Magshimim Trivia 2020" Margin="244,24,193,310" FontSize="30"/>
-        <TextBlock HorizontalAlignment="Center" Margin="202,86,193,0" TextWrapping="Wrap" Text="Rooms List" VerticalAlignment="Top" Height="85" Width="395" TextAlignment="Center" FontSize="25"/>
-        <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,150,90,-124" VerticalAlignment="Top" Width="630"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="64*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Magshimim Trivia 2020" Margin="94,24,193,310" FontSize="30" Grid.Column="3"/>
+        <TextBlock HorizontalAlignment="Center" Margin="52,86,193,0" TextWrapping="Wrap" Text="Rooms List" VerticalAlignment="Top" Height="85" Width="395" TextAlignment="Center" FontSize="25" Grid.Column="3"/>
+        <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,150,90,-124" VerticalAlignment="Top" Width="630" Grid.Column="2" Grid.ColumnSpan="2">
+            <Button Content="Refresh!" HorizontalAlignment="Left" Margin="640,240,-85,0" VerticalAlignment="Top" Width="75" Height="20" Click="Button_Click"/>
+        </Grid>
 
     </Grid>
 </Window>

@@ -5,10 +5,10 @@ GetRoomStateResponse::GetRoomStateResponse(Room room)
 	this->messageCode = 49;
 
 	this->_status = 1;
-	this->hasGameBegun = room.isActive();
+	this->hasGameBegun = room.getState() ==ACTIVE;
 	this->players = room.getAllUsers();
-	this->questionCount = room.getQuestionsAmount();
-	this->answerTimeOut = room.getQuestionsTime();
+	this->questionCount = room.getQuestionAmount();
+	this->answerTimeOut = room.getQuestionTime();
 }
 
 GetRoomStateResponse::GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer)

@@ -11,11 +11,8 @@ namespace TriviaClient
 {
     class GetRoomStateRequest : Request
     {
-        public uint roomId { set; get; }
-
-        public GetRoomStateRequest(uint _roomId) : base(48)
+        public GetRoomStateRequest() : base(48)
         {
-            this.roomId = _roomId;
         }
         public override byte[] CastToBson()
         {
