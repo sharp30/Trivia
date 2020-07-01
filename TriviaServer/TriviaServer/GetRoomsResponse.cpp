@@ -3,9 +3,14 @@
 
 GetRoomsResponse::GetRoomsResponse(int status,vector<Room> rooms)
 {
-	this->_rooms = rooms;
 	this->_status = status;
 	this->messageCode = 43;
+	for (size_t i = 0; i < rooms.size(); i++)
+	{
+		if (rooms[i].getState() == WAITNG)
+			this->_rooms.push_back(rooms[i]);
+	}
+
 }
 
 /*

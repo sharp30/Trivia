@@ -100,5 +100,13 @@ namespace TriviaClient
         {
             RefreshRoomsList();
         }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MenuWindow wind = new MenuWindow(this.username);
+            wind.Show();
+            this.Hide();
+            this.Close();
+        }
     }
 }
