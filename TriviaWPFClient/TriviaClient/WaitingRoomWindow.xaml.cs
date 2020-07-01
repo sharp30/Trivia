@@ -137,7 +137,7 @@ namespace TriviaClient
 
         private void StartBTN_Click(object sender, RoutedEventArgs e)
         {
-            
+            StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
         }
         
         public void Threaded()

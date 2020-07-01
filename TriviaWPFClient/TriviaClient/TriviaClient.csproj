@@ -78,6 +78,8 @@
     <Compile Include="SignupRequest.cs" />
     <Compile Include="SignupResponse.cs" />
     <Compile Include="SignupWindow.xaml.cs" />
+    <Compile Include="StartGameRequest.cs" />
+    <Compile Include="StartGameResponse.cs" />
     <Compile Include="WaitingRoomWindow.xaml.cs" />
     <Page Include="BestScoresWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
