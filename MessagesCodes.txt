@@ -11,6 +11,10 @@ Requests:
 * LeaveRoom - 54
 * Get Statistics - 70
 * BestScores - 74
+* GetQuestion - 80
+* SubmitAnswer - 82
+* GetGameResults - 84
+* LeaveGame - 86
 * Logout - 100
 
 Responses:
@@ -26,5 +30,9 @@ Responses:
 * LeaveRoom - 55
 * Get Statistics - 71
 * BestScores - 75
+* GetQuestion - 81
+* SubmitAnswer - 83
+* GetGameResults - 85
+* LeaveGame - 87
 * Logout - 101
 * Error - 99
