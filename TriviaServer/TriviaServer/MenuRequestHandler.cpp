@@ -22,7 +22,7 @@ const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_func
 
 
 //-----------------constructor--------------------
-MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
+MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) : IRequestHandler(factory), m_user(user)
 {
 }
 
