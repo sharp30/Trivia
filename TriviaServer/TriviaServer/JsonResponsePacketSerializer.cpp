@@ -24,7 +24,7 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(Response* 
 	message.insert(message.end(), size.begin(), size.end());
 	message.insert(message.end(), content.begin(), content.end());
 
-	return message;
+ 	return message;
 }
 
 

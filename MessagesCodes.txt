@@ -4,17 +4,27 @@ Requests:
 * CreateRoom - 40
 * GetRooms - 42
 * JoinRoom 44
-* GetPlayersInRoom 46
+* GetPlayersInRoom - 46
+* GetRoomState - 48
+* StartGame- 50
+* CloseRoom - 52
+* LeaveRoom - 54
 * Get Statistics - 70
+* BestScores - 74
 * Logout - 100
 
 Responses:
-* SignUp - 11
 * Login - 21
-* CreateRoom - 42
+* SignUp - 11
+* CreateRoom - 41
 * GetRooms - 43
 * JoinRoom - 45
 * GetPlayersInRoom - 47
+* GetRoomState - 49
+* StartGame - 51
+* CloseRoom - 53
+* LeaveRoom - 55
 * Get Statistics - 71
+* BestScores - 75
 * Logout - 101
 * Error - 99

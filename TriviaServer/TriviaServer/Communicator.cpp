@@ -95,7 +95,6 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	const int ID_LENGTH = 1; // number of bytes the ID takes
 	const int SIZE_LENGTH = 4; // number of bytes the content's size takes
 	const int LOGOUT = 101;
-	bool connected = true;
 	char id[ID_LENGTH];
 	char size[SIZE_LENGTH];
 	char* reqContent = nullptr;
@@ -117,7 +116,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 		throw std::exception("Can't send message to client :<");
 	}
 
-	while (connected) 
+	while (true) 
 	{
 		try
 		{
@@ -136,7 +135,10 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			{
 				delete[] reqContent;
 			}
-
+			if (dynamic_cast<LoginRequestHandler*>(client->second) != nullptr)
+			{
+				//this->m_handlerFactory->getLoginManager().logout();
+			}
 			std::cout << e.what();
 			return;
 		}
@@ -152,12 +154,10 @@ void Communicator::handleNewClient(SOCKET clientSock)
 			RequestResult reqResult = client->second->handleRequest(req);
 
 			//change RequestHandler
-			if (reqResult._success)//if succeeded
+			if (reqResult._newHandler)//if succeeded
 			{
-				if(reqResult._newHandler)
-					delete client->second;
+				delete client->second;
 				client->second = reqResult._newHandler;
-				connected = req.getId() != LOGOUT;//if logout
 			}
 			finalBuffer = reqResult._buffer;
 			//send response to client
@@ -177,6 +177,7 @@ void Communicator::handleNewClient(SOCKET clientSock)
 	}
 }
 
+
 /*
 This funtion wait until a client connects and acccepts it
 Input:None
@@ -185,10 +186,12 @@ Output:None
 void Communicator::acceptClient()
 {
 	SOCKET clientSocket = accept(this->_serverSocket, NULL, NULL); //wait until client arrives and accepts it.
+	
 	if (clientSocket == INVALID_SOCKET)
 	{
 		throw std::exception("Can't accept client");
 	}
+
 	//insert to clients list
 	this->_mClients.insert(std::pair<SOCKET, IRequestHandler*>(clientSocket,(IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler()));
 

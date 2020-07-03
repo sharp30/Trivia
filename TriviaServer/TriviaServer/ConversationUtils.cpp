@@ -1,6 +1,7 @@
 #include "ConversationUtils.h"
 #include "JsonResponsePacketSerializer.h"
 #include "ErrorResponse.h"
+#include <iostream>
 /*
 This function gets input of length bytes from the socket
 Input:sock: The socket with the client
@@ -11,7 +12,8 @@ Output:None
 void ConversationUtils::receiveFromSocket(SOCKET sock, char* buff, int length) throw()
 {
 	int res = 0;
-
+	if (length <= 0)
+		return;
 	try
 	{
 		res = recv(sock, buff,length, 0);
@@ -39,6 +41,7 @@ void ConversationUtils::sendToSocket(SOCKET sock, vector<unsigned char> data) th
 	{
 		char* response = (char*)&(data[0]); //from vector<unsigned char> to char *
 		res = send(sock, response, data.size(), 0);
+
 	}
 	catch (std::exception er)
 	{
@@ -60,6 +63,7 @@ Output:json object
 */
 json ConversationUtils::castBinToJson(vector<unsigned char> buff)
 {
+	std::string s(buff.begin(), buff.end());
 	return json::from_bson(buff);
 }
 

@@ -1,20 +1,19 @@
 #include "Room.h"
 
 //-------constructor-----------
-
-
-
 Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int questionTime, int questionAmount)
 {
 	this->_id = roomId;
 	this->_users.push_back(creator);
 
 	//other variables:
-	this->questionAmount = questionAmount;
+	this->_questionAmount = questionAmount;
 	this->_questionTime = questionTime;
 	this->_maxPlayers = maxPlayers;//default-value
 	this->_name = name;
+	this->_state = WAITNG;
 }
+
 /*
 This function adds user from a room
 Input : userToAdd: the user : LoggedUser
@@ -65,13 +64,39 @@ vector<string> Room::getAllUsers()
 	return all;
 }
 
+//getters
 string Room::getName() const
 {
 	return this->_name;
 }
 
-//getters
-bool Room::isActive()
+int Room::getID() const
 {
-	return this->_isActive;
+	return this->_id;
+}
+
+unsigned int Room::getQuestionAmount() const
+{
+	return this->_questionAmount;
+}
+
+
+unsigned int Room::getMaxPlayersAmount() const
+{
+	return this->_maxPlayers;
+}
+
+unsigned int Room::getQuestionTime() const
+{
+	return this->_questionTime;
+}
+
+RoomState Room::getState()
+{
+	return this->_state;
+}
+//setter
+void Room::setState(RoomState state)
+{
+	this->_state = state;
 }

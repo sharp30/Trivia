@@ -1,11 +1,25 @@
 #include "MenuRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "GetStatisticsResponse.h"
+#include "GetRoomStateResponse.h"
 #include "GetPlayersInRoomResponse.h"
 #include "JoinRoomResponse.h"
 #include "LogoutResponse.h"
 #include "CreateRoomResponse.h"
 #include "GetRoomsResponse.h"
+#include "BestScoresResponse.h"
+
+const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_functions =
+{
+	{40 , &MenuRequestHandler::createRoom},
+	{42, &MenuRequestHandler::getRooms},
+	{44 , &MenuRequestHandler::joinRoom},
+	{46 , &MenuRequestHandler::getPlayersInRoom},
+	{70, &MenuRequestHandler::getStatisticsRequest},
+	{74, &MenuRequestHandler::getBestScores},
+	{100, &MenuRequestHandler::logout}
+};
+
 
 //-----------------constructor--------------------
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
@@ -28,10 +42,14 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomRequest request(info.getBuffer());
 	bool actionResult = true;
 	RequestResult res;
+	int id = 0;
 	try
 	{
+		/*
 		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(), request.getRoomName(), request.getMaxUsers(),
 			request.getAnswerTimeOut(), request.getQuestionCount());
+		*/
+		id = (this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
 	}
 	catch(std::exception e)
 	{
@@ -41,7 +59,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomAdminRequestHandler(id,m_user.getUsername()));
 	return res;
 }
 
@@ -83,7 +101,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomMemberRequestHandler(req.getRoomId(),m_user.getUsername()));
 	return res;
 }
 
@@ -108,10 +126,11 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 	return res;
 }
 
+
 RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
 {
 	bool actionResult = true;
-	std::vector<string> data;
+	std::map<string,string> data;
 	RequestResult res;
 	try
 	{
@@ -150,7 +169,30 @@ RequestResult MenuRequestHandler::logout(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	
 	if (actionResult)
-		res.setNewHandler(nullptr);
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler());
+
+	return res;
+}
+
+RequestResult MenuRequestHandler::getBestScores(RequestInfo info)
+{
+	RequestResult res;
+	vector<string> data;
+	bool actionResult = true;
+	try
+	{
+		data = this->m_handlerFactory->getStatisticsManager().getBestPlayers();
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+	BestScoresResponse response((int)actionResult, data);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
 
 	return res;
 }

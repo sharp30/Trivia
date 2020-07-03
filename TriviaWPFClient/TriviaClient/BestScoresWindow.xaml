@@ -1,0 +1,17 @@
+﻿<Window x:Class="TriviaClient.BestScoresWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TriviaClient"
+        mc:Ignorable="d"
+        Title="BestScoresWindow" Height="450" Width="800">
+    <Grid x:Name="grided" HorizontalAlignment="Left" Height="396" VerticalAlignment="Top" Width="790">
+        <TextBlock Text="Magshimim Trivia 2020" Margin="244,24,193,310" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Center" Margin="202,86,193,0" TextWrapping="Wrap" Text="BEST SCORES" VerticalAlignment="Top" Height="85" Width="395" TextAlignment="Center" FontSize="25"/>
+        <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,150,90,-124" VerticalAlignment="Top" Width="630" RenderTransformOrigin="0.492,0.392"/>
+        <Button x:Name ="Btn_back" Content="Back"  HorizontalAlignment="Left" Margin="35,381,0,-6" Width="100" Click="Btn_back_Click"/>
+
+    </Grid>
+
+</Window>
