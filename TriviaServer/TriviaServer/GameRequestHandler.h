@@ -10,7 +10,7 @@ public:
 	GameRequestHandler(RequestHandlerFactory* factory,LoggedUser user);
 	virtual bool isRequestRelevant(RequestInfo);
 	virtual RequestResult handleRequest(RequestInfo);
-	using handler_func = RequestResult(MenuRequestHandler::*)(RequestInfo);
+	using handler_func = RequestResult(GameRequestHandler::*)(RequestInfo);
 
 protected:
 	RequestResult getQuestion(RequestInfo);
