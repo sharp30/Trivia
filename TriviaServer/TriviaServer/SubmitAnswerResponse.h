@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Response.h"
-#include <map>
-
-using std::map;
 
 class SubmitAnswerResponse : Response
 {
