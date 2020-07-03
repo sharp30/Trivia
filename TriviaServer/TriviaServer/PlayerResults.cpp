@@ -26,6 +26,12 @@ example: [moshe:5:6:10]
 */
 string PlayerResults::toString() const
 {
-	//#TODO: fill this function
-	return string();
+	string txt = "[";
+
+	txt += this->_username + ":";
+	txt += this->_correctAnswersCount + ":";
+	txt += this->_wrongAnswersCount + ":";
+	txt += this->_averageAnswerTime + "]";
+
+	return txt;
 }
