@@ -15,7 +15,6 @@ const std::map<int, MenuRequestHandler::handler_func> MenuRequestHandler::m_func
 	{42, &MenuRequestHandler::getRooms},
 	{44 , &MenuRequestHandler::joinRoom},
 	{46 , &MenuRequestHandler::getPlayersInRoom},
-	{48 , &MenuRequestHandler::getRoomState},
 	{70, &MenuRequestHandler::getStatisticsRequest},
 	{74, &MenuRequestHandler::getBestScores},
 	{100, &MenuRequestHandler::logout}
@@ -43,9 +42,10 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomRequest request(info.getBuffer());
 	bool actionResult = true;
 	RequestResult res;
+	int id = 0;
 	try
 	{
-		(this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
+		id = (this->m_handlerFactory->getRoomManager()).createRoom(m_user.getUsername(),request.getRoomName(),request.getMaxUsers(),request.getAnswerTimeOut(),request.getQuestionCount());
 	}
 	catch(std::exception e)
 	{
@@ -55,7 +55,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 	CreateRoomResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomAdminRequestHandler(id,m_user.getUsername()));
 	return res;
 }
 
@@ -97,7 +97,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createRoomMemberRequestHandler(req.getRoomId(),m_user.getUsername()));
 	return res;
 }
 
@@ -122,30 +122,6 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 	return res;
 }
 
-//TODO: change this function to work with room state request
-RequestResult MenuRequestHandler::getRoomState(RequestInfo info)
-{
-	GetRoomStateRequest req(info.getBuffer());
-	bool actionResult = true;
-	Room room;
-	vector<string> users;
-	RequestResult res;
-	try
-	{
-		room = this->m_handlerFactory->getRoomManager().getRoom(req.getRoomId());
-	}
-	catch (std::exception e)
-	{
-		actionResult = false;
-	}
-	GetRoomStateResponse response(room);
-	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	
-	if (actionResult)
-		res.setNewHandler(this->m_handlerFactory->createMenuRequestHandler(m_user.getUsername()));
-	
-	return res;
-}
 
 RequestResult MenuRequestHandler::getStatisticsRequest(RequestInfo info)
 {

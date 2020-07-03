@@ -9,6 +9,7 @@ namespace TriviaClient
     public class Room
     {
         public string roomName { set; get; }
+        public int state { set; get; }
         public uint numberOfPlayers { set; get; }
         public uint numberOfQuestions { set; get; }
         public uint TimeForQuestion { set; get; }

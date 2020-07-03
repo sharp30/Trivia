@@ -6,7 +6,7 @@ Requests:
 * JoinRoom 44
 * GetPlayersInRoom - 46
 * GetRoomState - 48
-* StartRoom - 50
+* StartGame- 50
 * CloseRoom - 52
 * LeaveRoom - 54
 * Get Statistics - 70
@@ -21,7 +21,7 @@ Responses:
 * JoinRoom - 45
 * GetPlayersInRoom - 47
 * GetRoomState - 49
-* StartRoom - 51
+* StartGame - 51
 * CloseRoom - 53
 * LeaveRoom - 55
 * Get Statistics - 71

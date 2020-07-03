@@ -27,7 +27,6 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info)
 	{
 		actionResult = false;
 	}
-
 	LeaveRoomResponse resp((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
 	if (actionResult)

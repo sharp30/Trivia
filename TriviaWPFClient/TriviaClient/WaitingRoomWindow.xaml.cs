@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace TriviaClient
 {
@@ -27,7 +28,10 @@ namespace TriviaClient
         public int lastPlayerIndex;
         public bool isAdmin { set; get; }
 
-        public WaitingRoomWindow(bool admin, string _username, Room _room)
+        protected Thread thread;
+        public int state { set; get;}
+
+        public WaitingRoomWindow(bool admin, string _username, Room _room)//when created
         {
             InitializeComponent();
             this.room = _room;
@@ -38,8 +42,12 @@ namespace TriviaClient
             this.players[0] = _username;
 
             this.lastPlayerIndex = 1;
+            this.state = 0;//Waiting
 
-            FillTBs();
+            if (admin)
+                this.LeaveBTN.IsEnabled = false;           
+            thread = new Thread(Threaded);
+            thread.Start();
         }
         public WaitingRoomWindow(bool admin, string _username, string[] _players, Room _room)
         {
@@ -50,19 +58,29 @@ namespace TriviaClient
             this.isAdmin = admin;
             this.players = _players;
             this.lastPlayerIndex = 1;
+            this.state = 0;//ACTIVE
+            thread = new Thread(Threaded);
+            thread.Start();
+            if (!isAdmin)//disable buttons
+            {
+                this.StartBTN.IsEnabled = false;
+                this.CloseBTN.IsEnabled = false;
+            }
 
-            FillTBs();
         }
 
         private void FillTBs()
         {
-            usernameTB.Text += this.username;
-            roomnameTB.Text += this.room.roomName;
-            maxplayersTB.Text += this.room.numberOfPlayers;
-            questAmountTB.Text += this.room.numberOfQuestions;
-            questTimeTB.Text += this.room.TimeForQuestion;
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                usernameTB.Text = this.username;
+                roomnameTB.Text = "You are connected to room " +  this.room.roomName;
+                maxplayersTB.Text = "Players amount: " + this.room.numberOfPlayers.ToString();
+                questAmountTB.Text = "Questions amount: " + this.room.numberOfQuestions.ToString();
+                questTimeTB.Text = "time per question: " +  this.room.TimeForQuestion.ToString();
+                UpdatePlayersListGrid();
+            }));
 
-            UpdatePlayersListGrid();
         }
 
         /*
@@ -72,7 +90,16 @@ namespace TriviaClient
         */
         private void RefreshPlayersList()
         {
-            //#TODO: get players list from server, if a change was detected, change the attribute array of players and call the UpdatePlayersListGrid function
+
+            GetRoomStateResponse response = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest());
+            string[] newList = response.players.Split(',');
+            this.state = response.state;
+            if (!IsSamePlayers(newList))
+            {
+                this.players = newList;
+                this.room.numberOfPlayers = (uint)players.Length;
+                FillTBs();
+            }
         }
 
         /*
@@ -83,7 +110,7 @@ namespace TriviaClient
         private void UpdatePlayersListGrid()
         {
             TextBlock txt = null;
-
+            mainPart.Children.Clear();
             for (int i = 0; i < this.players.Length ; i++)
             {
                 txt = new TextBlock { Text = this.players[i], FontSize = 30, Margin = new Thickness(90, 35 * i, 120, 35 * (i + 1)) };
@@ -94,17 +121,69 @@ namespace TriviaClient
 
         private void CloseBTN_Click(object sender, RoutedEventArgs e)
         {
+            CloseRoomResponse response = (CloseRoomResponse)Communicator.Communicate(new CloseRoomRequest());
+            if(response.status == 1)
+            {
+                thread.Abort();
+                MenuWindow wind = new MenuWindow(this.username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+
+            }
 
         }
 
-        private void CloseBTN_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void StartBTN_Click(object sender, RoutedEventArgs e)
         {
+            StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
+        }
+        
+        public void Threaded()
+        {
+            FillTBs();
+            while (this.state == 0)
+            {
+                Thread.Sleep(3000);
+                RefreshPlayersList();
+            }
+            if (this.state == -1 && !isAdmin)
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    LeaveBTN.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }));
+            }
+        }
+        public bool IsSamePlayers(string[] newList)
+        {
+            if (this.players.Length != newList.Length)
+                return false;
 
+            for (int i = 0; i < newList.Length; i++)
+            {
+                if (!this.players[i].Equals(newList[i]))
+                    return false;
+            }
+            return true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LeaveBTN_Click(object sender, RoutedEventArgs e)
+        {
+            LeaveRoomResponse response = (LeaveRoomResponse)Communicator.Communicate(new LeaveRoomRequest());
+            if(response.status == 1)
+            {
+                MenuWindow wind = new MenuWindow(this.username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
         }
     }
 }

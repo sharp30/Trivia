@@ -60,12 +60,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CloseRoomRequest.cs" />
+    <Compile Include="CloseRoomResponse.cs" />
     <Compile Include="GetRoomsRequest.cs" />
     <Compile Include="GetRoomsResponse.cs" />
     <Compile Include="GetRoomStateRequest.cs" />
     <Compile Include="GetRoomStateResponse.cs" />
     <Compile Include="JoinRoomRequest.cs" />
     <Compile Include="JoinRoomResponse.cs" />
+    <Compile Include="LeaveRoomRequest.cs" />
+    <Compile Include="LeaveRoomResponse.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestEncoder.cs" />
     <Compile Include="Response.cs" />
@@ -74,6 +78,8 @@
     <Compile Include="SignupRequest.cs" />
     <Compile Include="SignupResponse.cs" />
     <Compile Include="SignupWindow.xaml.cs" />
+    <Compile Include="StartGameRequest.cs" />
+    <Compile Include="StartGameResponse.cs" />
     <Compile Include="WaitingRoomWindow.xaml.cs" />
     <Page Include="BestScoresWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -13,13 +13,13 @@ class GetRoomStateResponse : Response
 {
 public:
 	GetRoomStateResponse(Room room);
-	GetRoomStateResponse(int status, bool gameBegun, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer);
+	GetRoomStateResponse(int status, RoomState _state, vector<string> _players, unsigned int questionsAmount, unsigned int timeToAnswer);
 	virtual json castToJson() const;
 	string castPlayersToString() const;
 
 protected:
 	unsigned int _status;
-	bool hasGameBegun;
+	int state;
 	vector<string> players;
 	unsigned int questionCount;
 	unsigned int answerTimeOut;

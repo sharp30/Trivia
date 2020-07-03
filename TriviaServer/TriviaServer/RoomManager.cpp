@@ -11,12 +11,13 @@ RoomManager::RoomManager()
 /*
 This function creates a new room 
 Input: creator - the creator of the room :LoggedUser
-Output:None
+Output:The id of the new room
 */
-void RoomManager::createRoom(LoggedUser creator, string name, int userAmount, int questionTime, int questionAmount) throw()
+int RoomManager::createRoom(LoggedUser creator, string name, int userAmount, int questionTime, int questionAmount) throw()
 {
 	int id = this->findNextRoomId();
 	this->_rooms.insert(std::pair<int, Room>(id, Room(id, creator,name,userAmount,questionTime,questionAmount)));
+	return id;
 }
 
 /*
@@ -107,6 +108,19 @@ Room RoomManager::getRoom(unsigned int roomID) throw()
 		return this->_rooms.at(roomID);
 	throw std::exception("Room doesn't exist");
 }
+void RoomManager::eraseRoom(int roomId)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+	try
+	{
+		this->deleteRoom(roomId);
+	}
+	catch (std::exception e)
+	{
+
+	}
+}
+
 /*
 This function returns the id for the room (the smallest one)
 Input:None

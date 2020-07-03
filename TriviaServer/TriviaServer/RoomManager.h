@@ -15,7 +15,7 @@ public:
 
 	RoomManager();
 
-	void createRoom(LoggedUser creator,string name,int userAmount,int questionTime, int questionAmount) throw();
+	int createRoom(LoggedUser creator,string name,int userAmount,int questionTime, int questionAmount) throw();
 	void deleteRoom(int roomId) throw();
 	RoomState getRoomState(int roomId) throw();
 	void setRoomState(int roomId, RoomState state);

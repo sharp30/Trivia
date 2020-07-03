@@ -11,6 +11,7 @@ Room::Room(int roomId, LoggedUser creator, string name, int maxPlayers, int ques
 	this->_questionTime = questionTime;
 	this->_maxPlayers = maxPlayers;//default-value
 	this->_name = name;
+	this->_state = WAITNG;
 }
 
 /*
@@ -74,20 +75,11 @@ int Room::getID() const
 	return this->_id;
 }
 
-int Room::getQuestionsAmount() const
+unsigned int Room::getQuestionAmount() const
 {
 	return this->_questionAmount;
 }
 
-int Room::getQuestionsTime() const
-{
-	return this->_questionTime;
-}
-
-bool Room::isActive()
-{
-	return this->_questionAmount;
-}
 
 unsigned int Room::getMaxPlayersAmount() const
 {
