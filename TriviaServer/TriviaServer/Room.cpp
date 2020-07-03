@@ -63,6 +63,17 @@ vector<string> Room::getAllUsers()
 	}
 	return all;
 }
+//returns vector of string of all the users in the room
+//for example:[ofir, omri, david, moshe]
+vector<LoggedUser> Room::getAllLoggedUsers()
+{
+	vector<LoggedUser> all;
+	for (int i = 0; i < this->_users.size(); i++)
+	{
+		all.push_back(this->_users[i].getUsername());
+	}
+	return all;
+}
 
 //getters
 string Room::getName() const

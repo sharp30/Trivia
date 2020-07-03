@@ -27,6 +27,7 @@ public:
 	RoomState getState();
 	void setState(RoomState state);
 	vector<string> getAllUsers();
+	vector<LoggedUser> getAllLoggedUsers();
 	string getName() const;
 	int getID() const;
 	unsigned int getQuestionAmount() const;

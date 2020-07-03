@@ -1,10 +1,9 @@
 #include "Question.h"
 
-Question::Question(string question, vector<string> answers, unsigned int correct)
+Question::Question(string question, vector<string> answers)
 {
 	this->_question = question;
 	this->_possibleAnswers = answers;
-	this->_correctIndex = correct;
 }
 
 string Question::getQuestion()
@@ -19,5 +18,5 @@ vector<string> Question::getPossibleQuestions()
 
 string Question::getCorrectAnswer()
 {
-	return this->_possibleAnswers[_correctIndex];
+	return this->_possibleAnswers[this->_possibleAnswers.size()-1];//place -> 3
 }

@@ -27,6 +27,9 @@ public:
 	virtual vector<string> getBestPlayers();
 	virtual int calcPoints(string username);
 
+	//game
+	virtual int createGame();
+	virtual vector<Question> buildQuestions(int amount);
 
 private:
 	const string DB_NAME = "OurDB.sqlite"; 
@@ -37,6 +40,6 @@ private:
 	static int callbackCheckExistence(void* data, int argc, char** argv, char** azColName);
 	static int callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName);
 	static int callbackGetBestPlayers(void* data, int argc, char** argv, char** azColName);
-
+	static int callbackBuildQuestions(void* data, int argc, char** argv, char** azColName);
 	void cleanBestPlayersTable();
 };
