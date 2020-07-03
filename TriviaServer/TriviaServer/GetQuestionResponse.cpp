@@ -2,7 +2,7 @@
 
 GetQuestionResponse::GetQuestionResponse(int status, string question, map<unsigned int, string> answers)
 {
-	this->messageCode = 80;
+	this->messageCode = 81;
 	this->_status = status;
 	this->_question = question;
 	this->_answers = answers;
