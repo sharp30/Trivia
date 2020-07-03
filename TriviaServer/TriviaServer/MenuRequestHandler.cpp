@@ -26,7 +26,6 @@ MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory ,LoggedUse
 {
 }
 
-//Empty for now
 bool MenuRequestHandler::isRequestRelevant(RequestInfo info)
 {
 	return m_functions.find(info.getId()) != m_functions.end();

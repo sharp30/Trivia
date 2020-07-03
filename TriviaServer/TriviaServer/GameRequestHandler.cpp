@@ -13,21 +13,21 @@ const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_func
 //TODO: fill these functions after combining game manager and Game classes
 
 //-----------------constructor--------------------
-GameRequestHandler::GameRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) :IRequestHandler(factory), m_user(user)
+GameRequestHandler::GameRequestHandler(RequestHandlerFactory* factory ,LoggedUser user) : IRequestHandler(factory), m_user(user)
 {
 }
 
-bool GameRequestHandler::isRequestRelevant(RequestInfo)
+bool GameRequestHandler::isRequestRelevant(RequestInfo info)
 {
-	return false;
+	return m_functions.find(info.getId()) != m_functions.end();
 }
 
-RequestResult GameRequestHandler::handleRequest(RequestInfo)
+RequestResult GameRequestHandler::handleRequest(RequestInfo info)
 {
-	return RequestResult();
+	return (this->*m_functions.at(info.getId()))(info);
 }
 
-RequestResult GameRequestHandler::getQuestion(RequestInfo)
+RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
 	return RequestResult();
 }
