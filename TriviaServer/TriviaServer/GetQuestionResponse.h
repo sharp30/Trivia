@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Response.h"
 #include <map>
 
