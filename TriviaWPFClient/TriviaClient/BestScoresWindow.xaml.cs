@@ -41,8 +41,6 @@ namespace TriviaClient
                 mainPart.Children.Add(txt);
                 count++;
             }
-            
-                
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

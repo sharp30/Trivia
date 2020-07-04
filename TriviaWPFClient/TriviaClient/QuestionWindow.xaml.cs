@@ -57,7 +57,7 @@ namespace TriviaClient
 
             TBQuestion.Text = response.question;
 
-            FillAnswers(response.answers);
+            FillAnswers(response.answers.Split('*'));
             FillButtons();
         }
 
