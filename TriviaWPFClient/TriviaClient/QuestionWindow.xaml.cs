@@ -63,7 +63,15 @@ namespace TriviaClient
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
         {
+            LeaveGameResponse response = (LeaveGameResponse)Communicator.Communicate(new LeaveGameRequest());
 
+            if (response.status == 1)
+            {
+                MenuWindow wind = new MenuWindow(this.username);
+                wind.Show();
+                this.Hide();
+                this.Close();
+            }
         }
 
         private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
