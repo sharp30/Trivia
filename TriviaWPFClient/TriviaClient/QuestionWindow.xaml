@@ -15,8 +15,9 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="TBRoomName" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="42,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" TextChanged="TBHello_TextChanged" Grid.Column="1"/>
-        <TextBox x:Name="TBUsername" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" TextChanged="TBHello_TextChanged"/>
+        <TextBox x:Name="TBRoomName" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="42,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Grid.Column="1"/>
+        <TextBox x:Name="TBUsername" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
+        <TextBox x:Name="TBQuestion" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="60" Margin="107,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
         <Button  
             x:Name="Btn_Ans1"
             Content=""

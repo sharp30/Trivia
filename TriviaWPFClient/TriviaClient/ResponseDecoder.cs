@@ -58,6 +58,9 @@ namespace TriviaClient
                 case StartGameResponse.MESSAGE_CODE:
                     response = serializer.Deserialize<StartGameResponse>(reader);
                     break;
+                case GetQuestionResponse.MESSAGE_CODE:
+                    response = serializer.Deserialize<GetQuestionResponse>(reader);
+                    break;
                 default:
                     break;
             }

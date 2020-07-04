@@ -23,6 +23,7 @@ namespace TriviaClient
         private string roomname;
         public QuestionWindow(string uName, string rName)
         {
+            Button[] buttons = { Btn_Ans1, Btn_Ans2, Btn_Ans3, Btn_Ans4 };
             this.username = uName;
             this.roomname = rName;
 
@@ -30,6 +31,16 @@ namespace TriviaClient
 
             TBUsername.Text += uName;
             TBRoomName.Text += rName;
+
+            GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
+
+            TBQuestion.Text = response.question;
+
+            //Fill buttons' contents
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].Content = response.answers[i];
+            }
         }
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
