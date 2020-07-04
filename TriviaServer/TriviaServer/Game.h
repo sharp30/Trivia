@@ -21,8 +21,8 @@ class Game
 {
 public:
 	Game(int roomId,vector<Question> questions,vector<LoggedUser> players);
-	Question getQuestionForUser(LoggedUser user) const;
-	void submitAnswer(LoggedUser user,string answer);
+	Question getQuestionForUser(LoggedUser user) const;  
+	void submitAnswer(LoggedUser user, int answerId);
 	void removePlayer(LoggedUser) throw();
 	int getRoomId();
 protected:

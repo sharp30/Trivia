@@ -25,17 +25,17 @@ This function submits the answer of the user and checks it
 Input:The requested user, the answer of the user
 Output:None
 */
-void Game::submitAnswer(LoggedUser user,string answer)
+void Game::submitAnswer(LoggedUser user,int answerId)
 {
 	//check if user exists
 
-	if (this->m_questions[this->m_players[user].currentQuestion].getCorrectAnswer() == answer)// correct
+	if (!answerId)// correct
 		this->m_players[user].correctAnswerCount++;
 	else // false
 		this->m_players[user].incorrectAnswerCount++;
 	
 	//next question please!
-	this->m_players[user].incorrectAnswerCount--;
+	this->m_players[user].currentQuestion++;
 
 }
 /*

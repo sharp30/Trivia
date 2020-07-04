@@ -16,6 +16,13 @@ int GameManager::createGame(Room room)
 	this->_games.insert({ id,Game(room.getID(),q,room.getAllLoggedUsers()) });
 	return id;
 }
+void GameManager::deleteGame(int gameId) throw()
+{
+	if (this->_games.find(gameId) == this->_games.begin())
+		throw std::exception(("Game " + std::to_string(gameId) + " Isn't exist").c_str());
+	
+	this->_games.erase(gameId);
+}
 /*
 This function returns the id of a game by a roomId
 Input:a room Id
@@ -30,4 +37,22 @@ int GameManager::getGameIdByRoomID(int roomId)
 			return it->first;
 	}
 	return -1;//NOT FOUND
+}
+
+Question GameManager::getQuestionForUser(int gameId, LoggedUser user)
+{
+	return this->_games[gameId].getQuestionForUser(user);
+}
+
+void GameManager::submitAnswer(int gameId, LoggedUser user, int answerid)
+{
+	Question current = getQuestionForUser(gameId, user);
+	this->_games[gameId].submitAnswer(user, answerid);
+	
+	this->_database.submitUserAnswer(gameId,user.getUsername(),current.getQuestion(),current.getPossibleAnswers()[answerid],!answerid,"time");
+}
+
+void GameManager::removePlayer(int gameId, LoggedUser user) throw()
+{
+	this->_games[gameId].removePlayer(user);
 }

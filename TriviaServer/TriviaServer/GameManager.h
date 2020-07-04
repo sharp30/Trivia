@@ -10,10 +10,11 @@ class GameManager
 public:
 	GameManager(IDatabase* database);
 	int createGame(Room room);
-	void deleteGame() throw();
+	void deleteGame(int gameId) throw();
 	int getGameIdByRoomID(int roomId);
-
-	//getGame by id
+	Question getQuestionForUser(int gameId, LoggedUser user);
+	void submitAnswer(int gameId, LoggedUser user, int answerId);
+	void removePlayer(int gameId, LoggedUser user) throw();
 protected:
 
 	IDatabase* _database;
