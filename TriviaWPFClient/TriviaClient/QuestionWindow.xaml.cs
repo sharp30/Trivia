@@ -37,18 +37,18 @@ namespace TriviaClient
                 this.Close();
             }
 
-            this.buttons = new Button[4];
-            this.buttons[0] = Btn_Ans1;
-            this.buttons[1] = Btn_Ans2;
-            this.buttons[2] = Btn_Ans3;
-            this.buttons[3] = Btn_Ans4;
-
             this.username = uName;
             this.roomname = rName;
             this.numOfQuestions = questionsAmount;
             this.currentQuestionNum = currQuestionNum;
 
             InitializeComponent();
+
+            this.buttons = new Button[4];
+            this.buttons[0] = Btn_Ans1;
+            this.buttons[1] = Btn_Ans2;
+            this.buttons[2] = Btn_Ans3;
+            this.buttons[3] = Btn_Ans4;
 
             TBUsername.Text += uName;
             TBRoomName.Text += rName;
@@ -57,6 +57,7 @@ namespace TriviaClient
 
             TBQuestion.Text = response.question;
 
+            this.answers = new Dictionary<string, uint>();
             FillAnswers(response.answers.Split('*'));
             FillButtons();
         }
