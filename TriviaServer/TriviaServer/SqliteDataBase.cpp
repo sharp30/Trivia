@@ -76,7 +76,7 @@ The funtion will add a new user to the users database
 input: user's details
 output: none
 */
-void SqliteDataBase::addNewUser(string username, string password, string email)
+void SqliteDataBase::addNewUser(string username, string password, string email)throw()
 {
 	//insert user to Users
 	std::string sqlStatement = "INSERT INTO Users (USERNAME, PASSWORD, EMAIL) "
@@ -232,6 +232,13 @@ vector<Question> SqliteDataBase::buildQuestions(int amount)
 	return questions;
 }
 
+void SqliteDataBase::submitUserAnswer(int gameId, string username, string question, string answer, bool isCorrect, string time)
+{
+	string sql = "INSERT INTO Players_Answers (Game_Id,User_Id,Question_Id,Player_Answer,IsCorrect) Values(" + std::to_string(gameId) + ',' + std::to_string(this->getUserID(username)) + "(SELECT Id From Questions WHERE Question = \"" + question + "\")," + answer + ',' + std::to_string(isCorrect) + ");";//need to add answer_time
+
+	executeCommand(sql.c_str());
+}
+
 /*
 The function will get sql statement and execute it on the db of the class
 input: sql statement
@@ -288,7 +295,6 @@ Output:0 if succeededs
 int SqliteDataBase::callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName)
 {
 	*(int*)data = std::stoi(argv[0]);
-	//maybe add some checking here
 	return 0;
 }
 

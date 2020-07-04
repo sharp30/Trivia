@@ -3,6 +3,9 @@
 #include "PlayerResults.h"
 #include "LogoutResponse.h"
 #include "SubmitAnswerResponse.h"
+#include "GetQuestionResponse.h"
+#include "SubmitAnswerRequest.h"
+#include "LeaveGameResponse.h"
 
 const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_functions =
 {
@@ -34,44 +37,43 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
 	bool actionResult = true;
 	RequestResult res;
-
+	Question q;
 	try
 	{
-		//Question q = this.m_game.getQuestionForUser(this.m_user);
+		 q = this->m_handlerFactory->getGameManager().getQuestionForUser(_gameId, m_user);
 	}
 	catch (std::exception e)
 	{
 		actionResult = false;
 	}
 
-	//GetQuestionResponse response((int)actionResult, q.getQuestion(), q.getPossibleAnswers());
-	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	//if (actionResult)
-		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRequestHandler();
+	GetQuestionResponse response((int)actionResult, q.getQuestion(), q.getPossibleAnswers());
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res.setNewHandler(nullptr);//same as before
 	return res;
 }
 
 RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 {
-	//SubmitAnswerRequest request(info.getBuffer());
+	SubmitAnswerRequest request(info.getBuffer());
 	
 	bool actionResult = true;
 	RequestResult res;
 
 	try
 	{
-		//this.m_game.submitAnswer(this.m_user, request.getAnswerId);
+		this->m_handlerFactory->getGameManager().submitAnswer(_gameId, m_user, request.getAnswerId());//add throw in submitAnswer function
 	}
 	catch (std::exception e)
 	{
 		actionResult = false;
 	}
 
-	//Question q = this.m_game.getQuestionForUser(this.m_user);
-	//SubmitAnswerResponse response((int)actionResult);
-	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	//if (actionResult)
-		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRequestHandler();
+	SubmitAnswerResponse response((int)actionResult);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res.setNewHandler(nullptr);
 	return res;
 }
 
@@ -80,7 +82,7 @@ RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 	RequestResult res;
 
 	//GetGameResultsResponse response((int)actionResult, this.m_game.getGameResults());
-	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	//TODO: check if the player should be moved back to menu.
 	//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
@@ -94,16 +96,16 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
 
 	try
 	{
-		//this.m_game.removePlayer(this.m_user);
+		this->m_handlerFactory->getGameManager().removePlayer(_gameId, m_user);
 	}
 	catch (std::exception e)
 	{
 		actionResult = false;
 	}
 
-	//LeaveGameResponse response((int)actionResult);
-	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-	//if (actionResult)
-		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
+	LeaveGameResponse response((int)actionResult);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	if (actionResult)
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->m_user.getUsername());
 	return res;
 }
