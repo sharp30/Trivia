@@ -80,5 +80,21 @@ RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 
 RequestResult GameRequestHandler::leaveGame(RequestInfo info)
 {
-	return RequestResult();
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		//this.m_game.removePlayer(this.m_user);
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	//LeaveGameResponse response((int)actionResult);
+	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	//if (actionResult)
+		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
+	return res;
 }
