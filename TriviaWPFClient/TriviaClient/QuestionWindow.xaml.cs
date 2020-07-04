@@ -21,12 +21,22 @@ namespace TriviaClient
     {
         private string username;
         private string roomname;
+        private uint numOfQuestions;
+        private uint currentQuestionNum;
+
         private Button[] buttons;
-        private string question;
         private Dictionary<string, uint> answers;
 
-        public QuestionWindow(string uName, string rName)
+        public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum)
         {
+            if(questionsAmount == currentQuestionNum)
+            {
+                //EndGameWindow wind = new EndGameWindow(this.username, this.roomname);
+                //wind.Show();
+                this.Hide();
+                this.Close();
+            }
+
             this.buttons = new Button[4];
             this.buttons[0] = Btn_Ans1;
             this.buttons[1] = Btn_Ans2;
@@ -35,6 +45,8 @@ namespace TriviaClient
 
             this.username = uName;
             this.roomname = rName;
+            this.numOfQuestions = questionsAmount;
+            this.currentQuestionNum = currQuestionNum;
 
             InitializeComponent();
 
@@ -43,7 +55,6 @@ namespace TriviaClient
 
             GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
 
-            this.question = response.question;
             TBQuestion.Text = response.question;
 
             FillAnswers(response.answers);
@@ -80,7 +91,7 @@ namespace TriviaClient
 
             if (response.status == 1)
             {
-                QuestionWindow wind = new QuestionWindow(this.username, this.roomname);
+                QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1);
                 wind.Show();
                 this.Hide();
                 this.Close();
