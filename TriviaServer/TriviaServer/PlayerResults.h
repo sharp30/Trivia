@@ -14,6 +14,7 @@ protected:
 
 public:
 	PlayerResults(string username, unsigned int correctAnswersCount, unsigned int wrongAnswersCount, unsigned int averageAnswerTime);
+	//PlayerResults(string username, GameData data);
 
 	void setUsername(string username);
 	string getUsername() const;

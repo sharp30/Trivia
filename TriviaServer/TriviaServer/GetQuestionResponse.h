@@ -1,18 +1,18 @@
 #pragma once
 
 #include "Response.h"
-#include <map>
+#include <vector>
 
-using std::map;
+using std::vector;
 
 class GetQuestionResponse : Response
 {
 public:
-	GetQuestionResponse(int status, string question, map<unsigned int, string> answers);
+	GetQuestionResponse(int status, string question, vector<string> answers);
 	virtual nlohmann::json castToJson() const;
 
 protected:
 	int _status;
 	string _question;
-	map<unsigned int, string> _answers;
+	vector<string> _answers;
 };

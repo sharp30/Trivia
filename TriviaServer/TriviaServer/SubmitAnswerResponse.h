@@ -5,7 +5,7 @@
 class SubmitAnswerResponse : Response
 {
 public:
-	SubmitAnswerResponse(int status, unsigned int correctAnswerId);
+	SubmitAnswerResponse(int status);
 	virtual nlohmann::json castToJson() const;
 
 protected:
