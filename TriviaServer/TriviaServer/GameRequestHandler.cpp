@@ -30,8 +30,23 @@ RequestResult GameRequestHandler::handleRequest(RequestInfo info)
 
 RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
-	//Question q = this.m_game.getQuestionForUser(this.m_user);
-	return RequestResult();
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		//Question q = this.m_game.getQuestionForUser(this.m_user);
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	//GetQuestionResponse response((int)actionResult, q.getQuestion(), q.getPossibleAnswers());
+	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	//if (actionResult)
+		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRequestHandler();
+	return res;
 }
 
 RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
