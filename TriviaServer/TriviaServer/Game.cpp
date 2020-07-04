@@ -34,7 +34,7 @@ void Game::submitAnswer(LoggedUser user,string answer)
 		this->m_players[user].incorrectAnswerCount++;
 	
 	//next question please!
-	this->m_players[user].incorrectAnswerCount--;;
+	this->m_players[user].incorrectAnswerCount--;
 
 }
 /*
