@@ -13,6 +13,5 @@ namespace TriviaClient
         public string question { get; set; }
         public string[] answers { get; set; }
         GetQuestionResponse() : base(MESSAGE_CODE){}
-        
     }
 }
