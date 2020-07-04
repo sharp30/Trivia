@@ -17,11 +17,6 @@ protected:
 	RequestResult submitAnswer(RequestInfo info);
 	RequestResult getGameResults(RequestInfo info);
 	RequestResult leaveGame(RequestInfo info);
-
-	static const int MSG_CODE = 15;
-	static const int STATS_REQ_CODE = 70; // the message code of a getStatistics request
-
-	
 	
 	//Game m_game;
 	LoggedUser m_user;

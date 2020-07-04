@@ -1,6 +1,7 @@
 #include "GameRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "LogoutResponse.h"
+#include "SubmitAnswerResponse.h"
 
 const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_functions =
 {
@@ -29,12 +30,32 @@ RequestResult GameRequestHandler::handleRequest(RequestInfo info)
 
 RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
+	//Question q = this.m_game.getQuestionForUser(this.m_user);
 	return RequestResult();
 }
 
 RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 {
-	return RequestResult();
+	//SubmitAnswerRequest request(info.getBuffer());
+	
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		//this.m_game.submitAnswer(this.m_user, request.getAnswerId);
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	//Question q = this.m_game.getQuestionForUser(this.m_user);
+	//SubmitAnswerResponse response((int)actionResult, q.getCorrectAnswerId());
+	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	//if (actionResult)
+		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRequestHandler();
+	return res;
 }
 
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
