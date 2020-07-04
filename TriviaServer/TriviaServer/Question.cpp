@@ -11,7 +11,7 @@ string Question::getQuestion()
 	return this->_question;
 }
 
-vector<string> Question::getPossibleQuestions()
+vector<string> Question::getPossibleAnswers()
 {
 	return this->_possibleAnswers;
 }
