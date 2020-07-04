@@ -33,7 +33,7 @@ RequestResult RoomHandler::getRoomState(RequestInfo info)
 		else
 		{
 			int gameId = this->m_handlerFactory->getGameManager().getGameIdByRoomID(this->_connectedRoom.getID());
-			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername));
+			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername()));
 		}
 	return res;
 

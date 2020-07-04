@@ -10,6 +10,7 @@ using std::string;
 class Question
 {
 public:
+	Question() = default;
 	Question(string question, vector<string> answers);
 	string getQuestion();
 	vector<string> getPossibleAnswers();

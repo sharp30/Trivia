@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #pragma once
 #include "IDatabase.h"
 #include "sqlite3.h"

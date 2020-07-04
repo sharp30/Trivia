@@ -82,7 +82,7 @@ RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 	RequestResult res;
 
 	//GetGameResultsResponse response((int)actionResult, this.m_game.getGameResults());
-	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	//TODO: check if the player should be moved back to menu.
 	//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
@@ -106,6 +106,6 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
 	LeaveGameResponse response((int)actionResult);
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
-		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->m_user.getUsername());
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->m_user.getUsername()));
 	return res;
 }

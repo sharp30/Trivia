@@ -20,6 +20,7 @@ typedef struct GameData
 class Game
 {
 public:
+	Game() = default;
 	Game(int roomId,vector<Question> questions,vector<LoggedUser> players);
 	Question getQuestionForUser(LoggedUser user) const;  
 	void submitAnswer(LoggedUser user, int answerId);

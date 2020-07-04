@@ -202,7 +202,7 @@ int SqliteDataBase::createGame()
 	//TODO: Solve Sqltime Problem
 	std::time_t start_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-	string sql = "INSERT INTO Games (Status,Start_Time) Values(1,"+ std::string(ctime(&start_time)) + ");";
+	string sql = "INSERT INTO Games (Status,Start_Time) Values(1,DateTime('now'));";
 	executeCommand(sql.c_str());
 
 	return sqlite3_last_insert_rowid(this->_dataBase);
