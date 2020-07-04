@@ -10,5 +10,5 @@ public:
 	virtual bool isRequestRelevant(RequestInfo);
 	virtual RequestResult handleRequest(RequestInfo);
 protected:
-
+	virtual bool isAdmin();
 };

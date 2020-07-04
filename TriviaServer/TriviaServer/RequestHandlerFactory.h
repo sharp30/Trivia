@@ -22,7 +22,7 @@ public:
 	MenuRequestHandler* createMenuRequestHandler(string user);
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(int roomId, string user);
 	RoomMemberRequestHandler* createRoomMemberRequestHandler(int roomId, string user);
-	GameRequestHandler* createGameRquestHandler(int gameId,string user);//for admin
+	GameRequestHandler* createGameRquestHandler(int gameId, string user);
 
 
 	LoginManager& getLoginManager();

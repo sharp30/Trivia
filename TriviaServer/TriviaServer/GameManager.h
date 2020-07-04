@@ -9,7 +9,7 @@ class GameManager
 {
 public:
 	GameManager(IDatabase* database);
-	void createGame(Room room);
+	int createGame(Room room);
 	void deleteGame() throw();
 	int getGameIdByRoomID(int roomId);
 

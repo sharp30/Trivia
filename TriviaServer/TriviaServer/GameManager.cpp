@@ -5,7 +5,8 @@ GameManager::GameManager(IDatabase* database)
 	this->_database = database;
 }
 
-void GameManager::createGame(Room room)
+//returns the id of the new Game
+int GameManager::createGame(Room room)
 {
 	//TODO: change state of room - > at RoomManager maybe?
 
@@ -13,6 +14,7 @@ void GameManager::createGame(Room room)
 	vector<Question> q = this->_database->buildQuestions(room.getQuestionAmount());
 
 	this->_games.insert({ id,Game(room.getID(),q,room.getAllLoggedUsers()) });
+	return id;
 }
 /*
 This function returns the id of a game by a roomId

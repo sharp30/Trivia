@@ -38,7 +38,8 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		}
 		StartGameResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
-		res.setNewHandler(this->m_handlerFactory.)
+		int gameId = this->m_handlerFactory->getGameManager().createGame(this->_connectedRoom);
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername());
 	}
 	else if (req.getId() == 52)// close
 	{
@@ -59,4 +60,9 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 	}
 	
 	return res;  
+}
+
+bool RoomAdminRequestHandler::isAdmin()
+{
+	return true;
 }

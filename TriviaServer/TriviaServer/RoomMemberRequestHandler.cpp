@@ -34,3 +34,8 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info)
 
 	return res;
 }
+
+bool RoomMemberRequestHandler::isAdmin()
+{
+	return false;
+}
