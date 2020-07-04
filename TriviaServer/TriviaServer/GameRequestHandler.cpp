@@ -1,5 +1,6 @@
 #include "GameRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
+#include "PlayerResults.h"
 #include "LogoutResponse.h"
 #include "SubmitAnswerResponse.h"
 
@@ -75,6 +76,8 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 {
+	//PlayerResults results(map<LoggedUser, GameData> (this->m_user.getUsername(), this.m_game.getGameData(this.m_user));
+	//GetGameResultsResponse response(
 	return RequestResult();
 }
 

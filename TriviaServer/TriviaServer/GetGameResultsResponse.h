@@ -10,6 +10,7 @@ class GetGameResultsResponse : Response
 {
 public:
 	GetGameResultsResponse(int status, vector<PlayerResults> results);
+	//GetGameResultsResponse(int status, map<LoggedUser, GameData> results);
 	virtual nlohmann::json castToJson() const;
 	string castResultsToString() const;
 

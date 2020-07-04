@@ -7,6 +7,14 @@ GetGameResultsResponse::GetGameResultsResponse(int status, vector<PlayerResults>
 	this->_results = results;
 }
 
+/*
+GetGameResultsResponse::GetGameResultsResponse(int status, map<LoggedUser, GameData> results)
+{
+	this->messageCode = 84;
+	this->_status = status;
+}
+*/
+
 nlohmann::json GetGameResultsResponse::castToJson() const
 {
 	return nlohmann::json{ {"status" , _status}, {"results", castResultsToString()} };
