@@ -11,8 +11,12 @@ namespace TriviaClient
 {
     class SubmitAnswerRequest : Request
     {
-        public const int MESSAGE_CODE = 82;
-        public SubmitAnswerRequest() : base(MESSAGE_CODE) { }
+        //public const int MESSAGE_CODE = 82;
+        public uint answerId { get; set; }
+        public SubmitAnswerRequest(uint id) : base(82) 
+        {
+            this.answerId = id;
+        }
         public override byte[] CastToBson()
         {
             MemoryStream ms = new MemoryStream();

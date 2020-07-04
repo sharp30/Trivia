@@ -18,30 +18,7 @@
         <TextBox x:Name="TBRoomName" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="42,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Grid.Column="1"/>
         <TextBox x:Name="TBUsername" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
         <TextBox x:Name="TBQuestion" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="60" Margin="107,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        <Button  
-            x:Name="Btn_Ans1"
-            Content=""
-            Foreground="white"
-            Background="BlueViolet"
-            BorderThickness="0"
-            Padding="10"
-            Margin="0,184,432,6" Click="Btn_Answer_Clicked" RenderTransformOrigin="1.103,-0.032" HorizontalAlignment="Right" Width="330" Grid.ColumnSpan="2">
-
-            <Button.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="7"/>
-                </Style>
-            </Button.Resources>
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.062"/>
-                    <TranslateTransform X="0.03" Y="0.115"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-
+        
         <Button  
             x:Name="Btn_Exit"
             Content="Exit"
@@ -65,11 +42,35 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        
+        <Button  
+            x:Name="Btn_Ans1"
+            Content=""
+            Foreground="Black"
+            Background="BlanchedAlmond"
+            BorderThickness="0"
+            Padding="10"
+            Margin="0,184,432,6" Click="Btn_Answer_Clicked" RenderTransformOrigin="1.103,-0.032" HorizontalAlignment="Right" Width="330" Grid.ColumnSpan="2">
+
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7"/>
+                </Style>
+            </Button.Resources>
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.062"/>
+                    <TranslateTransform X="0.03" Y="0.115"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
         <Button  
             x:Name="Btn_Ans2"
             Content=""
-            Foreground="white"
-            Background="BlueViolet"
+            Foreground="Black"
+            Background="BlanchedAlmond"
             BorderThickness="0"
             Padding="10"
             Margin="0,184,86,6" Click="Btn_Answer_Clicked" RenderTransformOrigin="1.103,-0.032" HorizontalAlignment="Right" Width="330" Grid.Column="1">
@@ -91,8 +92,8 @@
         <Button  
             x:Name="Btn_Ans3"
             Content=""
-            Foreground="white"
-            Background="BlueViolet"
+            Foreground="Black"
+            Background="BlanchedAlmond"
             BorderThickness="0"
             Padding="10"
             Margin="0,16,431,132" Click="Btn_Answer_Clicked" RenderTransformOrigin="1.103,-0.032" HorizontalAlignment="Right" Width="330" Grid.ColumnSpan="2" Grid.Row="1">
@@ -114,8 +115,8 @@
         <Button  
             x:Name="Btn_Ans4"
             Content=""
-            Foreground="white"
-            Background="BlueViolet"
+            Foreground="Black"
+            Background="BlanchedAlmond"
             BorderThickness="0"
             Padding="10"
             Margin="0,16,85,132" Click="Btn_Answer_Clicked" RenderTransformOrigin="1.103,-0.032" HorizontalAlignment="Right" Width="330" Grid.Row="1" Grid.Column="1">

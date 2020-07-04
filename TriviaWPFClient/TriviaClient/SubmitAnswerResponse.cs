@@ -10,7 +10,7 @@ namespace TriviaClient
     {
         public const int MESSAGE_CODE = 83;
         public int status { get; set; }
-        public string correctAnswerId { get; set; }
+        public uint correctAnswerId { get; set; }
         public SubmitAnswerResponse() : base(MESSAGE_CODE) { }
 
     }
