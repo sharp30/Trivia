@@ -12,6 +12,7 @@ GetGameResultsResponse::GetGameResultsResponse(int status, map<LoggedUser, GameD
 {
 	this->messageCode = 84;
 	this->_status = status;
+	arrangeResults(results);
 }
 */
 
@@ -36,3 +37,17 @@ string GetGameResultsResponse::castResultsToString() const
 
 	return txt.substr(0, txt.size() - 1);
 }
+
+/*
+void GetGameResultsResponse::arrangeResults(map<LoggedUser, GameData> results)
+{
+	vector<PlayerResults> res;
+	
+	for (map<LoggedUser, GameData>::iterator it = results.begin(); it != results.end(); it++)
+	{
+		PlayerResults pr(it->first.getUsername(), it->second);
+		res.push_back(pr);
+	}
+
+	this->_results = res;
+}*/
