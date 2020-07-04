@@ -76,9 +76,14 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 {
-	//PlayerResults results(map<LoggedUser, GameData> (this->m_user.getUsername(), this.m_game.getGameData(this.m_user));
-	//GetGameResultsResponse response(
-	return RequestResult();
+	RequestResult res;
+
+	//GetGameResultsResponse response((int)actionResult, this.m_game.getGameResults());
+	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	//TODO: check if the player should be moved back to menu.
+	//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
+	return res;
 }
 
 RequestResult GameRequestHandler::leaveGame(RequestInfo info)
