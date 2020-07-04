@@ -14,7 +14,7 @@ This function creates an LoginRequestHandler on the heap memory and returns it's
 Input:None
 Output:The address of the instance :LoginRequestHandler*
 */
-RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database),m_statsManager(database)
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database),m_statsManager(database),m_gameManager(database)
 {
 }
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
@@ -62,10 +62,11 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
 	}
 }
 
-GameRequestHandler* RequestHandlerFactory::createGameRquestHandler()
+GameRequestHandler* RequestHandlerFactory::createGameRquestHandler(int gameId, string user)
 {
-	return new GameRequestHandler(this,)
+	return new GameRequestHandler(this, user, gameId);
 }
+
 
 
 /*
@@ -94,4 +95,9 @@ Output:reference to the login manager
 RoomManager& RequestHandlerFactory::getRoomManager()
 {
 	return this->m_roomManager;
+}
+
+GameManager& RequestHandlerFactory::getGameManager()
+{
+	return this->m_gameManager;
 }

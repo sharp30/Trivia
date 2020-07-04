@@ -8,7 +8,7 @@
 class GameRequestHandler : IRequestHandler
 {
 public:
-	GameRequestHandler(RequestHandlerFactory* factory,LoggedUser user);
+	GameRequestHandler(RequestHandlerFactory* factory,LoggedUser user,int gameId);
 	virtual bool isRequestRelevant(RequestInfo);
 	virtual RequestResult handleRequest(RequestInfo);
 	using handler_func = RequestResult(GameRequestHandler::*)(RequestInfo);
@@ -19,7 +19,8 @@ protected:
 	RequestResult getGameResults(RequestInfo info);
 	RequestResult leaveGame(RequestInfo info);
 	
-	Game m_game;
+	//ame m_game;
+	int _gameId;
 	LoggedUser m_user;
 	//GameManager& m_gameManager;
 	
