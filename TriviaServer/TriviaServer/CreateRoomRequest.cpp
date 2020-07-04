@@ -22,17 +22,6 @@ string CreateRoomRequest::getRoomName()
 }
 
 /*
-This function returns the creator name
-Input: None
-Output: The room name
-
-string CreateRoomRequest::getCreatorName()
-{
-	return this->creatorName;
-}
-*/
-
-/*
 This function returns the max amount of users in the room
 Input: None
 Output: amount of users in room

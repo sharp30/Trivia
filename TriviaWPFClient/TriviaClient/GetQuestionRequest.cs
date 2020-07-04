@@ -9,12 +9,10 @@ using Newtonsoft.Json.Bson;
 
 namespace TriviaClient
 {
-    class LogoutRequest : Request
+    class GetQuestionRequest : Request
     {
-        const int MESSAGE_CODE = 100;
-
-        public LogoutRequest() : base(MESSAGE_CODE){}
-
+        public const int MESSAGE_CODE = 80;
+        public GetQuestionRequest() : base(MESSAGE_CODE){}
         public override byte[] CastToBson()
         {
             MemoryStream ms = new MemoryStream();
