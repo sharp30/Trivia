@@ -12,7 +12,7 @@ class Question
 public:
 	Question(string question, vector<string> answers);
 	string getQuestion();
-	vector<string> getPossibleQuestions();
+	vector<string> getPossibleAnswers();
 	string getCorrectAnswer();
 protected:
 	string _question;
