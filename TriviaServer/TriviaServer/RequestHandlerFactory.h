@@ -12,7 +12,7 @@ class MenuRequestHandler;
 class LoginRequestHandler;
 class RoomAdminRequestHandler;
 class RoomMemberRequestHandler;
-
+class GameRequestHandler;
 class RequestHandlerFactory
 {
 public:
@@ -21,13 +21,13 @@ public:
 	MenuRequestHandler* createMenuRequestHandler(string user);
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(int roomId, string user);
 	RoomMemberRequestHandler* createRoomMemberRequestHandler(int roomId, string user);
-	//GameRequestHandler* createGameRquestHandler();
+	GameRequestHandler* createGameRquestHandler();
 
 
 	LoginManager& getLoginManager();
 	StatisticsManager& getStatisticsManager();
 	RoomManager& getRoomManager();
-	//GameManager& getGameManager();
+	GameManager& getGameManager();
 
 protected:
 	LoginManager m_loginManger;

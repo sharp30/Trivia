@@ -38,7 +38,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		}
 		StartGameResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
-		res.setNewHandler(nullptr);
+		res.setNewHandler(this->m_handlerFactory.)
 	}
 	else if (req.getId() == 52)// close
 	{

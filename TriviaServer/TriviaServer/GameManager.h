@@ -11,6 +11,8 @@ public:
 	GameManager(IDatabase* database);
 	void createGame(Room room);
 	void deleteGame() throw();
+	int getGameIdByRoomID(int roomId);
+
 	//getGame by id
 protected:
 

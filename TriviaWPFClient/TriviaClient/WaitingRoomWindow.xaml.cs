@@ -137,8 +137,8 @@ namespace TriviaClient
 
         private void StartBTN_Click(object sender, RoutedEventArgs e)
         {
+            this.thread.Abort();//TODO:find place for it
             StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
-            this.thread.Abort();
             QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0);
             this.Close();
 

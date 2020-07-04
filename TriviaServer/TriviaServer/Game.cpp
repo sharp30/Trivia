@@ -1,7 +1,8 @@
 #include "Game.h"
 //------------constructor-------------
-Game::Game(vector<Question> questions, vector<LoggedUser> players)
+Game::Game(int roomId,vector<Question> questions, vector<LoggedUser> players)
 {
+	this->_roomId = roomId;
 	this->m_questions = questions;
 	for(LoggedUser user : players)
 	{
@@ -17,7 +18,7 @@ Question Game::getQuestionForUser(LoggedUser user) const
 {
 	//is finished yet??
 	//is user exists
-	return this->m_questions[this->m_players[user]];
+	return this->m_questions[this->m_players.at(user).currentQuestion];
 }
 /*
 This function submits the answer of the user and checks it
@@ -46,4 +47,9 @@ void Game::removePlayer(LoggedUser user) throw()
 {
 	//if user exists
 	this->m_players.erase(user);
+}
+
+int Game::getRoomId()
+{
+	return this->_roomId;
 }

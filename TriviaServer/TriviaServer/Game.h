@@ -20,11 +20,13 @@ typedef struct GameData
 class Game
 {
 public:
-	Game(vector<Question> questions,vector<LoggedUser> players);
+	Game(int roomId,vector<Question> questions,vector<LoggedUser> players);
 	Question getQuestionForUser(LoggedUser user) const;
 	void submitAnswer(LoggedUser user,string answer);
 	void removePlayer(LoggedUser) throw();
+	int getRoomId();
 protected:
+	int _roomId;
 	vector<Question> m_questions;
 	map<LoggedUser, GameData> m_players;
 };

@@ -2,6 +2,7 @@
 
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
+#include "Game.h"
 //#TODO: include all relevant requests
 
 class GameRequestHandler : IRequestHandler
@@ -18,7 +19,7 @@ protected:
 	RequestResult getGameResults(RequestInfo info);
 	RequestResult leaveGame(RequestInfo info);
 	
-	//Game m_game;
+	Game m_game;
 	LoggedUser m_user;
 	//GameManager& m_gameManager;
 	

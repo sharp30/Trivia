@@ -3,6 +3,7 @@
 #include "MenuRequestHandler.h"
 #include "RoomAdminRequestHandler.h"
 #include "RoomMemberRequestHandler.h"
+#include "GameRequestHandler.h"
 /*-------------------------------Creating function---------------------------------
 Important Note : The function  allcoates dinamically beacuse this is the only option to return pointer of object that was created in a function.
 Moreover we don't have interest of returning by value/*
@@ -59,6 +60,11 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
 	{
 		return nullptr;
 	}
+}
+
+GameRequestHandler* RequestHandlerFactory::createGameRquestHandler()
+{
+	return new GameRequestHandler(this,)
 }
 
 
