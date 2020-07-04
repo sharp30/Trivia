@@ -140,6 +140,7 @@ namespace TriviaClient
             this.thread.Abort();//TODO:find place for it
             StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
             QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0);
+            wind.Show();
             this.Close();
 
         }
@@ -162,6 +163,7 @@ namespace TriviaClient
             else // if game had started
             {
                 QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0);
+                wind.Show();
                 this.Close();
             }
         }
