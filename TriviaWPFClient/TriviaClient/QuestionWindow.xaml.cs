@@ -31,7 +31,7 @@ namespace TriviaClient
         {
             if(questionsAmount == currentQuestionNum)
             {
-                EndGameWindow wind = new EndGameWindow(this.username, this.roomname);
+                EndGameWindow wind = new EndGameWindow(this.username);
                 wind.Show();
                 this.Hide();
                 this.Close();
@@ -105,7 +105,6 @@ namespace TriviaClient
                 this.Close();
             }
         }
-
 
         private void FillButtons()
         {

@@ -20,12 +20,11 @@ namespace TriviaClient
     public partial class EndGameWindow : Window
     {
         private string username;
-        private string roomname;
+
         private PlayerResults[] results;
-        public EndGameWindow(string uName, string rName)
+        public EndGameWindow(string uName)
         {
             this.username = uName;
-            this.roomname = rName;
 
             InitializeComponent();
 
@@ -38,7 +37,26 @@ namespace TriviaClient
 
         private void FillScoreboard()
         {
+            //add textBoxes
+            TextBlock txt = null;
+            int count = 1;
+            
+            //-----print winner------
+            txt = new TextBlock { Text = "The winner is " + FindWinner() + "!", FontSize = 40, Margin = new Thickness(90, 35 * count, 120, 35 * (count + 1)) };
 
+            Grid.SetRow(txt, count);
+            mainPart.Children.Add(txt);
+            count++;
+            //-----------------------
+
+            foreach (PlayerResults res in this.results)
+            {
+                txt = new TextBlock { Text = res.ToString(), FontSize = 40, Margin = new Thickness(90, 35 * count, 120, 35 * (count + 1)) };
+
+                Grid.SetRow(txt, count);
+                mainPart.Children.Add(txt);
+                count++;
+            }
         }
 
         private void Btn_back_Click(object sender, RoutedEventArgs e)
@@ -47,6 +65,27 @@ namespace TriviaClient
             wind.Show();
             this.Hide();
             this.Close();
+        }
+
+        /*
+        The function will find the name of the player who has won the game
+        input: none
+        output: the name of the player who has won the game --> string
+        */
+        private string FindWinner()
+        {
+            //#TODO: if everything works fine, consider changing this algorithm.
+            uint maxPoints = 0;
+            foreach (PlayerResults res in this.results)
+            {
+                maxPoints = res.GetCorrectAnswersAmount() > maxPoints ? res.GetCorrectAnswersAmount() : maxPoints; 
+            }
+
+            foreach (PlayerResults res in this.results)
+            {
+                if (res.GetCorrectAnswersAmount() == maxPoints) return res.GetName();
+            }
+            return "no one";
         }
     }
 }

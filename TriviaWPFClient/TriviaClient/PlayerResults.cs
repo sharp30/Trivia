@@ -21,6 +21,26 @@ namespace TriviaClient
             this.averageTime = avgTime;
         }
 
+        public string GetName()
+        {
+            return this.name;
+        }
+
+        public uint GetCorrectAnswersAmount()
+        {
+            return this.correctAnswers;
+        }
+
+        public uint GetInorrectAnswersAmount()
+        {
+            return this.incorrectAnswers;
+        }
+
+        public uint getAvgTime()
+        {
+            return this.averageTime;
+        }
+
         public PlayerResults(string data) // "[avi:1:2:3]"
         {
             string[] elements = data.Split(':');
@@ -33,6 +53,11 @@ namespace TriviaClient
             this.correctAnswers = uint.Parse(elements[1]);
             this.incorrectAnswers = uint.Parse(elements[2]);
             this.averageTime = uint.Parse(elements[3]);
+        }
+
+        public override string ToString()
+        {
+            return this.name + ": Correct->" + this.correctAnswers + ", incorrect->" + this.incorrectAnswers + ", avg->" + this.averageTime;
         }
     }
 }
