@@ -1,10 +1,10 @@
 #include "SubmitAnswerResponse.h"
 
-SubmitAnswerResponse::SubmitAnswerResponse(int status, unsigned int correctAnswerId)
+SubmitAnswerResponse::SubmitAnswerResponse(int status)
 {
 	this->messageCode = 83;
 	this->_status = status;
-	this->_correctAnswerId = correctAnswerId;
+	this->_correctAnswerId = 0; //ID of correct answer is always 0
 }
 
 nlohmann::json SubmitAnswerResponse::castToJson() const

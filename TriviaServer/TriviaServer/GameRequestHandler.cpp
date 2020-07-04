@@ -66,7 +66,7 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 	}
 
 	//Question q = this.m_game.getQuestionForUser(this.m_user);
-	//SubmitAnswerResponse response((int)actionResult, q.getCorrectAnswerId());
+	//SubmitAnswerResponse response((int)actionResult);
 	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	//if (actionResult)
 		//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRequestHandler();
