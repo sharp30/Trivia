@@ -95,7 +95,7 @@ namespace TriviaClient
                 ((Button)sender).Background = Brushes.Red;
             }
             
-            //TODO: Wait until all players are ready for the next question
+            //TODO: Wait until all players are ready for the next question//maybe with time.Sleep?
 
             if (response.status == 1)
             {
