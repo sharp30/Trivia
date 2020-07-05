@@ -9,8 +9,8 @@
     <Grid>
         <Button x:Name ="Btn_back" Content="Back"  HorizontalAlignment="Left" Margin="669,26,0,349" Width="100" Click="Btn_back_Click"/>
         <TextBlock HorizontalAlignment="Center" Margin="192,43,205,0" TextWrapping="Wrap" Text="ScoreBoard" VerticalAlignment="Top" Height="85" Width="395" TextAlignment="Center" FontSize="25" Foreground="Wheat"></TextBlock>
-                   
-        <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,110,89,-61" VerticalAlignment="Top" Width="630" RenderTransformOrigin="0.492,0.392"/>
+
+        <Grid x:Name="mainPart" HorizontalAlignment="Right" Height="370" Margin="0,95,10,-46" VerticalAlignment="Top" Width="762" RenderTransformOrigin="0.492,0.392"/>
     </Grid>
     <Window.Background>
         <ImageBrush ImageSource="endGame.png" Stretch="UniformToFill"/>

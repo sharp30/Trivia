@@ -10,7 +10,7 @@ namespace TriviaClient
 {
     static class Communicator
     {
-        public static bool first = true;
+        public static bool connected = false;
         public static Socket serverSocket;
         public static bool Connect(string serverIp,int port)
         {
@@ -29,7 +29,7 @@ namespace TriviaClient
             serverSocket = sock;
             byte[] arr = new byte[5];
             serverSocket.Receive(arr,5,SocketFlags.None);
-
+            connected = true;
             return true;
         }
 

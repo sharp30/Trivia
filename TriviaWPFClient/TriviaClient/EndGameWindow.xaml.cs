@@ -46,16 +46,15 @@ namespace TriviaClient
 
             Grid.SetRow(txt, count);
             mainPart.Children.Add(txt);
-            count++;
-            //-----------------------
+            count+=2;
 
             foreach (PlayerResults res in this.results)
             {
-                txt = new TextBlock { Text = res.ToString(), FontSize = 40, Margin = new Thickness(90, 35 * count, 120, 35 * (count + 1)), Foreground = Brushes.White };
+                txt = new TextBlock { Text = res.ToString(), FontSize = 15, Margin = new Thickness(90, 35 * count, 120, 35 * (count + 1)), Foreground = Brushes.White };
 
                 Grid.SetRow(txt, count);
                 mainPart.Children.Add(txt);
-                count++;
+                count+=2;
             }
         }
 

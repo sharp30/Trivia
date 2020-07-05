@@ -78,7 +78,7 @@ namespace TriviaClient
             }
         }
 
-        private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        private async void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
         {
             uint chosenAnsId = 5;
 
@@ -101,12 +101,12 @@ namespace TriviaClient
 
             DisableButtons();
             
-            /*
+            
             Task.Factory.StartNew(() => 
             { 
                 Thread.Sleep(3000); 
             });
-            */          
+          
 
             if (response.status == 1)
             {
@@ -153,6 +153,12 @@ namespace TriviaClient
         private void btnClickNothing(object sender, RoutedEventArgs e)
         {
             // do nothing
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Communicator.Communicate(new LogoutRequest());
+
         }
     }
 }

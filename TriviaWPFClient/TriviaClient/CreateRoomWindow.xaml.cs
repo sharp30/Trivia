@@ -27,7 +27,6 @@ namespace TriviaClient
             this.username = userName;
             InitializeComponent();
 
-            usernameTB.Text += this.username;
         }
 
         private void BtnBackClick(object sender, RoutedEventArgs e)
@@ -52,8 +51,8 @@ namespace TriviaClient
                 {
                     WaitingRoomWindow wind = new WaitingRoomWindow(true, this.username, this.room);
                     wind.Show();
-                    this.Hide();
-                    this.Close();
+                    base.Hide();
+                    base.Close();
                 }
             }
             else
@@ -70,5 +69,6 @@ namespace TriviaClient
             }
             return true;
         }
+
     }
 }
