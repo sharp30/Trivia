@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Threading;
 namespace TriviaClient
 {
     /// <summary>
@@ -23,11 +23,12 @@ namespace TriviaClient
         private string roomname;
         private uint numOfQuestions;
         private uint currentQuestionNum;
+        private uint questionTime;
+        private int answerId;
 
         private Button[] buttons;
         private Dictionary<string, uint> answers;
-
-        public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum)
+        public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum,uint timePerQuestion)
         {
             if(questionsAmount == currentQuestionNum)
             {
@@ -47,7 +48,8 @@ namespace TriviaClient
             this.roomname = rName;
             this.numOfQuestions = questionsAmount;
             this.currentQuestionNum = currQuestionNum;
-
+            this.questionTime = timePerQuestion;
+            this.answerId = -1;
             InitializeComponent();
 
             TBUsername.Text += uName;
@@ -59,6 +61,26 @@ namespace TriviaClient
 
             FillAnswers(response.answers);
             FillButtons();
+            TimerFunc();
+        }
+
+        private async void TimerFunc()
+        {
+            for (int i = 0; i < this.questionTime; i++)
+            {
+                await Task.Delay(1000);
+                //this.timeTb--;
+            }
+            if(answerId == -1)
+            {
+                Random rnd = new Random();
+                answerId = rnd.Next(0, 3);
+            }
+            SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest((uint)answerId));
+            QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1, this.questionTime);
+            wind.Show();
+            this.Hide();
+            this.Close();
         }
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
@@ -84,9 +106,8 @@ namespace TriviaClient
                     chosenAnsId = ans.Value;
             }
 
-            SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest(chosenAnsId));
             
-            if (response.correctAnswerId == chosenAnsId)
+            if (0 == chosenAnsId)
             {
                 ((Button)sender).Background = Brushes.Green; 
             }
@@ -96,14 +117,6 @@ namespace TriviaClient
             }
             
             //TODO: Wait until all players are ready for the next question
-
-            if (response.status == 1)
-            {
-                QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1);
-                wind.Show();
-                this.Hide();
-                this.Close();
-            }
         }
 
         private void FillButtons()
