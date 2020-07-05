@@ -3,6 +3,7 @@
 #include "MenuRequestHandler.h"
 #include "RoomAdminRequestHandler.h"
 #include "RoomMemberRequestHandler.h"
+#include "GameRequestHandler.h"
 /*-------------------------------Creating function---------------------------------
 Important Note : The function  allcoates dinamically beacuse this is the only option to return pointer of object that was created in a function.
 Moreover we don't have interest of returning by value/*
@@ -13,7 +14,7 @@ This function creates an LoginRequestHandler on the heap memory and returns it's
 Input:None
 Output:The address of the instance :LoginRequestHandler*
 */
-RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database),m_statsManager(database)
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_database(database),m_loginManger(database),m_statsManager(database),m_gameManager(database)
 {
 }
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
@@ -61,6 +62,12 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
 	}
 }
 
+GameRequestHandler* RequestHandlerFactory::createGameRquestHandler(int gameId, string user)
+{
+	return new GameRequestHandler(this, user, gameId);
+}
+
+
 
 /*
 This function returns reference to the login Manager
@@ -88,4 +95,9 @@ Output:reference to the login manager
 RoomManager& RequestHandlerFactory::getRoomManager()
 {
 	return this->m_roomManager;
+}
+
+GameManager& RequestHandlerFactory::getGameManager()
+{
+	return this->m_gameManager;
 }

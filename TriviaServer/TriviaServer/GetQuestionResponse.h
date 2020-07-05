@@ -10,6 +10,7 @@ class GetQuestionResponse : Response
 public:
 	GetQuestionResponse(int status, string question, vector<string> answers);
 	virtual nlohmann::json castToJson() const;
+	string castAnswersToString() const;
 
 protected:
 	int _status;

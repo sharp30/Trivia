@@ -2,19 +2,19 @@
 
 GetGameResultsResponse::GetGameResultsResponse(int status, vector<PlayerResults> results)
 {
-	this->messageCode = 84;
+	this->messageCode = 85;
 	this->_status = status;
 	this->_results = results;
 }
 
-/*
+
 GetGameResultsResponse::GetGameResultsResponse(int status, map<LoggedUser, GameData> results)
 {
-	this->messageCode = 84;
+	this->messageCode = 85;
 	this->_status = status;
 	arrangeResults(results);
 }
-*/
+
 
 nlohmann::json GetGameResultsResponse::castToJson() const
 {
@@ -29,16 +29,14 @@ output: a string represents the results
 string GetGameResultsResponse::castResultsToString() const
 {
 	string txt = "";
-
 	for (int i = 0; i < this->_results.size(); i++)
 	{
 		txt += this->_results[i].toString() + ",";
 	}
-
 	return txt.substr(0, txt.size() - 1);
 }
 
-/*
+
 void GetGameResultsResponse::arrangeResults(map<LoggedUser, GameData> results)
 {
 	vector<PlayerResults> res;
@@ -50,4 +48,4 @@ void GetGameResultsResponse::arrangeResults(map<LoggedUser, GameData> results)
 	}
 
 	this->_results = res;
-}*/
+}

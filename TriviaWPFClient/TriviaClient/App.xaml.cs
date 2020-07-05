@@ -13,5 +13,11 @@ namespace TriviaClient
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if(Communicator.connected)
+                Communicator.SendMessage(new LogoutRequest());
+            base.OnExit(e);
+        }
     }
 }

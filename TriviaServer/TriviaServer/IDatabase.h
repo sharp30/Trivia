@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-
+#include "Question.h"
 using std::string;
 using std::vector;
 
@@ -15,8 +15,15 @@ public:
 	//statistics
 	virtual float getPlayerAverageAnswerTime(string username) = 0;
 	virtual int getNumOfCorrectAnswers(string username) = 0;
-	virtual int getNumOfTotalAnswers(string username) = 0; 
+	virtual int getNumOfTotalAnswers(string username) = 0;
 	virtual int getNumOfPlayerGames(string username) = 0;
 	virtual vector<string> getBestPlayers() = 0;
 	virtual int calcPoints(string username) = 0;
+
+
+	//game
+
+	virtual int createGame() = 0;
+	virtual vector<Question> buildQuestions(int amount) = 0;
+	virtual void submitUserAnswer(int gameId, string username, string question, string anser, bool isCorrect) = 0;
 };

@@ -10,7 +10,7 @@ namespace TriviaClient
 {
     static class Communicator
     {
-        public static bool first = true;
+        public static bool connected = false;
         public static Socket serverSocket;
         public static bool Connect(string serverIp,int port)
         {
@@ -29,7 +29,7 @@ namespace TriviaClient
             serverSocket = sock;
             byte[] arr = new byte[5];
             serverSocket.Receive(arr,5,SocketFlags.None);
-
+            connected = true;
             return true;
         }
 
@@ -40,8 +40,7 @@ namespace TriviaClient
          */
         public static Response Communicate(Request req)
         {
-            byte[] mes = RequestEncoder.Encode(req);
-            serverSocket.Send(mes);
+            SendMessage(req);
 
             //receive
             const int CODE_LENGTH = 1;
@@ -61,7 +60,8 @@ namespace TriviaClient
 
             return ResponseDecoder.Decode(code,arr);
         }
-/*
+         
+        /*
          This function transform for array of bytes to integer value
          Input:Pointer to bytes array
          Output: The integer value
@@ -75,6 +75,11 @@ namespace TriviaClient
                 val += (int)Math.Pow(256, i) * data[data.Length-i-1];
             }
             return val;
+        }
+        public static void SendMessage(Request req)
+        {
+            byte[] mes = RequestEncoder.Encode(req);
+            serverSocket.Send(mes);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,36 +30,39 @@ namespace TriviaClient
 
         public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum)
         {
-            if(questionsAmount == currentQuestionNum)
+            if(questionsAmount == currQuestionNum)
             {
                 EndGameWindow wind = new EndGameWindow(this.username);
                 wind.Show();
                 this.Hide();
                 this.Close();
             }
+            else
+            {
+                this.username = uName;
+                this.roomname = rName;
+                this.numOfQuestions = questionsAmount;
+                this.currentQuestionNum = currQuestionNum;
 
-            this.buttons = new Button[4];
-            this.buttons[0] = Btn_Ans1;
-            this.buttons[1] = Btn_Ans2;
-            this.buttons[2] = Btn_Ans3;
-            this.buttons[3] = Btn_Ans4;
+                InitializeComponent();
 
-            this.username = uName;
-            this.roomname = rName;
-            this.numOfQuestions = questionsAmount;
-            this.currentQuestionNum = currQuestionNum;
+                this.buttons = new Button[4];
+                this.buttons[0] = Btn_Ans1;
+                this.buttons[1] = Btn_Ans2;
+                this.buttons[2] = Btn_Ans3;
+                this.buttons[3] = Btn_Ans4;
 
-            InitializeComponent();
+                TBUsername.Text += uName;
+                TBRoomName.Text += rName;
 
-            TBUsername.Text += uName;
-            TBRoomName.Text += rName;
+                GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
 
-            GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
+                TBQuestion.Text = response.question;
 
-            TBQuestion.Text = response.question;
-
-            FillAnswers(response.answers);
-            FillButtons();
+                this.answers = new Dictionary<string, uint>();
+                FillAnswers(response.answers.Split('*'));
+                FillButtons();
+            }
         }
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
@@ -74,7 +78,7 @@ namespace TriviaClient
             }
         }
 
-        private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        private async void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
         {
             uint chosenAnsId = 5;
 
@@ -85,22 +89,30 @@ namespace TriviaClient
             }
 
             SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest(chosenAnsId));
-            
+
             if (response.correctAnswerId == chosenAnsId)
             {
-                ((Button)sender).Background = Brushes.Green; 
+                ((Button)sender).Background = Brushes.Green;
             }
             else
             {
                 ((Button)sender).Background = Brushes.Red;
             }
+
+            DisableButtons();
             
-            //TODO: Wait until all players are ready for the next question
+            
+            Task.Factory.StartNew(() => 
+            { 
+                Thread.Sleep(3000); 
+            });
+          
 
             if (response.status == 1)
             {
                 QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1);
-                wind.Show();
+                if (this.numOfQuestions != this.currentQuestionNum + 1)
+                    wind.Show();
                 this.Hide();
                 this.Close();
             }
@@ -127,6 +139,26 @@ namespace TriviaClient
             {
                 this.answers.Add(_answers[i], i);
             }
+        }
+
+        private void DisableButtons()
+        {
+            foreach(Button btn in this.buttons)
+            {
+                btn.Click -= Btn_Answer_Clicked;
+                btn.Click += btnClickNothing;
+            }
+        }
+
+        private void btnClickNothing(object sender, RoutedEventArgs e)
+        {
+            // do nothing
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Communicator.Communicate(new LogoutRequest());
+
         }
     }
 }

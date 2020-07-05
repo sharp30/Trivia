@@ -3,7 +3,7 @@
 StartGameResponse::StartGameResponse(int status)
 {
 	this->_status = status;
-	this->messageCode = 53;
+	this->messageCode = 51;
 }
 
 nlohmann::json StartGameResponse::castToJson() const
