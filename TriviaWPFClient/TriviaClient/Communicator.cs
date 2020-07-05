@@ -61,7 +61,8 @@ namespace TriviaClient
 
             return ResponseDecoder.Decode(code,arr);
         }
-/*
+         
+        /*
          This function transform for array of bytes to integer value
          Input:Pointer to bytes array
          Output: The integer value

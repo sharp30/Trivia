@@ -95,12 +95,14 @@ namespace TriviaClient
             {
                 ((Button)sender).Background = Brushes.Red;
             }
-
-            DisableButtons();
+            
+            System.Threading.Thread.Sleep(8000);
+            
+            //DisableButtons();
 
             //TODO: Wait until all players are ready for the next question//maybe with time.Sleep?
 
-            System.Threading.Thread.Sleep(10000);
+            
 
             if (response.status == 1)
             {
