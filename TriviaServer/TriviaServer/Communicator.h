@@ -9,7 +9,7 @@
 #include "WSAInitializer.h"
 #include "RequestHandlerFactory.h"
 
-const int PORT = 2020;
+const int PORT = 2019;
 using std::map;
 
 class Communicator

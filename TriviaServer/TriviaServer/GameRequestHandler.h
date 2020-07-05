@@ -19,10 +19,8 @@ protected:
 	RequestResult getGameResults(RequestInfo info);
 	RequestResult leaveGame(RequestInfo info);
 	
-	//ame m_game;
 	int _gameId;
 	LoggedUser m_user;
-	//GameManager& m_gameManager;
 	
 	static const std::map<int, handler_func> m_functions;
 };
