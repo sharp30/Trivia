@@ -63,8 +63,6 @@ namespace TriviaClient
                 FillAnswers(response.answers.Split('*'));
                 FillButtons();
             }
-
-
         }
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
@@ -103,16 +101,18 @@ namespace TriviaClient
 
             DisableButtons();
             
+            /*
             Task.Factory.StartNew(() => 
             { 
                 Thread.Sleep(3000); 
             });
-                        
+            */          
 
             if (response.status == 1)
             {
                 QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1);
-                wind.Show();
+                if (this.numOfQuestions != this.currentQuestionNum + 1)
+                    wind.Show();
                 this.Hide();
                 this.Close();
             }
