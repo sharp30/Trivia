@@ -234,7 +234,7 @@ vector<Question> SqliteDataBase::buildQuestions(int amount)
 
 void SqliteDataBase::submitUserAnswer(int gameId, string username, string question, string answer, bool isCorrect)
 {
-	string sql = "INSERT INTO Players_Answers (Game_Id,User_Id,Question_Id,Player_Answer,IsCorrect,Answer_Time) Values(" + std::to_string(gameId) + ',' + std::to_string(this->getUserID(username)) + "(SELECT Id From Questions WHERE Question = \"" + question + "\")," + answer + ',' + std::to_string(isCorrect) + ",DateTime('now'));";//need to add answer_time
+	string sql = "INSERT INTO Players_Answers (Game_Id,User_Id,Question_Id,Player_Answer,Is_Correct,Answer_Time) Values(" + std::to_string(gameId) + ',' + std::to_string(this->getUserID(username)) + ",(SELECT Id From Questions WHERE Question = \"" + question + "\"),\"" + answer + "\"," + std::to_string(isCorrect) + ",DateTime('now'));";//need to add answer_time
 
 	executeCommand(sql.c_str());
 }
