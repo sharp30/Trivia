@@ -6,7 +6,7 @@
 #include "GetQuestionResponse.h"
 #include "SubmitAnswerRequest.h"
 #include "LeaveGameResponse.h"
-
+#include "GetGameResultsResponse.h"
 const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_functions =
 {
 	{80, &GameRequestHandler::getQuestion},
@@ -80,12 +80,23 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 {
 	RequestResult res;
+	map<LoggedUser,GameData> results;
+	bool actionResult = true;
+	try
+	{
+		results = this->m_handlerFactory->getGameManager().getGetGameResults(this->_gameId);
+	}
+	catch(std::exception e)
+	{
+		actionResult = false;
+	}
 
-	//GetGameResultsResponse response((int)actionResult, this.m_game.getGameResults());
-	//res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
-
-	//TODO: check if the player should be moved back to menu.
-	//res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this.m_user.getUsername());
+	GetGameResultsResponse response((int)actionResult,results);
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+	
+	if(actionResult)
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->m_user.getUsername()));
+	
 	return res;
 }
 

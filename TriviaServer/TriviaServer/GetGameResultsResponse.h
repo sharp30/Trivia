@@ -13,7 +13,7 @@ class GetGameResultsResponse : Response
 {
 public:
 	GetGameResultsResponse(int status, vector<PlayerResults> results);
-	//GetGameResultsResponse(int status, map<LoggedUser, GameData> results);
+	GetGameResultsResponse(int status, map<LoggedUser, GameData> results);
 
 	virtual nlohmann::json castToJson() const;
 	
@@ -23,5 +23,5 @@ protected:
 	vector<PlayerResults> _results;
 	
 	string castResultsToString() const;
-	//void arrangeResults(map<LoggedUser, GameData> results);
+	void arrangeResults(map<LoggedUser, GameData> results);
 };
