@@ -189,6 +189,7 @@ namespace TriviaClient
             LeaveRoomResponse response = (LeaveRoomResponse)Communicator.Communicate(new LeaveRoomRequest());
             if(response.status == 1)
             {
+                this.thread.Abort();
                 MenuWindow wind = new MenuWindow(this.username);
                 wind.Show();
                 this.Hide();

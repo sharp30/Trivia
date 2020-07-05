@@ -62,5 +62,14 @@ map<LoggedUser, GameData> GameManager::getGetGameResults(int gameId) throw()
 	if (this->_games.find(gameId) == this->_games.end())
 		throw "game" + std::to_string(gameId) + " isn't exist";
 
-	return this->_games[gameId].getPlayersData();
+	
+
+	map<LoggedUser, GameData> res = this->_games[gameId].getPlayersData();
+
+	for (map<LoggedUser, GameData>::iterator it = res.begin(); it != res.end(); it++)
+	{
+		this->_database->addPlayerToBestPlayers(it->first.getUsername());
+	}
+
+	return res;
 }
