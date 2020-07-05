@@ -25,6 +25,7 @@
         </Grid>
         <Button x:Name="LeaveBTN" Content="Leave Room!" HorizontalAlignment="Left" Margin="345,377,0,-6" Width="125" RenderTransformOrigin="0.667,2" Click="LeaveBTN_Click" FontSize="16"
                 Background="MediumVioletRed"/>
+        <Button x:Name="InvisibleStartBTN" Content="Button" HorizontalAlignment="Left" Height="0" Margin="764,377,0,0" VerticalAlignment="Top" Width="16" Click="InvisibleStartBTN_Click"/>
 
 
 
