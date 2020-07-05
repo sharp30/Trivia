@@ -94,8 +94,8 @@ namespace TriviaClient
             GetRoomStateResponse response = (GetRoomStateResponse)Communicator.Communicate(new GetRoomStateRequest());
             string[] newList = response.players.Split(',');
             this.state = response.state;
-            if (!IsSamePlayers(newList))
-            {
+            if (!IsSamePlayers(newList))            {
+
                 this.players = newList;
                 this.room.numberOfPlayers = (uint)players.Length;
                 FillTBs();

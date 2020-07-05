@@ -28,9 +28,9 @@ RequestResult RoomHandler::getRoomState(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 
 	if (actionResult)
-		if (isAdmin())
+		if(state != ACTIVE)
 			res.setNewHandler(nullptr);
-		else
+		else if(!isAdmin())
 		{
 			int gameId = this->m_handlerFactory->getGameManager().getGameIdByRoomID(this->_connectedRoom.getID());
 			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername()));
