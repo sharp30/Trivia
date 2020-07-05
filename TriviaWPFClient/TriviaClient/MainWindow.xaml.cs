@@ -28,7 +28,7 @@ namespace TriviaClient
         {
             InitializeComponent();
             this.Hide();
-            bool isConnected = Communicator.Connect("127.0.0.1", 2020);
+            bool isConnected = Communicator.Connect("127.0.0.1", 2019);
             while (!isConnected)
             {
                 MessageBoxResult res = MessageBox.Show("Sorry man can't connect to server", "ERROR MESSAGE", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
@@ -37,7 +37,7 @@ namespace TriviaClient
                     btn_quit.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
                     return;
                 }
-                isConnected = Communicator.Connect("127.0.0.1", 2020);
+                isConnected = Communicator.Connect("127.0.0.1", 2019);
             }
             this.Show();
             

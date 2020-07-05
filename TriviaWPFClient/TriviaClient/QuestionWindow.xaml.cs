@@ -95,8 +95,12 @@ namespace TriviaClient
             {
                 ((Button)sender).Background = Brushes.Red;
             }
-            
+
+            DisableButtons();
+
             //TODO: Wait until all players are ready for the next question//maybe with time.Sleep?
+
+            System.Threading.Thread.Sleep(10000);
 
             if (response.status == 1)
             {
@@ -127,6 +131,14 @@ namespace TriviaClient
             for (uint i = 0; i < _answers.Length; i++)
             {
                 this.answers.Add(_answers[i], i);
+            }
+        }
+
+        private void DisableButtons()
+        {
+            foreach(Button btn in this.buttons)
+            {
+                btn.IsEnabled = false;
             }
         }
     }
