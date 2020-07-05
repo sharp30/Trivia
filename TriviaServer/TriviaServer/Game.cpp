@@ -16,8 +16,12 @@ Output:The question for the user
 */
 Question Game::getQuestionForUser(LoggedUser user) const
 {
-	//is finished yet??
-	//is user exists
+	//is finished yet??	
+	int place = this->m_players.at(user).currentQuestion;
+
+	if (place >= this->m_questions.size())
+		return Question();
+
 	return this->m_questions[this->m_players.at(user).currentQuestion];
 }
 /*

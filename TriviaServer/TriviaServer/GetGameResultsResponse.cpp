@@ -2,7 +2,7 @@
 
 GetGameResultsResponse::GetGameResultsResponse(int status, vector<PlayerResults> results)
 {
-	this->messageCode = 84;
+	this->messageCode = 85;
 	this->_status = status;
 	this->_results = results;
 }
@@ -10,7 +10,7 @@ GetGameResultsResponse::GetGameResultsResponse(int status, vector<PlayerResults>
 
 GetGameResultsResponse::GetGameResultsResponse(int status, map<LoggedUser, GameData> results)
 {
-	this->messageCode = 84;
+	this->messageCode = 85;
 	this->_status = status;
 	arrangeResults(results);
 }

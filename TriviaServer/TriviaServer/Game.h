@@ -11,10 +11,10 @@ using std::map;
 
 typedef struct GameData 
 {
-	int currentQuestion;
-	unsigned int correctAnswerCount;
-	unsigned int incorrectAnswerCount;
-	unsigned int averangeAnswerTime;
+	int currentQuestion =0;
+	unsigned int correctAnswerCount = 0;
+	unsigned int incorrectAnswerCount = 0;
+	unsigned int averangeAnswerTime = 0;
 } GameData;
 
 class Game
