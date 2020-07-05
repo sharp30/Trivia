@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Threading;
+
 namespace TriviaClient
 {
     /// <summary>
@@ -23,45 +24,49 @@ namespace TriviaClient
         private string roomname;
         private uint numOfQuestions;
         private uint currentQuestionNum;
-        private uint questionTime;
         private int answerId;
-
+        private uint questionTime;
         private Button[] buttons;
         private Dictionary<string, uint> answers;
+
         public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum,uint timePerQuestion)
         {
-            if(questionsAmount == currentQuestionNum)
+            if(questionsAmount == currQuestionNum)
             {
                 EndGameWindow wind = new EndGameWindow(this.username);
                 wind.Show();
                 this.Hide();
                 this.Close();
             }
+            else
+            {
+                this.username = uName;
+                this.roomname = rName;
+                this.numOfQuestions = questionsAmount;
+                this.currentQuestionNum = currQuestionNum;
+                this.questionTime = timePerQuestion;
+                this.answerId = -1;
+                InitializeComponent();
 
-            this.buttons = new Button[4];
-            this.buttons[0] = Btn_Ans1;
-            this.buttons[1] = Btn_Ans2;
-            this.buttons[2] = Btn_Ans3;
-            this.buttons[3] = Btn_Ans4;
+                this.buttons = new Button[4];
+                this.buttons[0] = Btn_Ans1;
+                this.buttons[1] = Btn_Ans2;
+                this.buttons[2] = Btn_Ans3;
+                this.buttons[3] = Btn_Ans4;
 
-            this.username = uName;
-            this.roomname = rName;
-            this.numOfQuestions = questionsAmount;
-            this.currentQuestionNum = currQuestionNum;
-            this.questionTime = timePerQuestion;
-            this.answerId = -1;
-            InitializeComponent();
+                TBUsername.Text += uName;
+                TBRoomName.Text += rName;
 
-            TBUsername.Text += uName;
-            TBRoomName.Text += rName;
+                GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
 
-            GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
+                TBQuestion.Text = response.question;
 
-            TBQuestion.Text = response.question;
-
-            FillAnswers(response.answers.Split('*'));
-            FillButtons();
-            TimerFunc();
+                this.answers = new Dictionary<string, uint>();
+                FillAnswers(response.answers.Split('*'));
+                FillButtons();
+                TBTimeLeft.Text = questionTime.ToString();
+                TimerFunc();
+            }
         }
 
         private async void TimerFunc()
@@ -69,9 +74,9 @@ namespace TriviaClient
             for (int i = 0; i < this.questionTime; i++)
             {
                 await Task.Delay(1000);
-                //this.timeTb--;
+                TBTimeLeft.Text = (int.Parse(TBTimeLeft.Text) - 1).ToString();
             }
-            if(answerId == -1)
+            if (answerId == -1)
             {
                 Random rnd = new Random();
                 answerId = rnd.Next(0, 3);
@@ -90,7 +95,8 @@ namespace TriviaClient
             if (response.status == 1)
             {
                 MenuWindow wind = new MenuWindow(this.username);
-                wind.Show();
+                if (this.numOfQuestions != this.currentQuestionNum + 1)
+                    wind.Show();
                 this.Hide();
                 this.Close();
             }
@@ -106,18 +112,59 @@ namespace TriviaClient
                     chosenAnsId = ans.Value;
             }
 
-            
+
             if (0 == chosenAnsId)
             {
-                ((Button)sender).Background = Brushes.Green; 
+                ((Button)sender).Background = Brushes.Green;
             }
             else
             {
                 ((Button)sender).Background = Brushes.Red;
             }
-            
+
         }
 
+        /*
+        private async void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        {
+            uint chosenAnsId = 5;
+
+            foreach (var ans in this.answers)
+            {
+                if (((Button)sender).Content.Equals(ans.Key))
+                    chosenAnsId = ans.Value;
+            }
+
+            SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest(chosenAnsId));
+
+            if (response.correctAnswerId == chosenAnsId)
+            {
+                ((Button)sender).Background = Brushes.Green;
+            }
+            else
+            {
+                ((Button)sender).Background = Brushes.Red;
+            }
+
+            DisableButtons();
+            
+            
+            Task.Factory.StartNew(() => 
+            { 
+                Thread.Sleep(3000); 
+            });
+          
+
+            if (response.status == 1)
+            {
+                QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1);
+                if (this.numOfQuestions != this.currentQuestionNum + 1)
+                    wind.Show();
+                this.Hide();
+                this.Close();
+            }
+        }
+        */
         private void FillButtons()
         {
             Random rnd = new Random();
@@ -139,6 +186,26 @@ namespace TriviaClient
             {
                 this.answers.Add(_answers[i], i);
             }
+        }
+
+        private void DisableButtons()
+        {
+            foreach(Button btn in this.buttons)
+            {
+                btn.Click -= Btn_Answer_Clicked;
+                btn.Click += btnClickNothing;
+            }
+        }
+
+        private void btnClickNothing(object sender, RoutedEventArgs e)
+        {
+            // do nothing
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Communicator.Communicate(new LogoutRequest());
+
         }
     }
 }
