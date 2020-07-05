@@ -92,7 +92,6 @@ namespace TriviaClient
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
         {
             LeaveGameResponse response = (LeaveGameResponse)Communicator.Communicate(new LeaveGameRequest());
-
             if (response.status == 1)
             {
                 MenuWindow wind = new MenuWindow(this.username);
@@ -202,10 +201,5 @@ namespace TriviaClient
             // do nothing
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Communicator.Communicate(new LogoutRequest());
-
-        }
     }
 }

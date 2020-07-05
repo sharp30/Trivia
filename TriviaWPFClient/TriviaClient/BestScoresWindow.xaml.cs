@@ -19,10 +19,12 @@ namespace TriviaClient
     /// </summary>
     public partial class BestScoresWindow : Window
     {
-        public BestScoresWindow()
+        protected string username;
+        public BestScoresWindow(string user)
         {
             InitializeComponent();
 
+            this.username = user;
             BestScoresResponse response = (BestScoresResponse)Communicator.Communicate(new BestScoresRequest());
             string data = response.UserStatistics;
             string[] dous = data.Split(',');
@@ -50,10 +52,10 @@ namespace TriviaClient
 
         private void Btn_back_Click(object sender, RoutedEventArgs e)
         {
-           //MenuWindow wind = new MenuWindow(t);
-           //// wind.Show();
-            //this.Hide();
-            ///this.Close();
+           MenuWindow wind = new MenuWindow(username);
+           wind.Show();
+           this.Hide();
+           this.Close();
         }
     }
 }

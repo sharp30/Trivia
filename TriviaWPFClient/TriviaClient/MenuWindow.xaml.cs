@@ -82,10 +82,10 @@ namespace TriviaClient
         private void Btn_BestScores_Click(object sender, RoutedEventArgs e)
         {
 
-            BestScoresWindow wind = new BestScoresWindow();
+            BestScoresWindow wind = new BestScoresWindow(this.username);
             wind.Show();
-            //this.Hide();
-            //this.Close();
+            this.Hide();
+            this.Close();
         }
 
     }
