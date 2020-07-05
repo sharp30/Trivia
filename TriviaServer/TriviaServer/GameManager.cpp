@@ -49,7 +49,7 @@ void GameManager::submitAnswer(int gameId, LoggedUser user, int answerid)
 	Question current = getQuestionForUser(gameId, user);
 	this->_games[gameId].submitAnswer(user, answerid);
 	
-	this->_database->submitUserAnswer(gameId,user.getUsername(),current.getQuestion(),current.getPossibleAnswers()[answerid],!answerid,"time");
+	this->_database->submitUserAnswer(gameId,user.getUsername(),current.getQuestion(),current.getPossibleAnswers()[answerid],!answerid);
 }
 
 void GameManager::removePlayer(int gameId, LoggedUser user) throw()

@@ -32,7 +32,7 @@ public:
 	//game
 	virtual int createGame();
 	virtual vector<Question> buildQuestions(int amount);
-	virtual void submitUserAnswer(int gameId, string username, string question, string anser, bool isCorrect, string time);
+	virtual void submitUserAnswer(int gameId, string username, string question, string anser, bool isCorrect);
 
 private:
 	const string DB_NAME = "OurDB.sqlite"; 
