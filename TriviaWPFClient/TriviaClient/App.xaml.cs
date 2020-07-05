@@ -16,7 +16,7 @@ namespace TriviaClient
         protected override void OnExit(ExitEventArgs e)
         {
             if(Communicator.connected)
-                Communicator.Communicate(new LogoutRequest());
+                Communicator.SendMessage(new LogoutRequest());
             base.OnExit(e);
         }
     }

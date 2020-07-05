@@ -40,8 +40,7 @@ namespace TriviaClient
          */
         public static Response Communicate(Request req)
         {
-            byte[] mes = RequestEncoder.Encode(req);
-            serverSocket.Send(mes);
+            SendMessage(req);
 
             //receive
             const int CODE_LENGTH = 1;
@@ -76,6 +75,11 @@ namespace TriviaClient
                 val += (int)Math.Pow(256, i) * data[data.Length-i-1];
             }
             return val;
+        }
+        public static void SendMessage(Request req)
+        {
+            byte[] mes = RequestEncoder.Encode(req);
+            serverSocket.Send(mes);
         }
     }
 }
