@@ -12,7 +12,8 @@ const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_func
 	{80, &GameRequestHandler::getQuestion},
 	{82, &GameRequestHandler::submitAnswer},
 	{84, &GameRequestHandler::getGameResults},
-	{86, &GameRequestHandler::leaveGame}
+	{86, &GameRequestHandler::leaveGame},
+	{100, &GameRequestHandler::logout}
 };
 
 
@@ -117,5 +118,30 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
 	if (actionResult)
 		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->m_user.getUsername()));
+	return res;
+}
+
+RequestResult GameRequestHandler::logout(RequestInfo info)
+{
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		this->m_handlerFactory->getLoginManager().logout(this->m_user.getUsername());
+		this->m_handlerFactory->getGameManager().removePlayer(this->_gameId, this->m_user);
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	LogoutResponse response((int)actionResult);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler());
+
 	return res;
 }

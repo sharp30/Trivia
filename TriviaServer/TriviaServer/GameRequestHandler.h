@@ -18,6 +18,7 @@ protected:
 	RequestResult submitAnswer(RequestInfo info);
 	RequestResult getGameResults(RequestInfo info);
 	RequestResult leaveGame(RequestInfo info);
+	RequestResult logout(RequestInfo info);
 	
 	int _gameId;
 	LoggedUser m_user;

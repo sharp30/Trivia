@@ -5,9 +5,12 @@
 #include "CloseRoomResponse.h"
 #include "GetRoomStateResponse.h"
 #include "LeaveRoomResponse.h"
+#include "LogoutResponse.h"
 
 
 #include <thread>
+
+
 //-----------------constructor------------------
 RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser connectedUser, Room connectedRoom) : RoomHandler(factory,connectedRoom,connectedUser)
 {
@@ -16,7 +19,7 @@ RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory,
 bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo req)
 {
 	int id = req.getId();
-	return id == 48 || id == 50 || id == 52;
+	return id == 48 || id == 50 || id == 52 || id == 100;
 }
 
 RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
@@ -58,8 +61,37 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		if (actionResult)
 			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createMenuRequestHandler(this->_connectedUser.getUsername()));
 	}
+	else if (req.getId() == 100)// logout
+	{
+		res = logout(req);
+	}
 	
 	return res;  
+}
+
+RequestResult RoomAdminRequestHandler::logout(RequestInfo info)
+{
+	bool actionResult = true;
+	RequestResult res;
+
+	try
+	{
+		this->m_handlerFactory->getLoginManager().logout(this->_connectedUser.getUsername());
+		this->m_handlerFactory->getRoomManager().eraseRoom(this->_connectedRoom.getID());
+	}
+	catch (std::exception e)
+	{
+		actionResult = false;
+	}
+
+	LogoutResponse response((int)actionResult);
+
+	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
+	if (actionResult)
+		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createLoginRequestHandler());
+
+	return res;
 }
 
 bool RoomAdminRequestHandler::isAdmin()
