@@ -136,6 +136,7 @@ namespace TriviaClient
         {
             foreach(Button btn in this.buttons)
             {
+                btn.Click -= Btn_Answer_Clicked;
                 btn.Click += btnClickNothing;
             }
         }
