@@ -25,5 +25,5 @@ public:
 
 	virtual int createGame() = 0;
 	virtual vector<Question> buildQuestions(int amount) = 0;
-	virtual void submitUserAnswer(int gameId, string username, string question, string anser, bool isCorrect, string time) = 0;
+	virtual void submitUserAnswer(int gameId, string username, string question, string anser, bool isCorrect) = 0;
 };
