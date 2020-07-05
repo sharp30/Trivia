@@ -46,7 +46,7 @@ namespace TriviaClient
 
             Grid.SetRow(txt, count);
             mainPart.Children.Add(txt);
-            count+=2;
+            count += 1;
 
             foreach (PlayerResults res in this.results)
             {
@@ -54,7 +54,7 @@ namespace TriviaClient
 
                 Grid.SetRow(txt, count);
                 mainPart.Children.Add(txt);
-                count+=2;
+                count += 1;
             }
         }
 
