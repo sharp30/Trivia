@@ -65,6 +65,25 @@ namespace TriviaClient
             }
         }
 
+        private async void TimerFunc()
+        {
+            for (int i = 0; i < this.questionTime; i++)
+            {
+                await Task.Delay(1000);
+                //this.timeTb--;
+            }
+            if (answerId == -1)
+            {
+                Random rnd = new Random();
+                answerId = rnd.Next(0, 3);
+            }
+            SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest((uint)answerId));
+            QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1, this.questionTime);
+            wind.Show();
+            this.Hide();
+            this.Close();
+        }
+
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
         {
             LeaveGameResponse response = (LeaveGameResponse)Communicator.Communicate(new LeaveGameRequest());
@@ -78,6 +97,29 @@ namespace TriviaClient
             }
         }
 
+        private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        {
+            uint chosenAnsId = 5;
+
+            foreach (var ans in this.answers)
+            {
+                if (((Button)sender).Content.Equals(ans.Key))
+                    chosenAnsId = ans.Value;
+            }
+
+
+            if (0 == chosenAnsId)
+            {
+                ((Button)sender).Background = Brushes.Green;
+            }
+            else
+            {
+                ((Button)sender).Background = Brushes.Red;
+            }
+
+        }
+
+        /*
         private async void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
         {
             uint chosenAnsId = 5;
@@ -117,7 +159,7 @@ namespace TriviaClient
                 this.Close();
             }
         }
-
+        */
         private void FillButtons()
         {
             Random rnd = new Random();
