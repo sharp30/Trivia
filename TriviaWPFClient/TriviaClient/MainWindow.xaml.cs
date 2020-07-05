@@ -57,6 +57,11 @@ namespace TriviaClient
                 this.Hide();
                 this.Close();
             }
+            else
+            {
+                TBInvalid.Text = "Invalid username or password!";
+            }
+
 
         }
         private void Btn_quit_Click(object sender, RoutedEventArgs e)

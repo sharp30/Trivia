@@ -47,7 +47,7 @@ namespace TriviaClient
 
             //Remove '[' and ']'
             elements[0] = elements[0].Substring(1);
-            elements[elements.Length - 1].Substring(0, elements[elements.Length - 1].Length - 1);
+            elements[elements.Length - 1] = elements[elements.Length - 1].Substring(0, elements[elements.Length - 1].Length - 1);
 
             this.name = elements[0];
             this.correctAnswers = uint.Parse(elements[1]);

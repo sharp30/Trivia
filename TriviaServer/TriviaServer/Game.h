@@ -11,7 +11,7 @@ using std::map;
 
 typedef struct GameData 
 {
-	int currentQuestion =0;
+	int currentQuestion = 0;
 	unsigned int correctAnswerCount = 0;
 	unsigned int incorrectAnswerCount = 0;
 	unsigned int averangeAnswerTime = 0;
