@@ -8,16 +8,15 @@ PlayerResults::PlayerResults(string username, unsigned int correctAnswersCount, 
 	this->_averageAnswerTime = averageAnswerTime;
 }
 
-/*
-//TODO: take this code out of documentation when GameData Class is added
+
 PlayerResults::PlayerResults(string username, GameData data)
 {
 	this->_username = username;
-	this->_correctAnswersCount = data.getCorrectAnswerCount();
-	this->_wrongAnswersCount = data.getWrongAnswersCount();
-	this->_averageAnswerTime = data.getAverageAnswerTime();
+	this->_correctAnswersCount = data.correctAnswerCount;
+	this->_wrongAnswersCount = data.incorrectAnswerCount;
+	this->_averageAnswerTime = data.averangeAnswerTime;
 }
-*/
+
 
 //setters & getters 
 void PlayerResults::setUsername(string username) { this->_username = username; }

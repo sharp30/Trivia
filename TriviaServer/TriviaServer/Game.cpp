@@ -56,5 +56,5 @@ int Game::getRoomId()
 
 map<LoggedUser, GameData> Game::getPlayersData()
 {
-	this->m_players;
+	return this->m_players;
 }

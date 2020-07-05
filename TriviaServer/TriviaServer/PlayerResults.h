@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Game.h"
 
 using std::string;
 
@@ -14,7 +15,7 @@ protected:
 
 public:
 	PlayerResults(string username, unsigned int correctAnswersCount, unsigned int wrongAnswersCount, unsigned int averageAnswerTime);
-	//PlayerResults(string username, GameData data);
+	PlayerResults(string username, GameData data);
 	PlayerResults() = default;
 	void setUsername(string username);
 	string getUsername() const;

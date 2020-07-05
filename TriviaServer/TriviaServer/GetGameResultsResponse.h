@@ -5,6 +5,7 @@
 #include "LoggedUser.h"
 #include <vector>
 #include <map>;
+#include "Game.h"
 
 using std::vector;
 using std::map;

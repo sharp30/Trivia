@@ -15,7 +15,6 @@ const std::map<int, GameRequestHandler::handler_func> GameRequestHandler::m_func
 	{86, &GameRequestHandler::leaveGame}
 };
 
-//TODO: fill these functions after combining game manager and Game classes
 
 //-----------------constructor--------------------
 GameRequestHandler::GameRequestHandler(RequestHandlerFactory* factory ,LoggedUser user,int gameId) : IRequestHandler(factory), m_user(user)

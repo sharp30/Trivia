@@ -1,5 +1,4 @@
 #include "GetGameResultsResponse.h"
-#include "Game.h"
 
 GetGameResultsResponse::GetGameResultsResponse(int status, vector<PlayerResults> results)
 {

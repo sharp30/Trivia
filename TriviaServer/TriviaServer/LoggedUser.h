@@ -8,7 +8,7 @@ class LoggedUser
 {
 public:	
 	LoggedUser(string user);
-	string getUsername();
+	string getUsername() const;
 	bool operator==(LoggedUser others);
 	bool operator<(const LoggedUser other)const;
 

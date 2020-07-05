@@ -11,7 +11,7 @@ This function returns the name of the user
 Input:None
 Output:The name of the user :string
 */
-string LoggedUser::getUsername()
+string LoggedUser::getUsername() const
 {
 	return this->m_username;
 }
