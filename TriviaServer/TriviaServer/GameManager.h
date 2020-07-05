@@ -15,8 +15,8 @@ public:
 	Question getQuestionForUser(int gameId, LoggedUser user);
 	void submitAnswer(int gameId, LoggedUser user, int answerId);
 	void removePlayer(int gameId, LoggedUser user) throw();
+	map<LoggedUser,GameData> getGetGameResults(int gameId) throw();
 protected:
-
 	IDatabase* _database;
 	map<int,Game> _games;//{game_id,game}
 };

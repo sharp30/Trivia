@@ -53,3 +53,8 @@ int Game::getRoomId()
 {
 	return this->_roomId;
 }
+
+map<LoggedUser, GameData> Game::getPlayersData()
+{
+	this->m_players;
+}

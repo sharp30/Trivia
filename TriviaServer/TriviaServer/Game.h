@@ -26,6 +26,7 @@ public:
 	void submitAnswer(LoggedUser user, int answerId);
 	void removePlayer(LoggedUser) throw();
 	int getRoomId();
+	map<LoggedUser, GameData> getPlayersData();
 protected:
 	int _roomId;
 	vector<Question> m_questions;
