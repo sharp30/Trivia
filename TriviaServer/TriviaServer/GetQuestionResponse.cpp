@@ -10,6 +10,23 @@ GetQuestionResponse::GetQuestionResponse(int status, string question, vector<str
 
 nlohmann::json GetQuestionResponse::castToJson() const
 {
-	//#TODO: check if putting this->_answers directly in json is valid or it should go through conversion to a single string. 
-	return nlohmann::json{ {"status" , _status}, {"question", this->_question}, {"answers", this->_answers} };
+	return nlohmann::json{ {"status" , _status}, {"question", this->_question}, {"answers", castAnswersToString()} };
 }
+
+
+string GetQuestionResponse::castAnswersToString() const
+{
+	string str = "";
+
+	vector<string> temp = this->_answers;
+
+	for (vector<string>::iterator it = temp.begin(); it != temp.end(); it++)
+	{
+		str += *it;
+		str += "*";
+	}
+
+	return str.substr(0, str.length() - 1);
+}
+
+

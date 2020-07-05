@@ -27,7 +27,6 @@ namespace TriviaClient
             this.username = userName;
             InitializeComponent();
 
-            usernameTB.Text += this.username;
         }
 
         private void BtnBackClick(object sender, RoutedEventArgs e)
@@ -41,18 +40,35 @@ namespace TriviaClient
 
         private void BtnCreateClick(object sender, RoutedEventArgs e)
         {
-            this.room = new Room(TBRoomName.Text, uint.Parse(TBPlayers.Text), uint.Parse(TBQuestions.Text), uint.Parse(TBTimePerQuestion.Text));
-
-            CreateRoomResponse response = (CreateRoomResponse)Communicator.Communicate(
-                new CreateRoomRequest(this.room.roomName, this.room.numberOfPlayers, this.room.numberOfQuestions, this.room.TimeForQuestion));
-
-            if (response.status == 1)
+            if (IsNumericValue(TBPlayers.Text) && IsNumericValue(TBQuestions.Text) && IsNumericValue(TBTimePerQuestion.Text))
             {
-                WaitingRoomWindow wind = new WaitingRoomWindow(true, this.username, this.room);
-                wind.Show();
-                this.Hide();
-                this.Close();
+                this.room = new Room(TBRoomName.Text, uint.Parse(TBPlayers.Text), uint.Parse(TBQuestions.Text), uint.Parse(TBTimePerQuestion.Text));
+
+                CreateRoomResponse response = (CreateRoomResponse)Communicator.Communicate(
+                    new CreateRoomRequest(this.room.roomName, this.room.numberOfPlayers, this.room.numberOfQuestions, this.room.TimeForQuestion));
+
+                if (response.status == 1)
+                {
+                    WaitingRoomWindow wind = new WaitingRoomWindow(true, this.username, this.room);
+                    wind.Show();
+                    base.Hide();
+                    base.Close();
+                }
+            }
+            else
+            {
+                TBInvalid.Text = "One or more arguments are invalid";
             }
         }
+
+        private bool IsNumericValue(string val)
+        {
+            foreach (char ch in val)
+            {
+                if (ch < '0' || ch > '9') return false;
+            }
+            return true;
+        }
+
     }
 }

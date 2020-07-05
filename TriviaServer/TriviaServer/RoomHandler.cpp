@@ -24,10 +24,17 @@ RequestResult RoomHandler::getRoomState(RequestInfo info)
 	{
 		actionResult = false;
 	}
-	GetRoomStateResponse response((int)actionResult,state,users,_connectedRoom.getQuestionAmount(),_connectedRoom.getQuestionTime());
+	GetRoomStateResponse response((int)actionResult, state, users, _connectedRoom.getQuestionAmount(), _connectedRoom.getQuestionTime());
 	res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&response);
+
 	if (actionResult)
-		res.setNewHandler(nullptr);//this->m_handlerFactory->createMenuRequestHandler(_loggedUser.getUsername()));
+		if (isAdmin())
+			res.setNewHandler(nullptr);
+		else
+		{
+			int gameId = this->m_handlerFactory->getGameManager().getGameIdByRoomID(this->_connectedRoom.getID());
+			res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername()));
+		}
 	return res;
 
 }

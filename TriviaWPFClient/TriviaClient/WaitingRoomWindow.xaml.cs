@@ -129,15 +129,18 @@ namespace TriviaClient
                 wind.Show();
                 this.Hide();
                 this.Close();
-
             }
-
         }
 
 
         private void StartBTN_Click(object sender, RoutedEventArgs e)
         {
+            this.thread.Abort();//TODO:find place for it
             StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
+            QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0, this.room.TimeForQuestion);
+            wind.Show();
+            this.Close();
+
         }
         
         public void Threaded()
@@ -154,6 +157,12 @@ namespace TriviaClient
                 {
                     LeaveBTN.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 }));
+            }
+            else // if game had started
+            {
+                QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0, this.room.TimeForQuestion);
+                wind.Show();
+                this.Close();
             }
         }
         public bool IsSamePlayers(string[] newList)

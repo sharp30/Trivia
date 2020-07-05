@@ -1,5 +1,7 @@
 #include "SqliteDataBase.h"
-
+#include <ctime>
+#include <chrono>
+#include <cstdlib>
 SqliteDataBase::SqliteDataBase()
 {
 	int fileExist = _access(this->DB_NAME.c_str(), 0);
@@ -74,7 +76,7 @@ The funtion will add a new user to the users database
 input: user's details
 output: none
 */
-void SqliteDataBase::addNewUser(string username, string password, string email)
+void SqliteDataBase::addNewUser(string username, string password, string email)throw()
 {
 	//insert user to Users
 	std::string sqlStatement = "INSERT INTO Users (USERNAME, PASSWORD, EMAIL) "
@@ -142,7 +144,7 @@ int SqliteDataBase::getNumOfTotalAnswers(string username)
 	std::string sqlStatment = "SELECT COUNT(Game_Id) FROM Players_Answers WHERE User_Id =" + std::to_string(this->getUserID(username)) + ";";
 	int amount = 0;
 
-	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue, &amount);
+	executeCommand(sqlStatment.c_str(), callbackGetIntegerValue,&amount);
 	return amount;
 }
 
@@ -187,6 +189,54 @@ int SqliteDataBase::calcPoints(string username)
 
 	executeCommand(sqlStatement.c_str(), callbackGetIntegerValue, &points);
 	return points;
+}
+/*
+This funcion creates a new Game into to the database
+Input: None
+Output:The id of the new Game
+*/
+int SqliteDataBase::createGame()
+{
+	//Status: 1 - playing, 0 - closed
+
+	//TODO: Solve Sqltime Problem
+	std::time_t start_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+
+	string sql = "INSERT INTO Games (Status,Start_Time) Values(1,DateTime('now'));";
+	executeCommand(sql.c_str());
+
+	return sqlite3_last_insert_rowid(this->_dataBase);
+}
+/*
+This function builds a randomized question list for the game
+Input: amount - The amount of questions
+Output:The vector of the questions
+*/
+vector<Question> SqliteDataBase::buildQuestions(int amount)
+{
+	vector<Question> questions;
+	vector<int> questions_id;
+	int firstQuestionId = 51;//GetFirst();
+	int lastQuestionId = 145; //GetLast();
+	srand(time(NULL));
+	while (questions_id.size() < amount || amount > lastQuestionId-firstQuestionId+1)
+	{
+		int id = rand() % (lastQuestionId - firstQuestionId + 1) + firstQuestionId;
+		while (std::find(questions_id.begin(), questions_id.end(), id) != questions_id.end())
+			id = rand() % (lastQuestionId - firstQuestionId + 1) + firstQuestionId;
+		questions_id.push_back(id);
+
+		string sql = "SELECT * FROM Questions WHERE Id =" + std::to_string(id) + ";";
+		executeCommand(sql.c_str(), callbackBuildQuestions,&questions);
+	}
+	return questions;
+}
+
+void SqliteDataBase::submitUserAnswer(int gameId, string username, string question, string answer, bool isCorrect)
+{
+	string sql = "INSERT INTO Players_Answers (Game_Id,User_Id,Question_Id,Player_Answer,Is_Correct,Answer_Time) Values(" + std::to_string(gameId) + ',' + std::to_string(this->getUserID(username)) + ",(SELECT Id From Questions WHERE Question = \"" + question + "\"),\"" + answer + "\"," + std::to_string(isCorrect) + ",DateTime('now'));";//need to add answer_time
+
+	executeCommand(sql.c_str());
 }
 
 /*
@@ -245,7 +295,6 @@ Output:0 if succeededs
 int SqliteDataBase::callbackGetIntegerValue(void* data, int argc, char** argv, char** azColName)
 {
 	*(int*)data = std::stoi(argv[0]);
-	//maybe add some checking here
 	return 0;
 }
 
@@ -262,6 +311,23 @@ int SqliteDataBase::callbackGetBestPlayers(void* data, int argc, char** argv, ch
 
 	((vector<string>*)data)->push_back(record);
 
+	return 0;
+}
+
+/*
+This function inserts the result from the sql statement to variable in data
+Input:pointer to vector of Question, number of fields, strings with the data, strings with fields names
+Output: 0 if succeededs
+*/
+int SqliteDataBase::callbackBuildQuestions(void* data, int argc, char** argv, char** azColName)
+{
+	string question = argv[1];
+	vector<string> answers;
+	for (size_t i = 0; i < 4; i++)
+	{
+		answers.push_back(argv[i + 4]);
+	}
+	((vector<Question>*)data)->push_back(Question(question, answers));
 	return 0;
 }
 

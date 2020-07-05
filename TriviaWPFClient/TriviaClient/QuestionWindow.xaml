@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="QuestionWindow" Height="450" Width="800">
+        Title="QuestionWindow" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid Margin="0,-18,-28,-1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="151*"/>
@@ -18,7 +19,7 @@
         <TextBox x:Name="TBRoomName" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="42,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Grid.Column="1"/>
         <TextBox x:Name="TBUsername" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
         <TextBox x:Name="TBQuestion" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="60" Margin="107,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        
+
         <Button  
             x:Name="Btn_Exit"
             Content="Exit"
@@ -42,7 +43,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        
+
         <Button  
             x:Name="Btn_Ans1"
             Content=""
@@ -135,5 +136,6 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <TextBox x:Name="TBTimeLeft" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
     </Grid>
 </Window>
