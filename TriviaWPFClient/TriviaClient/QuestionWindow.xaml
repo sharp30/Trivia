@@ -19,7 +19,7 @@
         <TextBox x:Name="TBRoomName" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="42,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Grid.Column="1"/>
         <TextBox x:Name="TBUsername" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
         <TextBox x:Name="TBQuestion" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="60" Margin="107,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        
+
         <Button  
             x:Name="Btn_Exit"
             Content="Exit"
@@ -43,7 +43,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        
+
         <Button  
             x:Name="Btn_Ans1"
             Content=""
@@ -136,5 +136,6 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <TextBox x:Name="TBTimeLeft" BorderThickness="0" TextAlignment="Center" FontSize="20" HorizontalAlignment="Left" Height="36" Margin="26,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
     </Grid>
 </Window>

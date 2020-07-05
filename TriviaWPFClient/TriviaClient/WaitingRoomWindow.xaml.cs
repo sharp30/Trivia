@@ -129,9 +129,7 @@ namespace TriviaClient
                 wind.Show();
                 this.Hide();
                 this.Close();
-
             }
-
         }
 
 
