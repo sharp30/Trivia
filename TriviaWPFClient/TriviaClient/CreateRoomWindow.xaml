@@ -41,7 +41,7 @@
                Background="DodgerBlue"
                Padding="10"
                FontSize="16"   
-               Margin="206,109,280,34" Grid.Row="2" Click="BtnCreateClick" Grid.ColumnSpan="3" Grid.Column="1">
+               Margin="207,124,279,19" Grid.Row="2" Click="BtnCreateClick" Grid.ColumnSpan="3" Grid.Column="1">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -49,5 +49,6 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <TextBlock x:Name="TBInvalid" Text="" Margin="139,79,292,78" FontSize="15" Foreground="PaleVioletRed" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="2"/>
     </Grid>
 </Window>

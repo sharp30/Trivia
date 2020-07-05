@@ -75,7 +75,7 @@ namespace TriviaClient
             }
         }
 
-        private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        async private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
         {
             uint chosenAnsId = 5;
 
@@ -96,13 +96,9 @@ namespace TriviaClient
                 ((Button)sender).Background = Brushes.Red;
             }
             
-            System.Threading.Thread.Sleep(8000);
-            
-            //DisableButtons();
-
-            //TODO: Wait until all players are ready for the next question//maybe with time.Sleep?
-
-            
+            DisableButtons();
+            await Task.Delay(5000);
+                        
 
             if (response.status == 1)
             {
@@ -140,8 +136,13 @@ namespace TriviaClient
         {
             foreach(Button btn in this.buttons)
             {
-                btn.IsEnabled = false;
+                btn.Click += btnClickNothing;
             }
+        }
+
+        private void btnClickNothing(object sender, RoutedEventArgs e)
+        {
+            // do nothing
         }
     }
 }
