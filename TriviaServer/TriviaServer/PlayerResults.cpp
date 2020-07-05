@@ -39,9 +39,9 @@ string PlayerResults::toString() const
 	string txt = "[";
 
 	txt += this->_username + ":";
-	txt += this->_correctAnswersCount + ":";
-	txt += this->_wrongAnswersCount + ":";
-	txt += this->_averageAnswerTime + "]";
+	txt += std::to_string(this->_correctAnswersCount) + ":";
+	txt += std::to_string(this->_wrongAnswersCount) + ":";
+	txt += std::to_string(this->_averageAnswerTime) + "]";
 
 	return txt;
 }

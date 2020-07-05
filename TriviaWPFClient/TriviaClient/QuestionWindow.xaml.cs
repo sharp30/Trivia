@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,37 +30,41 @@ namespace TriviaClient
 
         public QuestionWindow(string uName, string rName, uint questionsAmount, uint currQuestionNum)
         {
-            if(questionsAmount == currentQuestionNum)
+            if(questionsAmount == currQuestionNum)
             {
                 EndGameWindow wind = new EndGameWindow(this.username);
                 wind.Show();
                 this.Hide();
                 this.Close();
             }
+            else
+            {
+                this.username = uName;
+                this.roomname = rName;
+                this.numOfQuestions = questionsAmount;
+                this.currentQuestionNum = currQuestionNum;
 
-            this.username = uName;
-            this.roomname = rName;
-            this.numOfQuestions = questionsAmount;
-            this.currentQuestionNum = currQuestionNum;
+                InitializeComponent();
 
-            InitializeComponent();
+                this.buttons = new Button[4];
+                this.buttons[0] = Btn_Ans1;
+                this.buttons[1] = Btn_Ans2;
+                this.buttons[2] = Btn_Ans3;
+                this.buttons[3] = Btn_Ans4;
 
-            this.buttons = new Button[4];
-            this.buttons[0] = Btn_Ans1;
-            this.buttons[1] = Btn_Ans2;
-            this.buttons[2] = Btn_Ans3;
-            this.buttons[3] = Btn_Ans4;
+                TBUsername.Text += uName;
+                TBRoomName.Text += rName;
 
-            TBUsername.Text += uName;
-            TBRoomName.Text += rName;
+                GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
 
-            GetQuestionResponse response = (GetQuestionResponse)Communicator.Communicate(new GetQuestionRequest());
+                TBQuestion.Text = response.question;
 
-            TBQuestion.Text = response.question;
+                this.answers = new Dictionary<string, uint>();
+                FillAnswers(response.answers.Split('*'));
+                FillButtons();
+            }
 
-            this.answers = new Dictionary<string, uint>();
-            FillAnswers(response.answers.Split('*'));
-            FillButtons();
+
         }
 
         private void Btn_Exit_Clicked(object sender, RoutedEventArgs e)
@@ -75,7 +80,7 @@ namespace TriviaClient
             }
         }
 
-        async private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
+        private void Btn_Answer_Clicked(object sender, RoutedEventArgs e)
         {
             uint chosenAnsId = 5;
 
@@ -86,18 +91,22 @@ namespace TriviaClient
             }
 
             SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest(chosenAnsId));
-            
+
             if (response.correctAnswerId == chosenAnsId)
             {
-                ((Button)sender).Background = Brushes.Green; 
+                ((Button)sender).Background = Brushes.Green;
             }
             else
             {
                 ((Button)sender).Background = Brushes.Red;
             }
-            
+
             DisableButtons();
-            await Task.Delay(5000);
+            
+            Task.Factory.StartNew(() => 
+            { 
+                Thread.Sleep(3000); 
+            });
                         
 
             if (response.status == 1)
