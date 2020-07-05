@@ -59,7 +59,7 @@ namespace TriviaClient
 
             TBQuestion.Text = response.question;
 
-            FillAnswers(response.answers);
+            FillAnswers(response.answers.Split('*'));
             FillButtons();
             TimerFunc();
         }
@@ -116,7 +116,6 @@ namespace TriviaClient
                 ((Button)sender).Background = Brushes.Red;
             }
             
-            //TODO: Wait until all players are ready for the next question
         }
 
         private void FillButtons()
