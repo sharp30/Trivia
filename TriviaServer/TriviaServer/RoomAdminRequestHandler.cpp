@@ -41,7 +41,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo req)
 		}
 		StartGameResponse resp((int)actionResult);
 		res._buffer = JsonResponsePacketSerializer::serializeResponse((Response*)&resp);
-		int gameId = this->m_handlerFactory->getGameManager().createGame(this->_connectedRoom);
+		int gameId = this->m_handlerFactory->getGameManager().createGame(this->m_handlerFactory->getRoomManager().getRoom(this->_connectedRoom.getID()));
 		res.setNewHandler((IRequestHandler*)this->m_handlerFactory->createGameRquestHandler(gameId, this->_connectedUser.getUsername()));
 	}
 	else if (req.getId() == 52)// close

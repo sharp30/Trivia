@@ -83,7 +83,8 @@ namespace TriviaClient
             }
             SubmitAnswerResponse response = (SubmitAnswerResponse)Communicator.Communicate(new SubmitAnswerRequest((uint)answerId));
             QuestionWindow wind = new QuestionWindow(this.username, this.roomname, this.numOfQuestions, this.currentQuestionNum + 1, this.questionTime);
-            wind.Show();
+            if (this.numOfQuestions != this.currentQuestionNum + 1)
+                wind.Show();
             this.Hide();
             this.Close();
         }
@@ -95,8 +96,7 @@ namespace TriviaClient
             if (response.status == 1)
             {
                 MenuWindow wind = new MenuWindow(this.username);
-                if (this.numOfQuestions != this.currentQuestionNum + 1)
-                    wind.Show();
+                wind.Show();
                 this.Hide();
                 this.Close();
             }

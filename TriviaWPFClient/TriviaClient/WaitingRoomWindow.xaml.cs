@@ -139,6 +139,7 @@ namespace TriviaClient
             StartGameResponse response = (StartGameResponse)Communicator.Communicate(new StartGameRequest());
             QuestionWindow wind = new QuestionWindow(this.username, this.room.roomName, this.room.numberOfQuestions, 0, this.room.TimeForQuestion);
             wind.Show();
+            this.Hide();
             this.Close();
         }
         
